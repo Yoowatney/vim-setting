@@ -15,13 +15,22 @@ Plug 'junegunn/fzf.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'tpope/vim-surround'
-Plug 'jiangmiao/auto-pairs'
+Plug 'diepm/vim-rest-console'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'terryma/vim-smooth-scroll'
-Plug 'blueyed/vim-diminactive'
 Plug 'mhinz/vim-startify'
+Plug 'digitaltoad/vim-pug'
+Plug 'tommcdo/vim-exchange'
+Plug 't9md/vim-textmanip'
+Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
+Plug 'https://github.com/preservim/tagbar'
+" Plug 'guns/vim-sexp'
+" Plug 'tpope/vim-sexp-mappings-for-regular-people'
+" Plug 'zirrostig/vim-schlepp'
+"Plug 'jiangmiao/auto-pairs'
 "Plug 'preservim/nerdtree'
 "Plug 'nvim-telescope/telescope.nvim'
 
@@ -36,15 +45,12 @@ Plug 'airblade/vim-gitgutter'
 
 " readability
 "
+Plug 'blueyed/vim-diminactive'
 Plug 'pangloss/vim-javascript'
-Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'Yggdroot/indentline'
 Plug 'https://github.com/nanotech/jellybeans.vim'
 Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'https://github.com/preservim/tagbar'
 Plug 'sheerun/vim-polyglot'
-Plug 'honza/vim-snippets'
-Plug 'SirVer/ultisnips'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 "Plug 'junegunn/rainbow_parentheses.vim'
 "Plug 'dracula/vim'
@@ -53,12 +59,19 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 "auto complete
 
+" Plug 'wookayin/vim-autoimport'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'kristijanhusak/vim-js-file-import', {'do': 'npm install'}
 Plug 'raimondi/delimitmate'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'mattn/emmet-vim'
-"Plug 'nvim-lua/plenary.nvim'
+Plug 'tpope/vim-repeat'
+Plug 'windwp/nvim-autopairs'
+" Plug 'tomtom/stakeholders_vim'
+" For experimental function extraction
+" Plug 'dNitro/vim-pug-complete', { 'for': ['jade', 'pug'] }
 "Plug 'filipdutescu/renamer.nvim', { 'branch': 'master' }
-"Plug 'https://github.com/vim-syntastic/syntastic.git'
+"Plug 'vim-syntastic/syntastic'
 "Plug 'prabirshrestha/vim-lsp'
 "Plug 'mattn/vim-lsp-settings'
 "Plug 'valloric/youcompleteme'
@@ -66,8 +79,6 @@ Plug 'mattn/emmet-vim'
 "Plug 'neovim/nvim-lspconfig'
 "Plug 'shougo/neocomplcache.vim'
 call plug#end()
-
-filetype on
 
 " leader key
 let mapleader = ","
@@ -100,6 +111,9 @@ let g:hdr42mail = 'yoyoo@student.42seoul.kr'
 "nmap <leader>de :VimspectorEval
 "nmap <leader>dw :VimspectorWatch
 "nmap <leader>do :VimspectorShowOutput
+
+
+" let g:AutoPairsFlyMode = 1
 
 let g:coc_global_extensions = [
 	\ 'coc-snippets',
@@ -167,7 +181,7 @@ let g:nvim_tree_git_hl = 1
 let g:nvim_tree_highlight_opened_files = 1
 let g:nvim_tree_root_folder_modifier = ':~'
 let g:nvim_tree_add_trailing = 1
-let g:nvim_tree_group_empty = 1
+" let g:nvim_tree_group_empty = 1
 let g:nvim_tree_disable_window_picker = 1
 let g:nvim_tree_icon_padding = ' '
 let g:nvim_tree_symlink_arrow = ' >> '
@@ -184,12 +198,12 @@ let g:nvim_tree_window_picker_exclude = {
     \     'terminal'
     \   ]
     \ }
-" let g:nvim_tree_show_icons = {
-"     \ 'git': 1,
-"     \ 'folders': 0,
-"     \ 'files': 0,
-"     \ 'folder_arrows': 0,
-"     \ }
+let g:nvim_tree_show_icons = {
+	\ 'git': 1,
+	\ 'folders': 1,
+	\ 'files': 1,
+	\ 'folder_arrows': 1,
+	\ }
 let g:nvim_tree_icons = {
     \ 'default': '',
     \ 'symlink': '',
@@ -239,23 +253,33 @@ require'nvim-treesitter.configs'.setup {
 	additional_vim_regex_highlighting = true,
   },
 }
+
+require'nvim-web-devicons'.get_icons()
+
 require'nvim-web-devicons'.setup {
  -- your personnal icons can go here (to override)
  -- you can specify color or cterm_color instead of specifying both of them
  -- DevIcon will be appended to `name`
  override = {
   zsh = {
-    icon = "",
-    color = "#428850",
-    cterm_color = "65",
-    name = "Zsh"
+	icon = "",
+	color = "#428850",
+	cterm_color = "65",
+	name = "Zsh"
+  },
+  pug = {
+	icon = "p",
+	color = "#428850",
+	cterm_color = "65",
+	name = "Zsh"
   }
- };
+ },
  -- globally enable default icons (default to false)
  -- will get overriden by `get_icons` option
  default = true;
  }
- require'nvim-tree'.setup {
+
+require'nvim-tree'.setup {
   disable_netrw       = true,
   hijack_netrw        = true,
   open_on_setup       = false,
@@ -290,11 +314,6 @@ require'nvim-web-devicons'.setup {
     dotfiles = false,
     custom = {}
   },
-  git = {
-    enable = true,
-    ignore = true,
-    timeout = 500,
-  },
   view = {
     width = 30,
     height = 30,
@@ -314,7 +333,24 @@ require'nvim-web-devicons'.setup {
     require_confirm = true
   }
 }
+
+require('nvim-autopairs').setup({
+  disable_filetype = { "TelescopePrompt" , "vim" },
+})
+
 EOF
+
+
+" local npairs = require("nvim-autopairs")
+"
+" npairs.setup({
+"     check_ts = true,
+"     ts_config = {
+"         lua = {'string'},-- it will not add a pair on that treesitter node
+"         javascript = {'template_string'},
+"         java = false,-- don't check treesitter on java
+"     }
+" })
 
 function! LightlineWebDevIcons(n)
   let l:bufnr = tabpagebuflist(a:n)[tabpagewinnr(a:n) - 1]
@@ -357,13 +393,15 @@ set laststatus=2
 
 " key-setting
 
-map <silent>qq :q!<cr>
-map <silent>qa :qa!<cr>
-map <silent>wq :wq!<cr>
-map <silent>we :w!<cr>
+map Q <Nop>
+map <silent>QQ :q!<cr>
+map <silent>ㅃㅃ :q!<cr>
+map <silent>WE :w!<cr>
+
 map <silent>qd :te<cr>
 map <silent>fz v]}zf
 map <silent>fo zo
+map <silent>m :nohl<CR>
 vnoremap y y`>
 vnoremap Y Y`>
 noremap p p`]
@@ -373,6 +411,65 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
+
+
+" line copy
+" nnoremap <silent> :t -<CR>==
+" nnoremap <silent>Ô :t .<CR>==
+"
+" vnoremap <silent> :'<,'>t -2<CR>gv=gv
+" vnoremap <silent>Ô :'<,'>t +1<CR>gv=gv
+"
+" nnoremap <silent>¬ xp
+" nnoremap <silent>˙ xhhp
+
+" line move
+
+"
+" vmap <unique> ˚  <Plug>SchleppUp
+" vmap <unique> ∆  <Plug>SchleppDown
+" vmap <unique> <left>  <Plug>SchleppLeft
+" vmap <unique> <right> <Plug>SchleppRight
+
+" option shift k
+xmap  <Plug>(textmanip-duplicate-up)
+nmap  <Plug>(textmanip-duplicate-up)
+inoremap <silent> <Esc>:t -<CR>==gi
+
+" option shift j
+xmap Ô <Plug>(textmanip-duplicate-down) 
+nmap Ô <Plug>(textmanip-duplicate-down)
+inoremap <silent>Ô <Esc>:t .<CR>==gi
+
+" create blank
+nmap <CR>   <Plug>(textmanip-blank-below)
+nmap <S-CR> <Plug>(textmanip-blank-above)
+xmap <CR>   <Plug>(textmanip-blank-below)
+xmap <S-CR> <Plug>(textmanip-blank-above)
+
+" moving word
+xmap <C-j> <Plug>(textmanip-move-down)
+xmap <C-k> <Plug>(textmanip-move-up)
+xmap <C-h> <Plug>(textmanip-move-left)
+xmap <C-l> <Plug>(textmanip-move-right)
+
+" moving line
+nnoremap <silent>˚ :m .-2<CR>==
+nnoremap <silent>∆ :m .+1<CR>==
+inoremap <silent>˚ <Esc>:m .-2<CR>==gi
+inoremap <silent>∆ <Esc>:m .+1<CR>==gi
+vnoremap <silent>˚ :m '<-2<CR>gv=gv
+vnoremap <silent>∆ :m '>+1<CR>gv=gv
+
+" hook
+xmap  <Up>    <Plug>(textmanip-move-up-r)
+xmap  <Down>  <Plug>(textmanip-move-down-r)
+xmap  <Left>  <Plug>(textmanip-move-left-r)
+xmap  <Right> <Plug>(textmanip-move-right-r)
+
+" nmap <F10> <Plug>(textmanip-toggle-mode)
+" xmap <F10> <Plug>(textmanip-toggle-mode)
+
 
 nnoremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
 nnoremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
@@ -480,7 +577,7 @@ function! s:show_documentation()
 endfunction
 
 " Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
+" autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
@@ -499,8 +596,10 @@ xmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>a  <Plug>(coc-codeaction-selected)
 
 nmap <leader>ac  <Plug>(coc-codeaction)
-xmap if <Plug>(coc-funcobj-i)
+" input
+xmap if <Plug>(coc-funcobj-i) 
 omap if <Plug>(coc-funcobj-i)
+" all
 xmap af <Plug>(coc-funcobj-a)
 omap af <Plug>(coc-funcobj-a)
 xmap ic <Plug>(coc-classobj-i)
@@ -565,6 +664,6 @@ autocmd FileType css setlocal shiftwidth=2 softtabstop=2 tabstop=2
 autocmd FileType scss setlocal shiftwidth=2 softtabstop=2 tabstop=2 
 autocmd FileType js setlocal shiftwidth=2 softtabstop=2 tabstop=2 
 let g:user_emmet_install_global = 0
-autocmd FileType html,css,ejs EmmetInstall
+autocmd FileType html,css,ejs,pug EmmetInstall
 au BufNewFile,BufRead *.ejs set filetype=html
 "autocmd User TelescopePreviewerLoaded setlocal wrap
