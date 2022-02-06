@@ -1,44 +1,45 @@
-source ~/.config/nvim/after/colors/solarized.vim
 call plug#begin('~/.config/nvim/plugged')
 " utils
 
 Plug 'preservim/nerdcommenter'
 Plug 'pbondoer/vim-42header'
 Plug 'ryanoasis/vim-devicons'
-Plug 'pechorin/any-jump.vim'
 Plug 'moll/vim-node'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'easymotion/vim-easymotion'
+Plug 'phaazon/hop.nvim'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'tpope/vim-surround'
-Plug 'diepm/vim-rest-console'
-Plug 'bling/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'nathanaelkane/vim-indent-guides'
-Plug 'mhinz/vim-startify'
-Plug 'digitaltoad/vim-pug'
+Plug 'nvim-lualine/lualine.nvim'
 Plug 'tommcdo/vim-exchange'
-Plug 't9md/vim-textmanip'
 Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
-Plug 'preservim/tagbar'
 Plug 'akinsho/toggleterm.nvim'
-Plug 'johngrib/vim-f-hangul'
-Plug 'guns/vim-sexp'
 Plug 'https://gitlab.com/yorickpeterse/nvim-window.git'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'romgrk/barbar.nvim'
 Plug 'henriquehbr/ataraxis.lua'
-Plug 'lambdalisue/fern.vim'
-Plug 'lambdalisue/nerdfont.vim'
-Plug 'lambdalisue/glyph-palette.vim'
-Plug 'lambdalisue/fern-renderer-nerdfont.vim'
 Plug 'sindrets/winshift.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'diepm/vim-rest-console'
+" Plug 'NTBBloodbath/rest.nvim'
+" Plug 'easymotion/vim-easymotion'
+" Plug 'digitaltoad/vim-pug'
+" Plug 'bling/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
+" Plug 'mhinz/vim-startify'
+" Plug 'nathanaelkane/vim-indent-guides'
+" Plug 'johngrib/vim-f-hangul'
+" Plug 'lambdalisue/fern.vim'
+" Plug 'lambdalisue/nerdfont.vim'
+" Plug 'lambdalisue/fern-renderer-nerdfont.vim'
+" Plug 'lambdalisue/glyph-palette.vim'
+" Plug 'guns/vim-sexp'
+" Plug 'preservim/tagbar'
 " Plug 'dense-analysis/ale'
 " Plug 'zirrostig/vim-schlepp'
-"Plug 'nvim-telescope/telescope.nvim'
+" Plug 'nvim-telescope/telescope.nvim'
 
 " git
 
@@ -51,28 +52,26 @@ Plug 'airblade/vim-gitgutter'
 
 " readability
 "
-Plug 'blueyed/vim-diminactive'
 Plug 'pangloss/vim-javascript'
-Plug 'Yggdroot/indentline'
 Plug 'nanotech/jellybeans.vim'
 Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'sheerun/vim-polyglot'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+" Plug 'sheerun/vim-polyglot'
+" Plug 'Yggdroot/indentline'
 "Plug 'junegunn/rainbow_parentheses.vim'
+" Plug 'blueyed/vim-diminactive'
 "Plug 'dracula/vim'
-"Plug 'morhetz/gruvbox'
+" Plug 'morhetz/gruvbox'
 "Plug 'roosta/srcery'
 
 "auto complete
 
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'raimondi/delimitmate'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-repeat'
 Plug 'windwp/nvim-autopairs'
 Plug 'roxma/nvim-yarp'
-Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'github/copilot.vim'
 if has('nvim')
   function! UpdateRemotePlugins(...)
@@ -87,6 +86,8 @@ else
 
   " To use Python remote plugin features in Vim, can be skipped
 endif
+" Plug 'roxma/vim-hug-neovim-rpc'
+" Plug 'raimondi/delimitmate'
 " Plug 'kristijanhusak/vim-js-file-import', {'do': 'npm install'}
 " Plug 'wookayin/vim-autoimport'
 " Plug 'steelsojka/pears.nvim'
@@ -144,8 +145,6 @@ let g:hdr42mail = 'yoyoo@student.42seoul.kr'
 let g:coc_global_extensions = [
 	\ 'coc-snippets',
 	\ 'coc-tsserver',
-	\ 'coc-eslint',
-	\ 'coc-prettier',
 	\ 'coc-json',
 	\ 'coc-clangd',
 	\ 'coc-html',
@@ -160,8 +159,6 @@ let g:javascript_plugin_flow = 1
 
 let g:EasyMotion_smartcase=1
 
-" let g:airline#extensions#tabline#enabled = 1 " turn on buffer list
-let g:airline_theme='hybrid'
 " let g:airline#extensions#tabline#buffer_nr_show = 1       " buffer number를 보여준다
 " let g:airline#extensions#tabline#buffer_nr_format = '%s ' " buffer number format
 
@@ -201,7 +198,6 @@ inoremap <silent><c-t> <Esc><Cmd>exe v:count1 . "ToggleTerm"<CR>
 " inoremap <silent><c-w> <ESC>:ToggleTerm dir=. direction=float<CR>
 " tnoremap <c-a> exit<CR>
 
-let delimitmate_expand_cr=1
 
 let g:NERDCompactSexyComs = 1
 let g:EasyMotion_do_mapping=1
@@ -257,7 +253,7 @@ let g:NERDToggleCheckAllLines = 1
 "   'previous-history' instead of 'down' and 'up'.
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
-let g:sexp_filetypes = ''
+" let g:sexp_filetypes = ''
 
 let bufferline = get(g:, 'bufferline', {})
 let bufferline.icon_pinned = '📌'
@@ -319,14 +315,33 @@ let g:nvim_tree_icons = {
 
 set termguicolors
 
-highlight NvimTreeFolderIcon guibg=blue
 
 "let g:webdevicons_conceal_nerdtree_brackets = 1
 
 lua <<EOF
 vim.opt.list = true
 vim.opt.listchars:append("eol:↴")
+
+require'hop'.setup()
 EOF
+" lua <<EOF
+" require("rest-nvim").setup({
+"   -- Open request results in a horizontal split
+"   result_split_horizontal = false,
+"   -- Skip SSL verification, useful for unknown certificates
+"   skip_ssl_verification = false,
+"   -- Highlight request on run
+"   highlight = {
+"       enabled = true,
+"       timeout = 150,
+"   },
+"   -- Jump to request line on run
+"   jump_to_request = false,
+"   env_file = '.env',
+"   yank_dry_run = true,
+" })
+" EOF
+
 
 " lua <<EOF
 " require "pears".setup(function(conf)
@@ -344,8 +359,40 @@ require("indent_blankline").setup {
 EOF
 
 lua <<EOF
+require('lualine').setup {
+  options = {
+    icons_enabled = true,
+    theme = 'auto',
+    component_separators = { left = '', right = ''},
+    section_separators = { left = '', right = ''},
+    disabled_filetypes = {},
+    always_divide_middle = true,
+  },
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch', 'diff', 'diagnostics'},
+    lualine_c = {'filename'},
+    lualine_x = {'encoding', 'fileformat', 'filetype'},
+    lualine_y = {'progress'},
+    lualine_z = {'location'}
+  },
+  inactive_sections = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = {'filename'},
+    lualine_x = {'location'},
+    lualine_y = {},
+    lualine_z = {}
+  },
+  tabline = {},
+  extensions = {}
+}
+EOF
+
+
+  " ensure_installed = "maintained",
+lua <<EOF
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained",
   ignore_install = { "" },
   highlight = {
 	enable = true,
@@ -497,14 +544,12 @@ EOF
 
 lua <<EOF
 require('nvim-window').setup({
-  -- The characters available for hinting windows.
   chars = {
 	  '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
   },
-
   -- A group to use for overwriting the Normal highlight group in the floating
   -- window. This can be used to change the background color.
-  normal_hl = 'IncSearch', -- 주로씀 IncSearch, StatusLine, error
+  normal_hl = 'BlackOnLightYellow', -- 'BlackOnLightYellow', -- IncSearch(yellow), StatusLine, error(red)
 
 
   -- The highlight group to apply to the line that contains the hint characters.
@@ -614,18 +659,21 @@ map <silent>M :nohl<CR>
 " Start Win-Move mode:
 nnoremap <C-W>m <Cmd>WinShift<CR>
 
-nmap <silent> ˙ <Plug>(sexp_swap_element_backward)
-xmap <silent> ˙ <Plug>(sexp_swap_element_backward)
-nmap <silent> ¬ <Plug>(sexp_swap_element_forward)
-xmap <silent> ¬ <Plug>(sexp_swap_element_forward)
-nmap <silent> ( <Plug>(sexp_move_to_prev_bracket)
-xmap <silent> ( <Plug>(sexp_move_to_prev_bracket)
-omap <silent> ( <Plug>(sexp_move_to_prev_bracket)
-nmap <silent> ) <Plug>(sexp_move_to_next_bracket)
-xmap <silent> ) <Plug>(sexp_move_to_next_bracket)
-omap <silent> ) <Plug>(sexp_move_to_next_bracket)
+" nmap <silent> ˙ <Plug>(sexp_swap_element_backward)
+" xmap <silent> ˙ <Plug>(sexp_swap_element_backward)
+" nmap <silent> ¬ <Plug>(sexp_swap_element_forward)
+" xmap <silent> ¬ <Plug>(sexp_swap_element_forward)
+" nmap <silent> ( <Plug>(sexp_move_to_prev_bracket)
+" xmap <silent> ( <Plug>(sexp_move_to_prev_bracket)
+" omap <silent> ( <Plug>(sexp_move_to_prev_bracket)
+" nmap <silent> ) <Plug>(sexp_move_to_next_bracket)
+" xmap <silent> ) <Plug>(sexp_move_to_next_bracket)
+" omap <silent> ) <Plug>(sexp_move_to_next_bracket)
 
 map <silent> <leader><C-w> :lua require('nvim-window').pick()<CR>
+" nnoremap <C-j><Plug>RestNvim :lua require('rest-nvim').run()<CR>
+" nnoremap <Plug>RestNvimPreview :lua require('rest-nvim').run(true)<CR>
+" nnoremap <Plug>RestNvimLast :lua require('rest-nvim').last()<CR>
 
 
 vnoremap y y`>
@@ -633,17 +681,17 @@ vnoremap Y Y`>
 noremap p p`]
 "nnoremap <C-w> <C-w>w
 
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-h> <C-w>h
-nnoremap <C-l> <C-w>l
+" nnoremap <C-j> <C-w>j
+" nnoremap <C-k> <C-w>k
+" nnoremap <C-h> <C-w>h
+" nnoremap <C-l> <C-w>l
 inoremap <C-g> <C-o>x
 
 
 
 " line copy
-" nnoremap <silent> :t -<CR>==
-" nnoremap <silent>Ô :t .<CR>==
+nnoremap <silent> :t -<CR>==
+nnoremap <silent>Ô :t .<CR>==
 "
 " vnoremap <silent> :'<,'>t -2<CR>gv=gv
 " vnoremap <silent>Ô :'<,'>t +1<CR>gv=gv
@@ -660,26 +708,26 @@ inoremap <C-g> <C-o>x
 " vmap <unique> <right> <Plug>SchleppRight
 
 " option shift k
-xmap  <Plug>(textmanip-duplicate-up)
-nmap  <Plug>(textmanip-duplicate-up)
+" xmap  <Plug>(textmanip-duplicate-up)
+" nmap  <Plug>(textmanip-duplicate-up)
 inoremap <silent> <Esc>:t -<CR>==gi
-
-" option shift j
-xmap Ô <Plug>(textmanip-duplicate-down) 
-nmap Ô <Plug>(textmanip-duplicate-down)
 inoremap <silent>Ô <Esc>:t .<CR>==gi
 
+" option shift j
+" xmap Ô <Plug>(textmanip-duplicate-down)
+" nmap Ô <Plug>(textmanip-duplicate-down)
+
 " create blank
-nmap <CR>   <Plug>(textmanip-blank-below)
-nmap <S-CR> <Plug>(textmanip-blank-above)
-xmap <CR>   <Plug>(textmanip-blank-below)
-xmap <S-CR> <Plug>(textmanip-blank-above)
+" nmap <CR>   <Plug>(textmanip-blank-below)
+" nmap <S-CR> <Plug>(textmanip-blank-above)
+" xmap <CR>   <Plug>(textmanip-blank-below)
+" xmap <S-CR> <Plug>(textmanip-blank-above)
 
 " moving word
-xmap <C-h> <Plug>(textmanip-move-left)
-xmap <C-j> <Plug>(textmanip-move-down)
-xmap <C-k> <Plug>(textmanip-move-up)
-xmap <C-l> <Plug>(textmanip-move-right)
+" xmap <C-h> <Plug>(textmanip-move-left)
+" xmap <C-j> <Plug>(textmanip-move-down)
+" xmap <C-k> <Plug>(textmanip-move-up)
+" xmap <C-l> <Plug>(textmanip-move-right)
 
 " moving line
 nnoremap <silent>˚ :m .-2<CR>==
@@ -690,10 +738,10 @@ vnoremap <silent>˚ :m '<-2<CR>gv=gv
 vnoremap <silent>∆ :m '>+1<CR>gv=gv
 
 " hook
-xmap  <Up>    <Plug>(textmanip-move-up-r)
-xmap  <Down>  <Plug>(textmanip-move-down-r)
-xmap  <Left>  <Plug>(textmanip-move-left-r)
-xmap  <Right> <Plug>(textmanip-move-right-r)
+" xmap  <Up>    <Plug>(textmanip-move-up-r)
+" xmap  <Down>  <Plug>(textmanip-move-down-r)
+" xmap  <Left>  <Plug>(textmanip-move-left-r)
+" xmap  <Right> <Plug>(textmanip-move-right-r)
 
 " nmap <F10> <Plug>(textmanip-toggle-mode)
 " xmap <F10> <Plug>(textmanip-toggle-mode)
@@ -706,6 +754,9 @@ xmap  <Right> <Plug>(textmanip-move-right-r)
 
 nmap <leader>t :Tagbar<CR>
 
+" nnoremap <C-j> :lua require('rest-nvim').run()<CR>
+" nmap <C-j> <Plug>RestNvim
+
 nnoremap <leader>n :NvimTreeToggle<CR>
 "nnoremap <leader>r :NvimTreeRefresh<CR>
 "nnoremap <leader>pp :NvimTreeFindFile<CR>
@@ -715,8 +766,8 @@ nnoremap <leader>n :NvimTreeToggle<CR>
 " noremap <silent><leader>d :bd!<cr>
 " noremap <silent><leader>w :bn<cr>
 "
-nnoremap + :vert res +1<CR>
-nnoremap _ :vert res -1<CR>
+nnoremap <silent>+ :vert res +1<CR>
+nnoremap <silent>_ :vert res -1<CR>
 
 nnoremap <silent>    <leader>q :BufferPrevious<CR>
 nnoremap <silent>    <leader>w :BufferNext<CR>
@@ -762,7 +813,8 @@ nnoremap <leader>fs :Rg<CR>
 nnoremap <leader>fb :Buffers<CR>
 nnoremap <leader>fc :Commits<CR> 
 
-map <leader>s <Plug>(easymotion-overwin-f)
+nnoremap <silent><leader>s :HopChar1<CR>
+" map <leader>s <Plug>(easymotion-overwin-f)
 "map  <leader><leader>F <Plug>(easymotion-bd-f)
 "" Move to line
 " map <leader><leader>l <Plug>(easymotion-bd-jk)
@@ -778,8 +830,9 @@ set encoding=utf-8
 set hidden
 
 
-" Some servers have issues with backup files, see #649.
+" Some servers have issues with backup files, see.
 set nobackup
+set noswapfile
 set nowritebackup
 
 set cmdheight=2
@@ -925,6 +978,7 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>i
 
+
 "stay cursor position
 au BufReadPost *
 \ if line("'\"") > 0 && line("'\"") <= line("$") |
@@ -940,3 +994,4 @@ let g:user_emmet_install_global = 0
 autocmd FileType html,css,ejs,pug EmmetInstall
 au BufNewFile,BufRead *.ejs set filetype=html
 "autocmd User TelescopePreviewerLoaded setlocal wrap
+source ~/.config/nvim/after/colors/solarized.vim
