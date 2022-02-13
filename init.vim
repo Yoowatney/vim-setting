@@ -1,7 +1,6 @@
 call plug#begin('~/.config/nvim/plugged')
 " utils
 
-Plug 'preservim/nerdcommenter'
 Plug 'pbondoer/vim-42header'
 Plug 'ryanoasis/vim-devicons'
 Plug 'moll/vim-node'
@@ -22,7 +21,14 @@ Plug 'romgrk/barbar.nvim'
 Plug 'henriquehbr/ataraxis.lua'
 Plug 'sindrets/winshift.nvim'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'diepm/vim-rest-console'
+Plug 'numToStr/Comment.nvim'
+Plug 'RRethy/vim-illuminate'
+Plug 'abecodes/tabout.nvim'
+Plug 'tpope/vim-speeddating'
+" Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+
+" Plug 'diepm/vim-rest-console'
+" Plug 'IngoMeyer441/coc_current_word'
 " Plug 'NTBBloodbath/rest.nvim'
 " Plug 'easymotion/vim-easymotion'
 " Plug 'digitaltoad/vim-pug'
@@ -44,7 +50,7 @@ Plug 'diepm/vim-rest-console'
 " git
 
 Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
+" Plug 'airblade/vim-gitgutter'
 
 " debug
 
@@ -117,10 +123,12 @@ call wilder#set_option('renderer', wilder#popupmenu_renderer({
 " let g:fern#disable_drawer_auto_quit = 1
 " let g:fern#renderer = "nerdfont"
 
+" snippet
 let g:UltiSnipsExpandTrigger='<Tab>'
 let g:UltiSnipsJumpForwardTrigger='<Tab>'
 let g:UltiSnipsJumpBackwardTrigger='<S-Tab>'
 
+" 42 header
 let g:hdr42user = 'yoyoo'
 let g:hdr42mail = 'yoyoo@student.42seoul.kr'
 
@@ -142,49 +150,34 @@ let g:hdr42mail = 'yoyoo@student.42seoul.kr'
 " let g:ale_fixers = {'javascript': ['prettier', 'eslint']}
 " let g:ale_disable_lsp = 1
 
+" coc
 let g:coc_global_extensions = [
 	\ 'coc-snippets',
 	\ 'coc-tsserver',
 	\ 'coc-json',
 	\ 'coc-clangd',
-	\ 'coc-html',
-	\ 'coc-git',]
-" plugin setting
+	\ 'coc-vimlsp',
+	\ 'coc-pyright',]
 let g:coc_node_path = '/usr/local/bin/node'
+
+"diminiactvie
 let g:diminactive_enable_focus = 1
 
+" vim-javascript
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_ngdoc = 1
 let g:javascript_plugin_flow = 1
-
-let g:EasyMotion_smartcase=1
 
 " let g:airline#extensions#tabline#buffer_nr_show = 1       " buffer number를 보여준다
 " let g:airline#extensions#tabline#buffer_nr_format = '%s ' " buffer number format
 
 
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_guide_size = 1
-let g:indentguides_tabchar = '┆'
-let g:indentguides_spacechar = '|'
-let g:indent_guides_start_level=1
-let g:user_emmet_leader_key=','
-
-let g:multi_cursor_use_default_mapping=1
-
-let g:multi_cursor_start_word_key      = '<C-n>'
-let g:multi_cursor_select_all_word_key = '<A-n>'
-let g:multi_cursor_start_key           = 'g<C-n>'
-let g:multi_cursor_select_all_key      = 'g<A-n>'
-let g:multi_cursor_next_key            = '<C-n>'
-let g:multi_cursor_prev_key            = '<C-p>'
-let g:multi_cursor_skip_key            = '<C-x>'
-let g:multi_cursor_quit_key            = '<Esc>'
-
+" rest-console
 let g:vrc_allow_get_request_body = 1
 
 let g:toggleterm_terminal_mapping = '<C-t>'
 
+" toggle term
 autocmd TermEnter term://*toggleterm#*
       \ tnoremap <silent><leader><c-t> <Cmd>exe v:count1 . "ToggleTerm"<CR>
 
@@ -199,65 +192,24 @@ inoremap <silent><c-t> <Esc><Cmd>exe v:count1 . "ToggleTerm"<CR>
 " tnoremap <c-a> exit<CR>
 
 
-let g:NERDCompactSexyComs = 1
-let g:EasyMotion_do_mapping=1
-
+" nvim webdevicon
 let g:webdevicons_enable = 1
 let g:webdevicons_enable_nerdtree = 1
 
-let g:NERDCreateDefaultMappings = 1
-let g:NERDSpaceDelims = 1
-let g:NERDCompactSexyComs = 1
-let g:NERDDefaultAlign = 'left'
-let g:NERDAltDelims_java = 1
-let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
-let g:NERDCommentEmptyLines = 1
-let g:NERDTrimTrailingWhitespace = 1
-let g:NERDToggleCheckAllLines = 1
-
-
-" This is the default extra key bindings
-
-" Default fzf layout
-" - Popup window (anchored to the bottom of the current window)
-" let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'relative': v:true, 'yoffset': 1.0 } }
-
-" - down / up / left / right
-" let g:fzf_layout = { 'up': '40%' }
-
-" - Window using a Vim command
-" let g:fzf_layout = { 'window': 'enew' }
-" let g:fzf_layout = { 'window': '-tabnew' }
-" let g:fzf_layout = { 'window': '10new' }
-
-" Customize fzf colors to match your color scheme
-" - fzf#wrap translates this to a set of `--color` options
-" let g:fzf_colors =
-" \ { 'fg':      ['fg', 'Normal'],
-"   \ 'bg':      ['bg', 'Normal'],
-"   \ 'hl':      ['fg', 'Comment'],
-"   \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-"   \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-"   \ 'hl+':     ['fg', 'Statement'],
-"   \ 'info':    ['fg', 'PreProc'],
-"   \ 'border':  ['fg', 'Ignore'],
-"   \ 'prompt':  ['fg', 'Conditional'],
-"   \ 'pointer': ['fg', 'Exception'],
-"   \ 'marker':  ['fg', 'Keyword'],
-"   \ 'spinner': ['fg', 'Label'],
-"   \ 'header':  ['fg', 'Comment'] }
-
-" Enable per-command history
-" - History files will be stored in the specified directory
-" - When set, CTRL-N and CTRL-P will be bound to 'next-history' and
-"   'previous-history' instead of 'down' and 'up'.
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
+" s-exp
 " let g:sexp_filetypes = ''
 
+" barber
 let bufferline = get(g:, 'bufferline', {})
 let bufferline.icon_pinned = '📌'
 
+" vim-illuminate
+let g:Illuminate_delay = 500
+" hi illuminatedWord cterm=undercurl gui=undercurl
+
+" nvim-tree
 let g:nvim_tree_quit_on_open = 1
 let g:nvim_tree_indent_markers = 1
 let g:nvim_tree_git_hl = 1
@@ -323,6 +275,7 @@ vim.opt.list = true
 vim.opt.listchars:append("eol:↴")
 
 require'hop'.setup()
+require('Comment').setup()
 EOF
 " lua <<EOF
 " require("rest-nvim").setup({
@@ -389,6 +342,27 @@ require('lualine').setup {
 }
 EOF
 
+lua <<EOF
+require('tabout').setup {
+    tabkey = '¬', -- key to trigger tabout, set to an empty string to disable
+    backwards_tabkey = '˙', -- key to trigger backwards tabout, set to an empty string to disable
+    act_as_tab = true, -- shift content if tab out is not possible
+    act_as_shift_tab = false, -- reverse shift content if tab out is not possible (if your keyboard/terminal supports <S-Tab>)
+    enable_backwards = true, -- well ...
+    completion = true, -- if the tabkey is used in a completion pum
+    tabouts = {
+      {open = "'", close = "'"},
+      {open = '"', close = '"'},
+      {open = '`', close = '`'},
+      {open = '(', close = ')'},
+      {open = '[', close = ']'},
+      {open = '{', close = '}'}
+    },
+    ignore_beginning = true, --[[ if the cursor is at the beginning of a filled element it will rather tab out than shift the content ]]
+    exclude = {} -- tabout will ignore these filetypes
+}
+EOF
+
 
   " ensure_installed = "maintained",
 lua <<EOF
@@ -398,6 +372,9 @@ require'nvim-treesitter.configs'.setup {
 	enable = true,
 	disable = { "" },
 	additional_vim_regex_highlighting = true,
+  },
+  refactor = {
+        highlight_definitions = { enable = true },
   },
 }
 EOF
@@ -533,6 +510,7 @@ require("winshift").setup({
   },
 })
 EOF
+
 lua <<EOF
 require('nvim-autopairs').setup({
   enable_check_bracket_line = false,
@@ -646,15 +624,17 @@ set laststatus=2
 
 " key-setting
 
-map Q <Nop>
-map <silent>QQ :q!<cr>
-map <silent>ㅃㅃ :q!<cr>
-map <silent>W :w!<cr>
+noremap Q <Nop>
+noremap s <nop>
+noremap S <nop>
+noremap <silent>QQ :q!<cr>
+noremap <silent>ㅃㅃ :q!<cr>
+noremap <silent>W :w!<cr>
 
-map <silent>qd :te<cr>
-map <silent>fz v]}zf
-map <silent>fo zo
-map <silent>M :nohl<CR>
+noremap <silent>qd :te<cr>
+noremap <silent>fz v]}zf
+noremap <silent>fo zo
+noremap <silent>M :nohl<CR>
 
 " Start Win-Move mode:
 nnoremap <C-W>m <Cmd>WinShift<CR>
@@ -713,6 +693,7 @@ nnoremap <silent>Ô :t .<CR>==
 inoremap <silent> <Esc>:t -<CR>==gi
 inoremap <silent>Ô <Esc>:t .<CR>==gi
 
+
 " option shift j
 " xmap Ô <Plug>(textmanip-duplicate-down)
 " nmap Ô <Plug>(textmanip-duplicate-down)
@@ -730,6 +711,7 @@ inoremap <silent>Ô <Esc>:t .<CR>==gi
 " xmap <C-l> <Plug>(textmanip-move-right)
 
 " moving line
+
 nnoremap <silent>˚ :m .-2<CR>==
 nnoremap <silent>∆ :m .+1<CR>==
 inoremap <silent>˚ <Esc>:m .-2<CR>==gi
@@ -766,8 +748,12 @@ nnoremap <leader>n :NvimTreeToggle<CR>
 " noremap <silent><leader>d :bd!<cr>
 " noremap <silent><leader>w :bn<cr>
 "
-nnoremap <silent>+ :vert res +1<CR>
-nnoremap <silent>_ :vert res -1<CR>
+nnoremap <Up>    :resize -2<CR>
+nnoremap <Down>  :resize +2<CR>
+nnoremap <Left>  :vertical resize -2<CR>
+nnoremap <Right> :vertical resize +2<CR>
+" nnoremap <silent>+ :vert res +2<CR>
+" nnoremap <silent>_ :vert res -2<CR>
 
 nnoremap <silent>    <leader>q :BufferPrevious<CR>
 nnoremap <silent>    <leader>w :BufferNext<CR>
@@ -895,8 +881,6 @@ function! s:show_documentation()
   endif
 endfunction
 
-" Highlight the symbol and its references when holding the cursor.
-" autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
@@ -913,13 +897,13 @@ augroup end
 
 xmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>a  <Plug>(coc-codeaction-selected)
-
+094
 nmap <leader>ac  <Plug>(coc-codeaction)
 nmap <leader>ra  <Plug>(coc-refactor)
 
 " multi cursor shortcuts
-nmap <silent> <C-a> <Plug>(coc-cursors-word)
-xmap <silent> <C-a> <Plug>(coc-cursors-range
+" nmap <silent> <C-a> <Plug>(coc-cursors-word)
+" xmap <silent> <C-a> <Plug>(coc-cursors-range
 
 " input
 xmap if <Plug>(coc-funcobj-i) 
@@ -958,7 +942,7 @@ command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.org
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings for CoCList
 " Show all diagnostics.
@@ -990,7 +974,8 @@ autocmd FileType html setlocal shiftwidth=2 softtabstop=2 tabstop=2
 autocmd FileType css setlocal shiftwidth=2 softtabstop=2 tabstop=2 
 autocmd FileType scss setlocal shiftwidth=2 softtabstop=2 tabstop=2 
 autocmd FileType javascript setlocal shiftwidth=2 softtabstop=2 tabstop=2 
-let g:user_emmet_install_global = 0
+" Highlight the symbol and its references when holding the cursor.
+" autocmd CursorHold * silent call CocActionAsync('highlight')
 autocmd FileType html,css,ejs,pug EmmetInstall
 au BufNewFile,BufRead *.ejs set filetype=html
 "autocmd User TelescopePreviewerLoaded setlocal wrap
