@@ -25,6 +25,8 @@ Plug 'numToStr/Comment.nvim'
 Plug 'RRethy/vim-illuminate'
 Plug 'abecodes/tabout.nvim'
 Plug 'tpope/vim-speeddating'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+Plug 'chentau/marks.nvim'
 " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 
 " Plug 'diepm/vim-rest-console'
@@ -85,11 +87,9 @@ if has('nvim')
     let &rtp=&rtp
     UpdateRemotePlugins
   endfunction
-
   Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
 else
   Plug 'gelguy/wilder.nvim'
-
   " To use Python remote plugin features in Vim, can be skipped
 endif
 " Plug 'roxma/vim-hug-neovim-rpc'
@@ -113,7 +113,11 @@ call plug#end()
 " leader key
 let mapleader = ","
 
-call wilder#setup({'modes': [':', '/', '?']})
+call wilder#setup({
+			\ 'modes': [':', '/', '?'],
+			\ 'next_key': '<C-j>',
+			\ 'previous_key' : '<C-k>',
+			\	})
 
 call wilder#set_option('renderer', wilder#popupmenu_renderer({
 	  \ 'pumblend': 20,
@@ -208,6 +212,9 @@ let bufferline.icon_pinned = '📌'
 " vim-illuminate
 let g:Illuminate_delay = 500
 " hi illuminatedWord cterm=undercurl gui=undercurl
+let g:copilot_filetypes = {
+		\ 'python' : v:false
+	  \ }
 
 " nvim-tree
 let g:nvim_tree_quit_on_open = 1
@@ -538,6 +545,39 @@ require('nvim-window').setup({
   border = 'none'
 })
 EOF
+lua <<EOF
+require'marks'.setup {
+  -- whether to map keybinds or not. default true
+  default_mappings = true,
+  -- which builtin marks to show. default {}
+  builtin_marks = { ".", "<", ">", "^" },
+  -- whether movements cycle back to the beginning/end of buffer. default true
+  cyclic = true,
+  -- whether the shada file is updated after modifying uppercase marks. default false
+  force_write_shada = false,
+  -- how often (in ms) to redraw signs/recompute mark positions. 
+  -- higher values will have better performance but may cause visual lag, 
+  -- while lower values may cause performance penalties. default 150.
+  refresh_interval = 250,
+  -- sign priorities for each type of mark - builtin marks, uppercase marks, lowercase
+  -- marks, and bookmarks.
+  -- can be either a table with all/none of the keys, or a single number, in which case
+  -- the priority applies to all marks.
+  -- default 10.
+  sign_priority = { lower=10, upper=15, builtin=8, bookmark=20 },
+  -- disables mark tracking for specific filetypes. default {}
+  excluded_filetypes = {},
+  -- marks.nvim allows you to configure up to 10 bookmark groups, each with its own
+  -- sign/virttext. Bookmarks can be used to group together positions and quickly move
+  -- across multiple buffers. default sign is '!@#$%^&*()' (from 0 to 9), and
+  -- default virt_text is "".
+  bookmark_0 = {
+    sign = "⚑",
+    virt_text = "hello world"
+  },
+  mappings = {}
+}
+EOF
 
 
 " require('nvim-autopairs').setup({
@@ -609,6 +649,7 @@ set softtabstop=4
 set shiftwidth=4
 set nopaste
 set title
+set relativenumber
 "set nocompatible
 set ignorecase
 colorscheme jellybeans
@@ -631,9 +672,8 @@ noremap <silent>QQ :q!<cr>
 noremap <silent>ㅃㅃ :q!<cr>
 noremap <silent>W :w!<cr>
 
-noremap <silent>qd :te<cr>
-noremap <silent>fz v]}zf
-noremap <silent>fo zo
+" noremap <silent>fz v]}zf
+" noremap <silent>fo zo
 noremap <silent>M :nohl<CR>
 
 " Start Win-Move mode:
@@ -748,10 +788,12 @@ nnoremap <leader>n :NvimTreeToggle<CR>
 " noremap <silent><leader>d :bd!<cr>
 " noremap <silent><leader>w :bn<cr>
 "
-nnoremap <Up>    :resize -2<CR>
-nnoremap <Down>  :resize +2<CR>
-nnoremap <Left>  :vertical resize -2<CR>
-nnoremap <Right> :vertical resize +2<CR>
+nnoremap <silent><Up>    :resize -2<CR>
+nnoremap <silent><Down>  :resize +2<CR>
+nnoremap <silent><Left>  :vertical resize -2<CR>
+nnoremap <silent><Right> :vertical resize +2<CR>
+" nnoremap <silent>fp :!python3 % < input.txt > output.txt<CR>
+nnoremap <leader>m :resize -2<CR>:echo 456<CR>
 " nnoremap <silent>+ :vert res +2<CR>
 " nnoremap <silent>_ :vert res -2<CR>
 
@@ -963,13 +1005,24 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>i
 
 
-"stay cursor position
+""" ======== 자동화 ========
 au BufReadPost *
 \ if line("'\"") > 0 && line("'\"") <= line("$") |
 \ exe "norm g`\"" |
 \ endif
 
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+function PythonOpen()
+	:bo 32vs output.txt
+	:sp input.txt
+endfunction
+
+" nnoremap <silent>fo exec Func()
+autocmd FileType python
+			\ nnoremap <silent>rp :1windo !python3 % < input.txt > output.txt<CR>
+autocmd BufRead *.py
+			\ exec PythonOpen()
 autocmd FileType html setlocal shiftwidth=2 softtabstop=2 tabstop=2 
 autocmd FileType css setlocal shiftwidth=2 softtabstop=2 tabstop=2 
 autocmd FileType scss setlocal shiftwidth=2 softtabstop=2 tabstop=2 
@@ -977,6 +1030,6 @@ autocmd FileType javascript setlocal shiftwidth=2 softtabstop=2 tabstop=2
 " Highlight the symbol and its references when holding the cursor.
 " autocmd CursorHold * silent call CocActionAsync('highlight')
 autocmd FileType html,css,ejs,pug EmmetInstall
-au BufNewFile,BufRead *.ejs set filetype=html
+autocmd BufNewFile,BufRead *.ejs set filetype=html
 "autocmd User TelescopePreviewerLoaded setlocal wrap
 source ~/.config/nvim/after/colors/solarized.vim
