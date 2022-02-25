@@ -5,8 +5,6 @@ Plug 'pbondoer/vim-42header'
 Plug 'ryanoasis/vim-devicons'
 Plug 'moll/vim-node'
 Plug 'kyazdani42/nvim-tree.lua'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
 Plug 'phaazon/hop.nvim'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'tpope/vim-surround'
@@ -27,8 +25,13 @@ Plug 'abecodes/tabout.nvim'
 Plug 'tpope/vim-speeddating'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'chentau/marks.nvim'
-" Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+Plug 'sudormrfbin/cheatsheet.nvim'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 
+" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+" Plug 'junegunn/fzf.vim'
 " Plug 'diepm/vim-rest-console'
 " Plug 'IngoMeyer441/coc_current_word'
 " Plug 'NTBBloodbath/rest.nvim'
@@ -47,8 +50,7 @@ Plug 'chentau/marks.nvim'
 " Plug 'preservim/tagbar'
 " Plug 'dense-analysis/ale'
 " Plug 'zirrostig/vim-schlepp'
-" Plug 'nvim-telescope/telescope.nvim'
-
+" Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 " git
 
 Plug 'tpope/vim-fugitive'
@@ -200,7 +202,7 @@ inoremap <silent><c-t> <Esc><Cmd>exe v:count1 . "ToggleTerm"<CR>
 let g:webdevicons_enable = 1
 let g:webdevicons_enable_nerdtree = 1
 
-let g:fzf_history_dir = '~/.local/share/fzf-history'
+" let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 " s-exp
 " let g:sexp_filetypes = ''
@@ -315,6 +317,11 @@ require("indent_blankline").setup {
     space_char_blankline = " ",
     show_current_context = true,
     show_current_context_start = true,
+}
+EOF
+
+lua << EOF
+require('telescope').setup{
 }
 EOF
 
@@ -614,7 +621,7 @@ EOF
 
 " local npairs = require("nvim-autopairs")
 "
-" npairs.setup({
+" npairs.setup({e=dropdown
 "     check_ts = true,
 "     ts_config = {
 "         lua = {'string'},-- it will not add a pair on that treesitter node
@@ -657,6 +664,8 @@ set encoding=utf-8
 set termencoding=utf-8
 set tags=./tags;,tags;,../tags;,../../tags;,../../../tags;,../../../../tags;
 set laststatus=2
+set splitright
+set splitbelow
 "set autoindent
 "set list listchars=tab:·\ ,eol:$ "마지막 라인에 $표시
 "set tags=./tags,tags
@@ -728,27 +737,11 @@ nnoremap <silent>Ô :t .<CR>==
 " vmap <unique> <right> <Plug>SchleppRight
 
 " option shift k
-" xmap  <Plug>(textmanip-duplicate-up)
-" nmap  <Plug>(textmanip-duplicate-up)
 inoremap <silent> <Esc>:t -<CR>==gi
 inoremap <silent>Ô <Esc>:t .<CR>==gi
 
 
 " option shift j
-" xmap Ô <Plug>(textmanip-duplicate-down)
-" nmap Ô <Plug>(textmanip-duplicate-down)
-
-" create blank
-" nmap <CR>   <Plug>(textmanip-blank-below)
-" nmap <S-CR> <Plug>(textmanip-blank-above)
-" xmap <CR>   <Plug>(textmanip-blank-below)
-" xmap <S-CR> <Plug>(textmanip-blank-above)
-
-" moving word
-" xmap <C-h> <Plug>(textmanip-move-left)
-" xmap <C-j> <Plug>(textmanip-move-down)
-" xmap <C-k> <Plug>(textmanip-move-up)
-" xmap <C-l> <Plug>(textmanip-move-right)
 
 " moving line
 
@@ -759,14 +752,6 @@ inoremap <silent>∆ <Esc>:m .+1<CR>==gi
 vnoremap <silent>˚ :m '<-2<CR>gv=gv
 vnoremap <silent>∆ :m '>+1<CR>gv=gv
 
-" hook
-" xmap  <Up>    <Plug>(textmanip-move-up-r)
-" xmap  <Down>  <Plug>(textmanip-move-down-r)
-" xmap  <Left>  <Plug>(textmanip-move-left-r)
-" xmap  <Right> <Plug>(textmanip-move-right-r)
-
-" nmap <F10> <Plug>(textmanip-toggle-mode)
-" xmap <F10> <Plug>(textmanip-toggle-mode)
 
 
 " nnoremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
@@ -774,8 +759,7 @@ vnoremap <silent>∆ :m '>+1<CR>gv=gv
 " nnoremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
 " nnoremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 
-nmap <leader>t :Tagbar<CR>
-
+" nnoremap <leader>t :Tagbar<CR>
 " nnoremap <C-j> :lua require('rest-nvim').run()<CR>
 " nmap <C-j> <Plug>RestNvim
 
@@ -793,7 +777,6 @@ nnoremap <silent><Down>  :resize +2<CR>
 nnoremap <silent><Left>  :vertical resize -2<CR>
 nnoremap <silent><Right> :vertical resize +2<CR>
 " nnoremap <silent>fp :!python3 % < input.txt > output.txt<CR>
-nnoremap <leader>m :resize -2<CR>:echo 456<CR>
 " nnoremap <silent>+ :vert res +2<CR>
 " nnoremap <silent>_ :vert res -2<CR>
 
@@ -832,14 +815,17 @@ nnoremap <silent><leader>d :BufferClose<CR>
 " nnoremap <silent> <Space>bl :BufferOrderByLanguage<CR>
 " nnoremap <silent> <Space>bw :BufferOrderByWindowNumber<CR>
 
-"nnoremap <leader>ff <cmd>Telescope find_files theme=dropdown prompt_prefix=🔍<cr>
-"nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-"nnoremap <leader>fb <cmd>Telescope buffers<cr>
-"nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-nnoremap <leader>ff :Files<CR>
-nnoremap <leader>fs :Rg<CR>
-nnoremap <leader>fb :Buffers<CR>
-nnoremap <leader>fc :Commits<CR> 
+nnoremap <leader>ff <cmd>Telescope find_files theme=dropdown prompt_prefix=🔍ㅤ <cr>
+nnoremap <leader>fs <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>fc <cmd>Telescope git_commits<cr>
+nnoremap <leader>t <cmd>Telescope<cr>
+
+" nnoremap <leader>ff :Files<CR>
+" nnoremap <leader>fs :Rg<CR>
+" nnoremap <leader>fb :Buffers<CR>
+" nnoremap <leader>fc :Commits<CR> 
 
 nnoremap <silent><leader>s :HopChar1<CR>
 " map <leader>s <Plug>(easymotion-overwin-f)
@@ -931,11 +917,6 @@ nmap <leader>rn <Plug>(coc-rename)
 "xmap <leader>f  <Plug>(coc-format-selected)
 "nmap <leader>f  <Plug>(coc-format-selected)
 
-augroup mygroup
-  autocmd!
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
 
 xmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>a  <Plug>(coc-codeaction-selected)
@@ -1014,15 +995,25 @@ au BufReadPost *
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 function PythonOpen()
-	:bo 32vs output.txt
-	:sp input.txt
+	:bo 32vs input.txt
+	:sp output.txt
+	:wincmd h
+endfunction
+
+":execute "normal! \<C-w>l"
+
+function Test()
+	execute "normal <C-w>w"
 endfunction
 
 " nnoremap <silent>fo exec Func()
 autocmd FileType python
 			\ nnoremap <silent>rp :1windo !python3 % < input.txt > output.txt<CR>
-autocmd BufRead *.py
+autocmd FileType python
+			\ nnoremap <silent>rw :exec PythonOpen()<CR>
+autocmd VimEnter *.py
 			\ exec PythonOpen()
+
 autocmd FileType html setlocal shiftwidth=2 softtabstop=2 tabstop=2 
 autocmd FileType css setlocal shiftwidth=2 softtabstop=2 tabstop=2 
 autocmd FileType scss setlocal shiftwidth=2 softtabstop=2 tabstop=2 
@@ -1031,5 +1022,11 @@ autocmd FileType javascript setlocal shiftwidth=2 softtabstop=2 tabstop=2
 " autocmd CursorHold * silent call CocActionAsync('highlight')
 autocmd FileType html,css,ejs,pug EmmetInstall
 autocmd BufNewFile,BufRead *.ejs set filetype=html
+
+augroup mygroup
+  autocmd!
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
 "autocmd User TelescopePreviewerLoaded setlocal wrap
 source ~/.config/nvim/after/colors/solarized.vim
