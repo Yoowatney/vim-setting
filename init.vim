@@ -29,6 +29,14 @@ Plug 'sudormrfbin/cheatsheet.nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'fannheyward/telescope-coc.nvim'
+Plug 'nvim-telescope/telescope-file-browser.nvim'
+Plug 'Pocco81/AbbrevMan.nvim'
+Plug 'lewis6991/gitsigns.nvim'
+Plug 'blueyed/vim-diminactive'
+Plug 'Pocco81/TrueZen.nvim'
+" Plug 'tpope/vim-fugitive'
+
 
 " Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 " Plug 'junegunn/fzf.vim'
@@ -53,11 +61,9 @@ Plug 'nvim-telescope/telescope.nvim'
 " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 " git
 
-Plug 'tpope/vim-fugitive'
 " Plug 'airblade/vim-gitgutter'
 
 " debug
-
 "Plug 'puremourning/vimspector'
 
 " readability
@@ -165,21 +171,27 @@ let g:coc_global_extensions = [
 	\ 'coc-vimlsp',
 	\ 'coc-pyright',]
 let g:coc_node_path = '/usr/local/bin/node'
+let g:coc_snippet_next = '<C-j>'
+let g:coc_snippet_prev = '<C-k>'
 
 "diminiactvie
-let g:diminactive_enable_focus = 1
+" let g:diminactive_enable_focus = 1
+" let g:diminactive_use_colorcolumn = 1
+" let g:diminactive_use_syntax = 1
+
 
 " vim-javascript
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_ngdoc = 1
 let g:javascript_plugin_flow = 1
 
+
 " let g:airline#extensions#tabline#buffer_nr_show = 1       " buffer number를 보여준다
 " let g:airline#extensions#tabline#buffer_nr_format = '%s ' " buffer number format
 
 
 " rest-console
-let g:vrc_allow_get_request_body = 1
+" let g:vrc_allow_get_request_body = 1
 
 let g:toggleterm_terminal_mapping = '<C-t>'
 
@@ -273,11 +285,8 @@ let g:nvim_tree_icons = {
     \ }
 
 
-
 set termguicolors
 
-
-"let g:webdevicons_conceal_nerdtree_brackets = 1
 
 lua <<EOF
 vim.opt.list = true
@@ -285,6 +294,85 @@ vim.opt.listchars:append("eol:↴")
 
 require'hop'.setup()
 require('Comment').setup()
+require('telescope').load_extension('coc')
+require("telescope").setup {
+  extensions = {
+    file_browser = {
+      mappings = {
+        ["i"] = {
+          -- your custom insert mode mappings
+        },
+        ["n"] = {
+          -- your custom normal mode mappings
+        },
+      },
+	hidden = true,
+	respect_gitignore = false,
+    },
+  },
+}
+require("telescope").load_extension "file_browser"
+
+EOF
+
+lua <<EOF
+require('gitsigns').setup {
+  signs = {
+    add          = {hl = 'GitSignsAdd'   , text = '│', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
+    change       = {hl = 'GitSignsChange', text = '│', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+    delete       = {hl = 'GitSignsDelete', text = '_', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+    topdelete    = {hl = 'GitSignsDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+    changedelete = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+  },
+  signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
+  numhl      = false, -- Toggle with `:Gitsigns toggle_numhl`
+  linehl     = false, -- Toggle with `:Gitsigns toggle_linehl`
+  word_diff  = false, -- Toggle with `:Gitsigns toggle_word_diff`
+  watch_gitdir = {
+    interval = 1000,
+    follow_files = true
+  },
+  attach_to_untracked = true,
+  current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
+  current_line_blame_opts = {
+    virt_text = true,
+    virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
+    delay = 1000,
+    ignore_whitespace = false,
+  },
+  current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
+  sign_priority = 6,
+  update_debounce = 100,
+  status_formatter = nil, -- Use default
+  max_file_length = 40000,
+  preview_config = {
+    -- Options passed to nvim_open_win
+    border = 'single',
+    style = 'minimal',
+    relative = 'cursor',
+    row = 0,
+    col = 1
+  },
+  yadm = {
+    enable = false
+  },
+}
+EOF
+
+lua << EOF
+local abbrev_man = require("abbrev-man")
+
+abbrev_man.setup({
+	load_natural_dictionaries_at_startup = true,
+	load_programming_dictionaries_at_startup = true,
+	natural_dictionaries = {
+		["nt_en"] = {}
+	},
+	programming_dictionaries = {
+		["pr_py"] = {}
+	}
+
+})
 EOF
 " lua <<EOF
 " require("rest-nvim").setup({
@@ -321,8 +409,23 @@ require("indent_blankline").setup {
 EOF
 
 lua << EOF
-require('telescope').setup{
-}
+local actions = require('telescope.actions')
+require('telescope').setup({
+  defaults = {
+    mappings = {
+		i = {
+			["<C-j>"] = actions.move_selection_next,
+			["<C-k>"] = actions.move_selection_previous,
+			["<Down>"] = actions.move_selection_next,
+			["<Up>"] = actions.move_selection_previous,
+			["<C-s>"] = actions.select_horizontal,
+			},
+		n = {
+			["<C-s>"] = actions.select_horizontal,
+			},
+    }
+  }
+})
 EOF
 
 lua <<EOF
@@ -646,6 +749,7 @@ filetype plugin indent on
 set backspace=indent,eol,start
 set wmnu
 set number
+set cursorline
 syntax on
 set tabstop=4
 set sts=4
@@ -666,6 +770,9 @@ set tags=./tags;,tags;,../tags;,../../tags;,../../../tags;,../../../../tags;
 set laststatus=2
 set splitright
 set splitbelow
+set noshowcmd
+set linebreak
+set showbreak=--\
 "set autoindent
 "set list listchars=tab:·\ ,eol:$ "마지막 라인에 $표시
 "set tags=./tags,tags
@@ -816,11 +923,15 @@ nnoremap <silent><leader>d :BufferClose<CR>
 " nnoremap <silent> <Space>bw :BufferOrderByWindowNumber<CR>
 
 nnoremap <leader>ff <cmd>Telescope find_files theme=dropdown prompt_prefix=🔍ㅤ <cr>
-nnoremap <leader>fs <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-nnoremap <leader>fc <cmd>Telescope git_commits<cr>
+nnoremap <leader>fs <cmd>Telescope live_grep theme=dropdown prompt_prefix=🔍ㅤ <cr>
+" nnoremap <leader>fb <cmd>Telescope buffers theme=dropdown prompt_prefix=🔍ㅤ <cr>
+nnoremap <leader>fh <cmd>Telescope help_tags theme=dropdown prompt_prefix=🔍ㅤ <cr>
+nnoremap <leader>fc <cmd>Telescope git_commits theme=dropdown prompt_prefix=🔍ㅤ <cr>
 nnoremap <leader>t <cmd>Telescope<cr>
+nnoremap <leader>c <cmd>Telescope coc<cr>
+nnoremap <leader>fb <cmd>Telescope file_browser theme=dropdown prompt_prefix=🔍ㅤ <cr>
+nnoremap <leader>gr <cmd>Telescope coc references theme=dropdown prompt_prefix=🔍ㅤ <cr>
+nnoremap <leader>gd <cmd>Telescope coc definitions theme=dropdown prompt_prefix=🔍ㅤ <cr>
 
 " nnoremap <leader>ff :Files<CR>
 " nnoremap <leader>fs :Rg<CR>
@@ -858,18 +969,20 @@ set updatetime=300
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
 
-if has("nvim-0.5.0") || has("patch-8.1.1564")
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
+" if has("nvim-0.5.0") || has("patch-8.1.1564")
+"   set signcolumn=number
+" else
+"   set signcolumn=yes
+" endif
 
-" inoremap <silent><expr> <TAB>
-"       \ pumvisible() ? "\<C-n>" :
-"       \ <SID>check_back_space() ? "\<TAB>" :
-"       \ coc#refresh()
-" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-"
+inoremap <silent><expr> <C-j>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-h>"
+" inoremap <C-k> <C-p>
+" inoremap <C-j> <C-n>
+
 " function! s:check_back_space() abort
 "   let col = col('.') - 1
 "   return !col || getline('.')[col - 1]  =~# '\s'
@@ -886,15 +999,10 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-nmap <silent><leader>fi <Plug>(coc-fix-current)
-
-" GoTo code navigation.
-nmap <silent> <leader>gd <Plug>(coc-definition)
-" nmap <silent> gy <Plug>(coc-type-definition)
-"nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> <leader>gr <Plug>(coc-references)
+nnoremap <silent> [g <Plug>(coc-diagnostic-prev)
+nnoremap <silent> ]g <Plug>(coc-diagnostic-next)
+nnoremap <silent><leader>fi <Plug>(coc-fix-current)
+nnoremap <silent><leader>z :ZenMode<CR>
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -987,6 +1095,25 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>i
 
 
 """ ======== 자동화 ========
+
+inoreabbrev console console
+inoreabbrev consloe console
+inoreabbrev consoel console
+inoreabbrev ture true
+inoreabbrev Ture True
+inoreabbrev treu true
+inoreabbrev Treu True
+inoreabbrev imt int
+inoreabbrev itn int
+inoreabbrev coment comment
+cnoreabbrev sourec source
+cnoreabbrev sorce source
+cnoreabbrev sourec source
+cnoreabbrev sorec source
+cnoreabbrev soruce source
+cnoreabbrev souce source
+cnoreabbrev sourc source
+
 au BufReadPost *
 \ if line("'\"") > 0 && line("'\"") <= line("$") |
 \ exe "norm g`\"" |
@@ -1000,24 +1127,43 @@ function PythonOpen()
 	:wincmd h
 endfunction
 
-":execute "normal! \<C-w>l"
-
-function Test()
-	execute "normal <C-w>w"
+function TxtOpen()
+	:CocDisable
+	" :Copilot disable
 endfunction
+
+function EnterPython()
+	:CocEnable
+endfunction
+
+function EnterTxt()
+	:CocDisable
+endfunction
+":execute "normal! \<C-w>l"
 
 " nnoremap <silent>fo exec Func()
 autocmd FileType python
-			\ nnoremap <silent>rp :1windo !python3 % < input.txt > output.txt<CR>
+			\ nnoremap <silent>rp :silent 1windo !python3 % < input.txt > output.txt<CR>
+" 경고창 방지로 silent
 autocmd FileType python
-			\ nnoremap <silent>rw :exec PythonOpen()<CR>
+			\ nnoremap <silent>rw :exec PythonOpen()<CR> |
+			\ inoreabbrev pirnt print
 autocmd VimEnter *.py
 			\ exec PythonOpen()
+autocmd VimEnter *.txt
+			\ exec TxtOpen()
 
 autocmd FileType html setlocal shiftwidth=2 softtabstop=2 tabstop=2 
 autocmd FileType css setlocal shiftwidth=2 softtabstop=2 tabstop=2 
 autocmd FileType scss setlocal shiftwidth=2 softtabstop=2 tabstop=2 
 autocmd FileType javascript setlocal shiftwidth=2 softtabstop=2 tabstop=2 
+
+autocmd WinEnter *.txt
+			\ exec EnterTxt()
+autocmd WinEnter *.py
+			\ exec EnterPython()
+
+
 " Highlight the symbol and its references when holding the cursor.
 " autocmd CursorHold * silent call CocActionAsync('highlight')
 autocmd FileType html,css,ejs,pug EmmetInstall
