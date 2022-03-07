@@ -823,11 +823,15 @@ noremap p p`]
 " nnoremap <C-l> <C-w>l
 inoremap <C-g> <C-o>x
 
+cnoremap <C-j> <C-n>
+cnoremap <C-k> <C-p>
 
 
 " line copy
 nnoremap <silent> :t -<CR>==
 nnoremap <silent>Ô :t .<CR>==
+
+
 "
 " vnoremap <silent> :'<,'>t -2<CR>gv=gv
 " vnoremap <silent>Ô :'<,'>t +1<CR>gv=gv
@@ -950,11 +954,8 @@ nnoremap <silent><leader>s :HopChar1<CR>
 
 " nvim
 set encoding=utf-8
-
 " TextEdit might fail if hidden is not set.
 set hidden
-
-
 " Some servers have issues with backup files, see.
 set nobackup
 set noswapfile
@@ -968,6 +969,7 @@ set updatetime=300
 
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
+set shortmess+=I
 
 " if has("nvim-0.5.0") || has("patch-8.1.1564")
 "   set signcolumn=number
@@ -1140,10 +1142,14 @@ function EnterTxt()
 	:CocDisable
 endfunction
 ":execute "normal! \<C-w>l"
+function PythonRun()
+	:1windo !python3 % < input.txt > output.txt
+endfunction
 
 " nnoremap <silent>fo exec Func()
 autocmd FileType python
-			\ nnoremap <silent>rp :silent 1windo !python3 % < input.txt > output.txt<CR>
+			\ nnoremap <silent>rp :call PythonRun()<CR>
+			" \ nnoremap <silent>rp :silent 1windo !python3 % < input.txt > output.txt<CR>
 " 경고창 방지로 silent
 autocmd FileType python
 			\ nnoremap <silent>rw :exec PythonOpen()<CR> |
@@ -1158,10 +1164,10 @@ autocmd FileType css setlocal shiftwidth=2 softtabstop=2 tabstop=2
 autocmd FileType scss setlocal shiftwidth=2 softtabstop=2 tabstop=2 
 autocmd FileType javascript setlocal shiftwidth=2 softtabstop=2 tabstop=2 
 
-autocmd WinEnter *.txt
-			\ exec EnterTxt()
-autocmd WinEnter *.py
-			\ exec EnterPython()
+" autocmd BufWinEnter *.txt
+" 			\ exec EnterTxt()
+" autocmd WinEnter *.py
+" 			\ exec EnterPython()
 
 
 " Highlight the symbol and its references when holding the cursor.
