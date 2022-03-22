@@ -64,7 +64,7 @@ Plug 'Pocco81/TrueZen.nvim'
 " Plug 'airblade/vim-gitgutter'
 
 " debug
-"Plug 'puremourning/vimspector'
+Plug 'puremourning/vimspector'
 
 " readability
 "
@@ -75,7 +75,6 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 " Plug 'sheerun/vim-polyglot'
 " Plug 'Yggdroot/indentline'
 "Plug 'junegunn/rainbow_parentheses.vim'
-" Plug 'blueyed/vim-diminactive'
 "Plug 'dracula/vim'
 " Plug 'morhetz/gruvbox'
 "Plug 'roosta/srcery'
@@ -185,10 +184,14 @@ let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_ngdoc = 1
 let g:javascript_plugin_flow = 1
 
-
-" let g:airline#extensions#tabline#buffer_nr_show = 1       " buffer number를 보여준다
-" let g:airline#extensions#tabline#buffer_nr_format = '%s ' " buffer number format
-
+let g:vimspector_enable_mappings = 'HUMAN'
+let g:vimspector_base_dir='/Users/youngsukyoo/.config/nvim/plugged/vimspector'
+nmap <leader>dd :call vimspector#Launch()<CR>
+nmap <leader>dx :VimspectorReset<CR>
+nmap <Leader>di <Plug>VimspectorBalloonEval
+nmap <leader>de :VimspectorEval
+nmap <leader>dw :VimspectorWatch
+nmap <leader>do :VimspectorShowOutput
 
 " rest-console
 " let g:vrc_allow_get_request_body = 1
@@ -823,8 +826,8 @@ noremap p p`]
 " nnoremap <C-l> <C-w>l
 inoremap <C-g> <C-o>x
 
-cnoremap <C-j> <C-n>
-cnoremap <C-k> <C-p>
+" cnoremap <C-j> <C-n>
+" cnoremap <C-k> <C-p>
 
 
 " line copy
@@ -1002,7 +1005,7 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
 nnoremap <silent> [g <Plug>(coc-diagnostic-prev)
-nnoremap <silent> ]g <Plug>(coc-diagnostic-next)
+nnoremap <silent> ;; <Plug>(coc-diagnostic-next)
 nnoremap <silent><leader>fi <Plug>(coc-fix-current)
 nnoremap <silent><leader>z :ZenMode<CR>
 
@@ -1138,9 +1141,6 @@ function EnterPython()
 	:CocEnable
 endfunction
 
-function EnterTxt()
-	:CocDisable
-endfunction
 ":execute "normal! \<C-w>l"
 function PythonRun()
 	:1windo !python3 % < input.txt > output.txt
