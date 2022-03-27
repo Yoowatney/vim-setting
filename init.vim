@@ -1,6 +1,5 @@
 call plug#begin('~/.config/nvim/plugged')
 " utils
-
 Plug 'pbondoer/vim-42header'
 Plug 'ryanoasis/vim-devicons'
 Plug 'moll/vim-node'
@@ -15,12 +14,11 @@ Plug 'SirVer/ultisnips'
 Plug 'akinsho/toggleterm.nvim'
 Plug 'https://gitlab.com/yorickpeterse/nvim-window.git'
 Plug 'kyazdani42/nvim-web-devicons'
-Plug 'romgrk/barbar.nvim'
+Plug 'akinsho/bufferline.nvim'
 Plug 'henriquehbr/ataraxis.lua'
 Plug 'sindrets/winshift.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'numToStr/Comment.nvim'
-Plug 'RRethy/vim-illuminate'
 Plug 'abecodes/tabout.nvim'
 Plug 'tpope/vim-speeddating'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
@@ -32,55 +30,34 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'fannheyward/telescope-coc.nvim'
 Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'Pocco81/AbbrevMan.nvim'
-Plug 'lewis6991/gitsigns.nvim'
-Plug 'blueyed/vim-diminactive'
 Plug 'Pocco81/TrueZen.nvim'
-" Plug 'tpope/vim-fugitive'
+Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+Plug 'christoomey/vim-tmux-navigator'
 
-
-" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-" Plug 'junegunn/fzf.vim'
-" Plug 'diepm/vim-rest-console'
-" Plug 'IngoMeyer441/coc_current_word'
-" Plug 'NTBBloodbath/rest.nvim'
-" Plug 'easymotion/vim-easymotion'
-" Plug 'digitaltoad/vim-pug'
-" Plug 'bling/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
-" Plug 'mhinz/vim-startify'
-" Plug 'nathanaelkane/vim-indent-guides'
-" Plug 'johngrib/vim-f-hangul'
-" Plug 'lambdalisue/fern.vim'
-" Plug 'lambdalisue/nerdfont.vim'
-" Plug 'lambdalisue/fern-renderer-nerdfont.vim'
-" Plug 'lambdalisue/glyph-palette.vim'
-" Plug 'guns/vim-sexp'
-" Plug 'preservim/tagbar'
-" Plug 'dense-analysis/ale'
-" Plug 'zirrostig/vim-schlepp'
-" Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 " git
-
-" Plug 'airblade/vim-gitgutter'
+Plug 'lewis6991/gitsigns.nvim'
 
 " debug
 Plug 'puremourning/vimspector'
+Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }
 
 " readability
-"
+Plug 'RRethy/vim-illuminate'
 Plug 'pangloss/vim-javascript'
 Plug 'nanotech/jellybeans.vim'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'projekt0n/github-nvim-theme'
+Plug 'glepnir/zephyr-nvim'
+Plug 'novakne/kosmikoa.nvim'
+
 " Plug 'sheerun/vim-polyglot'
 " Plug 'Yggdroot/indentline'
-"Plug 'junegunn/rainbow_parentheses.vim'
 "Plug 'dracula/vim'
 " Plug 'morhetz/gruvbox'
 "Plug 'roosta/srcery'
 
 "auto complete
-
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'mattn/emmet-vim'
@@ -88,17 +65,7 @@ Plug 'tpope/vim-repeat'
 Plug 'windwp/nvim-autopairs'
 Plug 'roxma/nvim-yarp'
 Plug 'github/copilot.vim'
-if has('nvim')
-  function! UpdateRemotePlugins(...)
-    " Needed to refresh runtime files
-    let &rtp=&rtp
-    UpdateRemotePlugins
-  endfunction
-  Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
-else
-  Plug 'gelguy/wilder.nvim'
-  " To use Python remote plugin features in Vim, can be skipped
-endif
+Plug 'gelguy/wilder.nvim'
 " Plug 'roxma/vim-hug-neovim-rpc'
 " Plug 'raimondi/delimitmate'
 " Plug 'kristijanhusak/vim-js-file-import', {'do': 'npm install'}
@@ -109,16 +76,33 @@ endif
 "Plug 'vim-syntastic/syntastic'
 "Plug 'prabirshrestha/vim-lsp'
 "Plug 'mattn/vim-lsp-settings'
-"Plug 'valloric/youcompleteme'
 "Plug 'glepnir/lspsaga.nvim'
 "Plug 'neovim/nvim-lspconfig'
 "Plug 'shougo/neocomplcache.vim'
+"Plug 'valloric/youcompleteme'
 call plug#end()
 
 
 
 " leader key
 let mapleader = ","
+
+" github-nvim-theme
+
+" let g:github_function_style = "italic"
+let g:github_sidebars = ["qf", "vista_kind", "terminal", "packer"]
+let g:github_dark_sidebar = "false"
+" let g:github_transparent = "true"
+let g:github_dark_float = "true"
+
+
+" Change the "hint" color to the "orange" color, and make the "error" color bright red
+" let g:github_colors = {
+"   \ 'hint': 'orange',
+"   \ 'error': '#ff0000'
+" \ }
+
+" Load the colorscheme
 
 call wilder#setup({
 			\ 'modes': [':', '/', '?'],
@@ -129,10 +113,6 @@ call wilder#setup({
 call wilder#set_option('renderer', wilder#popupmenu_renderer({
 	  \ 'pumblend': 20,
 	  \ }))
-" let g:fern#drawer_width = 30
-" let g:fern#default_hidden = 1
-" let g:fern#disable_drawer_auto_quit = 1
-" let g:fern#renderer = "nerdfont"
 
 " snippet
 let g:UltiSnipsExpandTrigger='<Tab>'
@@ -143,24 +123,6 @@ let g:UltiSnipsJumpBackwardTrigger='<S-Tab>'
 let g:hdr42user = 'yoyoo'
 let g:hdr42mail = 'yoyoo@student.42seoul.kr'
 
-
-"let g:vimspector_enable_mappings = 'HUMAN'
-"nmap <leader>dd :call vimspector#Launch()<CR>
-"nmap <leader>dx :VimspectorReset<CR>
-"nmap <Leader>di <Plug>VimspectorBalloonEval
-"nmap <leader>de :VimspectorEval
-"nmap <leader>dw :VimspectorWatch
-"nmap <leader>do :VimspectorShowOutput
-
-
-" let g:ale_lint_on_save = 1              "Lint when saving a file
-" let g:ale_sign_error = '✖'                                                      "Lint error sign
-" let g:ale_sign_warning = '⚠'                                                    "Lint warning sign
-" let g:ale_statusline_format =[' %d E ', ' %d W ', '']                           "Status line texts
-" let g:ale_linters = {'javascript': ['eslint']}
-" let g:ale_fixers = {'javascript': ['prettier', 'eslint']}
-" let g:ale_disable_lsp = 1
-
 " coc
 let g:coc_global_extensions = [
 	\ 'coc-snippets',
@@ -168,15 +130,13 @@ let g:coc_global_extensions = [
 	\ 'coc-json',
 	\ 'coc-clangd',
 	\ 'coc-vimlsp',
-	\ 'coc-pyright',]
+	\ 'coc-pyright',
+	\ 'coc-ember'
+	\]
 let g:coc_node_path = '/usr/local/bin/node'
 let g:coc_snippet_next = '<C-j>'
 let g:coc_snippet_prev = '<C-k>'
 
-"diminiactvie
-" let g:diminactive_enable_focus = 1
-" let g:diminactive_use_colorcolumn = 1
-" let g:diminactive_use_syntax = 1
 
 
 " vim-javascript
@@ -184,6 +144,7 @@ let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_ngdoc = 1
 let g:javascript_plugin_flow = 1
 
+" spector
 let g:vimspector_enable_mappings = 'HUMAN'
 let g:vimspector_base_dir='/Users/youngsukyoo/.config/nvim/plugged/vimspector'
 nmap <leader>dd :call vimspector#Launch()<CR>
@@ -193,12 +154,20 @@ nmap <leader>de :VimspectorEval
 nmap <leader>dw :VimspectorWatch
 nmap <leader>do :VimspectorShowOutput
 
+" tmux-navigator
+let g:tmux_navigator_no_mappings = 0
+" nnoremap <silent> <C-w>h :TmuxNavigateLeft<cr>
+" nnoremap <silent> <C-w>j :TmuxNavigateDown<cr>
+" nnoremap <silent> <C-w>k :TmuxNavigateUp<cr>
+" nnoremap <silent> <C-w>l :TmuxNavigateRight<cr>
+
+" nnoremap <silent>  :TmuxNavigatePrevious<cr>
+
 " rest-console
 " let g:vrc_allow_get_request_body = 1
 
-let g:toggleterm_terminal_mapping = '<C-t>'
-
 " toggle term
+let g:toggleterm_terminal_mapping = '<C-t>'
 autocmd TermEnter term://*toggleterm#*
       \ tnoremap <silent><leader><c-t> <Cmd>exe v:count1 . "ToggleTerm"<CR>
 
@@ -217,14 +186,34 @@ inoremap <silent><c-t> <Esc><Cmd>exe v:count1 . "ToggleTerm"<CR>
 let g:webdevicons_enable = 1
 let g:webdevicons_enable_nerdtree = 1
 
+" firenvim
+let g:firenvim_config = {
+            \ 'globalSettings': {
+                \ 'alt': 'all',
+                \  },
+            \ 'localSettings': {
+                \ '.*': {
+                    \ 'cmdline': 'firenvim',
+                    \ 'priority': 0,
+                    \ 'selector': 'textarea:not([readonly]):not([class="handsontableInput"]), div[role="textbox"]',
+                    \ 'takeover': 'always',
+                \ },
+                \ '.*notion\.so.*': { 'priority': 9, 'takeover': 'never', },
+                \ '.*docs\.google\.com.*': { 'priority': 9, 'takeover': 'never', },
+                \ '.*papago\.naver\.com.*': { 'priority': 9, 'takeover': 'never', },
+                \ '.*discord\.com.*': { 'priority': 9, 'takeover': 'never', },
+                \ '.*codetree\.ai.*': { 'priority': 9, 'takeover': 'never', },
+            \ }
+        \ }
+
 " let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 " s-exp
 " let g:sexp_filetypes = ''
 
-" barber
-let bufferline = get(g:, 'bufferline', {})
-let bufferline.icon_pinned = '📌'
+" barbar
+" let bufferline = get(g:, 'bufferline', {})
+" let bufferline.icon_pinned = '📌'
 
 " vim-illuminate
 let g:Illuminate_delay = 500
@@ -289,6 +278,33 @@ let g:nvim_tree_icons = {
 
 
 set termguicolors
+
+lua<<EOF
+require('bufferline').setup {
+  options = {
+	  mode = "buffers",
+	  numbers = "ordinal",
+	indicator_icon = '▎',
+    buffer_close_icon = '',
+    -- modified_icon = '●🔴',
+    modified_icon = '🔴',
+    close_icon = '',
+    left_trunc_marker = '',
+    right_trunc_marker = '',
+    show_close_icon = false,
+	show_buffer_close_icons = true,
+	diagnostics = "coc",
+	offsets = {{filetype = "NvimTree", text = "File Explorer", text_align = "center"}},
+	separator_style = "slant",
+  },
+	highlights = {
+		buffer_selected = {
+			guifg = normal_fg,
+			gui = "bold"
+		},
+	}
+}
+EOF
 
 
 lua <<EOF
@@ -499,10 +515,6 @@ require'nvim-treesitter.configs'.setup {
 }
 EOF
 
-lua <<EOF
-require'nvim-web-devicons'.get_icons()
-EOF
-
 
 lua <<EOF
 require'nvim-web-devicons'.setup {
@@ -521,6 +533,10 @@ require'nvim-web-devicons'.setup {
 	-- will get overriden by `get_icons` option
 	default = true;
 	}
+EOF
+
+lua <<EOF
+require'nvim-web-devicons'.get_icons()
 EOF
 
 lua <<EOF
@@ -710,16 +726,16 @@ persist_size = true,
 close_on_exit = true, -- close the terminal window when the process exits
 shell = vim.o.shell, -- change the default shell
 -- This field is only relevant if direction is set to 'float'
-float_opts = {
-	-- The border key is *almost* the same as 'nvim_open_win'
-	-- see :h nvim_open_win for details on borders however
-	-- the 'curved' border is a custom border type
-	-- not natively supported but implemented in this plugin.
-	border = 'curved',
-	winblend = 3,
-	highlights = {
-		border = "shadow",
-		background = "Normal",
+	float_opts = {
+		-- The border key is *almost* the same as 'nvim_open_win'
+		-- see :h nvim_open_win for details on borders however
+		-- the 'curved' border is a custom border type
+		-- not natively supported but implemented in this plugin.
+		border = 'curved',
+		winblend = 3,
+		highlights = {
+			border = "shadow",
+			background = "Normal",
 		}
 	}
 }
@@ -894,51 +910,36 @@ nnoremap <silent><Right> :vertical resize +2<CR>
 " nnoremap <silent>+ :vert res +2<CR>
 " nnoremap <silent>_ :vert res -2<CR>
 
-nnoremap <silent>    <leader>q :BufferPrevious<CR>
-nnoremap <silent>    <leader>w :BufferNext<CR>
+nnoremap <silent>    <leader>w :BufferLineCycleNext<CR>
+nnoremap <silent>    <leader>q :BufferLineCyclePrev<CR>
 " Re-order to previous/next
-nnoremap <silent>    <leader>< :BufferMovePrevious<CR>
-nnoremap <silent>    <leader>> :BufferMoveNext<CR>
+nnoremap <silent>    <leader>< :BufferLineMovePrev<CR>
+nnoremap <silent>    <leader>> :BufferLineMoveNext<CR>
 " Goto buffer in position...
-nnoremap <silent><leader>1 :BufferGoto 1<CR>
-nnoremap <silent><leader>2 :BufferGoto 2<CR>
-nnoremap <silent><leader>3 :BufferGoto 3<CR>
-nnoremap <silent><leader>4 :BufferGoto 4<CR>
-nnoremap <silent><leader>5 :BufferGoto 5<CR>
-nnoremap <silent><leader>6 :BufferGoto 6<CR>
-nnoremap <silent><leader>7 :BufferGoto 7<CR>
-nnoremap <silent><leader>8 :BufferGoto 8<CR>
-nnoremap <silent><leader>9 :BufferLast<CR>
-" Pin/unpin buffer
-nnoremap <silent><leader>p :BufferPin<CR>
+nnoremap <silent><leader>1 :BufferLineGoToBuffer 1<CR>
+nnoremap <silent><leader>2 :BufferLineGoToBuffer 2<CR>
+nnoremap <silent><leader>3 :BufferLineGoToBuffer 3<CR>
+nnoremap <silent><leader>4 :BufferLineGoToBuffer 4<CR>
+nnoremap <silent><leader>5 :BufferLineGoToBuffer 5<CR>
+nnoremap <silent><leader>6 :BufferLineGoToBuffer 6<CR>
+nnoremap <silent><leader>7 :BufferLineGoToBuffer 7<CR>
+nnoremap <silent><leader>8 :BufferLineGoToBuffer 8<CR>
+nnoremap <silent><leader>9 :BufferLineGoToBuffer 9<CR>
+" nnoremap <silent><leader>p :BufferPin<CR>
 " Close buffer
-nnoremap <silent><leader>d :BufferClose<CR>
+nnoremap <silent><leader>D :bd<CR>
 
-" Wipeout buffer
-"                          :BufferWipeout<CR>
-" Close commands
-"                          :BufferCloseAllButCurrent<CR>
-"                          :BufferCloseAllButPinned<CR>
-"                          :BufferCloseBuffersLeft<CR>
-"                          :BufferCloseBuffersRight<CR>
-" Magic buffer-picking mode
-" nnoremap <silent> <C-s>    :BufferPick<CR>
-" Sort automatically by...
-" nnoremap <silent> <Space>bb :BufferOrderByBufferNumber<CR>
-" nnoremap <silent> <Space>bd :BufferOrderByDirectory<CR>
-" nnoremap <silent> <Space>bl :BufferOrderByLanguage<CR>
-" nnoremap <silent> <Space>bw :BufferOrderByWindowNumber<CR>
 
-nnoremap <leader>ff <cmd>Telescope find_files theme=dropdown prompt_prefix=🔍ㅤ <cr>
-nnoremap <leader>fs <cmd>Telescope live_grep theme=dropdown prompt_prefix=🔍ㅤ <cr>
-" nnoremap <leader>fb <cmd>Telescope buffers theme=dropdown prompt_prefix=🔍ㅤ <cr>
-nnoremap <leader>fh <cmd>Telescope help_tags theme=dropdown prompt_prefix=🔍ㅤ <cr>
-nnoremap <leader>fc <cmd>Telescope git_commits theme=dropdown prompt_prefix=🔍ㅤ <cr>
+nnoremap <leader>ff <cmd>Telescope find_files theme=dropdown<cr>
+nnoremap <leader>fs <cmd>Telescope live_grep theme=dropdown<cr>
+" nnoremap <leader>fb <cmd>Telescope buffers theme=dropdownㅤ <cr>
+nnoremap <leader>fh <cmd>Telescope help_tags theme=dropdown<cr>
+nnoremap <leader>fc <cmd>Telescope git_commits theme=dropdown<cr>
 nnoremap <leader>t <cmd>Telescope<cr>
 nnoremap <leader>c <cmd>Telescope coc<cr>
-nnoremap <leader>fb <cmd>Telescope file_browser theme=dropdown prompt_prefix=🔍ㅤ <cr>
-nnoremap <leader>gr <cmd>Telescope coc references theme=dropdown prompt_prefix=🔍ㅤ <cr>
-nnoremap <leader>gd <cmd>Telescope coc definitions theme=dropdown prompt_prefix=🔍ㅤ <cr>
+nnoremap <leader>fb <cmd>Telescope file_browser theme=dropdown<cr>
+nnoremap <leader>gr <cmd>Telescope coc references theme=dropdown<cr>
+nnoremap <leader>gd <cmd>Telescope coc definitions theme=dropdown<cr>
 
 " nnoremap <leader>ff :Files<CR>
 " nnoremap <leader>fs :Rg<CR>
@@ -1182,3 +1183,6 @@ augroup mygroup
 augroup end
 "autocmd User TelescopePreviewerLoaded setlocal wrap
 source ~/.config/nvim/after/colors/solarized.vim
+" colorscheme github_dark_default
+colorscheme kosmikoa
+
