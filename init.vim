@@ -15,7 +15,6 @@ Plug 'akinsho/toggleterm.nvim'
 Plug 'https://gitlab.com/yorickpeterse/nvim-window.git'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'akinsho/bufferline.nvim'
-Plug 'henriquehbr/ataraxis.lua'
 Plug 'sindrets/winshift.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'numToStr/Comment.nvim'
@@ -33,6 +32,7 @@ Plug 'Pocco81/AbbrevMan.nvim'
 Plug 'Pocco81/TrueZen.nvim'
 Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'norcalli/nvim-colorizer.lua'
 
 " git
 Plug 'lewis6991/gitsigns.nvim'
@@ -44,9 +44,10 @@ Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }
 " readability
 Plug 'RRethy/vim-illuminate'
 Plug 'pangloss/vim-javascript'
-Plug 'nanotech/jellybeans.vim'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'p00f/nvim-ts-rainbow'
+Plug 'nanotech/jellybeans.vim'
 Plug 'projekt0n/github-nvim-theme'
 Plug 'glepnir/zephyr-nvim'
 Plug 'novakne/kosmikoa.nvim'
@@ -82,38 +83,58 @@ Plug 'gelguy/wilder.nvim'
 "Plug 'valloric/youcompleteme'
 call plug#end()
 
-
+set backspace=indent,eol,start
+set wmnu
+set number
+set termguicolors
+set cursorline
+syntax on
+set tabstop=4
+set sts=4
+set cindent
+set smartindent
+set hlsearch
+set softtabstop=4
+set shiftwidth=4
+set nopaste
+set title
+set relativenumber
+"set nocompatible
+set ignorecase
+set encoding=utf-8
+set termencoding=utf-8
+set tags=./tags;,tags;,../tags;,../../tags;,../../../tags;,../../../../tags;
+set laststatus=2
+set splitright
+set splitbelow
+set noshowcmd
+set linebreak
+set showbreak=--\
+set showmatch
 
 " leader key
 let mapleader = ","
 
 " github-nvim-theme
-
 " let g:github_function_style = "italic"
-let g:github_sidebars = ["qf", "vista_kind", "terminal", "packer"]
-let g:github_dark_sidebar = "false"
+" let g:github_sidebars = ["qf", "vista_kind", "terminal", "packer"]
+" let g:github_dark_sidebar = "false"
 " let g:github_transparent = "true"
-let g:github_dark_float = "true"
-
-
-" Change the "hint" color to the "orange" color, and make the "error" color bright red
+" let g:github_dark_float = "true"
 " let g:github_colors = {
 "   \ 'hint': 'orange',
 "   \ 'error': '#ff0000'
 " \ }
 
-" Load the colorscheme
-
+" wilder
 call wilder#setup({
 			\ 'modes': [':', '/', '?'],
 			\ 'next_key': '<C-j>',
 			\ 'previous_key' : '<C-k>',
 			\	})
-
 call wilder#set_option('renderer', wilder#popupmenu_renderer({
 	  \ 'pumblend': 20,
 	  \ }))
-
 " snippet
 let g:UltiSnipsExpandTrigger='<Tab>'
 let g:UltiSnipsJumpForwardTrigger='<Tab>'
@@ -133,11 +154,9 @@ let g:coc_global_extensions = [
 	\ 'coc-pyright',
 	\ 'coc-ember'
 	\]
-let g:coc_node_path = '/usr/local/bin/node'
+let g:coc_node_path = '/opt/homebrew/opt/node@16/bin/node'
 let g:coc_snippet_next = '<C-j>'
 let g:coc_snippet_prev = '<C-k>'
-
-
 
 " vim-javascript
 let g:javascript_plugin_jsdoc = 1
@@ -276,10 +295,7 @@ let g:nvim_tree_icons = {
     \   }
     \ }
 
-
-set termguicolors
-
-lua<<EOF
+lua <<EOF
 require('bufferline').setup {
   options = {
 	  mode = "buffers",
@@ -306,11 +322,10 @@ require('bufferline').setup {
 }
 EOF
 
-
 lua <<EOF
 vim.opt.list = true
 vim.opt.listchars:append("eol:↴")
-
+require('colorizer').setup()
 require'hop'.setup()
 require('Comment').setup()
 require('telescope').load_extension('coc')
@@ -331,7 +346,6 @@ require("telescope").setup {
   },
 }
 require("telescope").load_extension "file_browser"
-
 EOF
 
 lua <<EOF
@@ -513,6 +527,20 @@ require'nvim-treesitter.configs'.setup {
         highlight_definitions = { enable = true },
   },
 }
+require("nvim-treesitter.configs").setup {
+  highlight = {
+      -- ...
+  },
+  -- ...
+  rainbow = {
+    enable = true,
+    -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
+    extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+    max_file_lines = nil, -- Do not enable for files with more than n lines, int
+    -- colors = {}, -- table of hex strings
+    -- termcolors = {} -- table of colour name strings
+  }
+}
 EOF
 
 
@@ -597,9 +625,13 @@ require'nvim-tree'.setup {
 EOF
 
 lua <<EOF
+require('nvim-autopairs').setup{}
 local remap = vim.api.nvim_set_keymap
 local npairs = require('nvim-autopairs')
-npairs.setup({map_cr=false})
+npairs.setup({
+	highlight = 'Search',
+  }
+)
 
 -- skip it, if you use another global object
 _G.MUtils= {}
@@ -765,38 +797,10 @@ filetype plugin indent on
 
 " vim setting
 
-set backspace=indent,eol,start
-set wmnu
-set number
-set cursorline
-syntax on
-set tabstop=4
-set sts=4
-set cindent
-set smartindent
-set hlsearch
-set softtabstop=4
-set shiftwidth=4
-set nopaste
-set title
-set relativenumber
-"set nocompatible
-set ignorecase
-colorscheme jellybeans
-set encoding=utf-8
-set termencoding=utf-8
-set tags=./tags;,tags;,../tags;,../../tags;,../../../tags;,../../../../tags;
-set laststatus=2
-set splitright
-set splitbelow
-set noshowcmd
-set linebreak
-set showbreak=--\
 "set autoindent
 "set list listchars=tab:·\ ,eol:$ "마지막 라인에 $표시
 "set tags=./tags,tags
 "set clipboard=unnamed
-"set showmatch
 
 " key-setting
 
@@ -1008,7 +1012,8 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
 nnoremap <silent> [g <Plug>(coc-diagnostic-prev)
 nnoremap <silent> ;; <Plug>(coc-diagnostic-next)
 nnoremap <silent><leader>fi <Plug>(coc-fix-current)
-nnoremap <silent><leader>z :ZenMode<CR>
+" nnoremap <silent><leader>z :ZenMode<CR>
+nnoremap <silent><C-w>z :TZFocus<CR>
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -1043,16 +1048,15 @@ nmap <leader>ra  <Plug>(coc-refactor)
 " xmap <silent> <C-a> <Plug>(coc-cursors-range
 
 " input
-xmap if <Plug>(coc-funcobj-i) 
-omap if <Plug>(coc-funcobj-i)
-" all
-xmap af <Plug>(coc-funcobj-a)
-omap af <Plug>(coc-funcobj-a)
-xmap ic <Plug>(coc-classobj-i)
-omap ic <Plug>(coc-classobj-i)
-xmap ac <Plug>(coc-classobj-a)
-omap ac <Plug>(coc-classobj-a)
-
+" xmap if <Plug>(coc-funcobj-i) 
+" omap if <Plug>(coc-funcobj-i)
+" " all
+" xmap af <Plug>(coc-funcobj-a)
+" omap af <Plug>(coc-funcobj-a)
+" xmap ic <Plug>(coc-classobj-i)
+" omap ic <Plug>(coc-classobj-i)
+" xmap ac <Plug>(coc-classobj-a)
+" omap ac <Plug>(coc-classobj-a)
 " if has('nvim-0.4.0') || has('patch-8.2.0750')
 "   nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
 "   nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
@@ -1182,7 +1186,6 @@ augroup mygroup
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 "autocmd User TelescopePreviewerLoaded setlocal wrap
-source ~/.config/nvim/after/colors/solarized.vim
 " colorscheme github_dark_default
 colorscheme kosmikoa
-
+source ~/.config/nvim/after/colors/solarized.vim
