@@ -1,0 +1,25 @@
+{
+  "suggest.noselect": false,
+  "coc.preferences.formatOnSaveFiletypes": [
+    "javascript",
+    "typescript",
+    "typescriptreact",
+    "json",
+    "javascriptreact",
+    "typescript.tsx"
+  ],
+  "tsserver.enableTracing": true,
+  "typescript.check.npmIsInstalled": true,
+  "typescript.referencesCodeLens.showOnAllFunctions": true,
+  "tsserver.log": "normal",
+  "tsserver.trace.server": "messages",
+  "clangd.enabled": true,
+  "clangd.path": "~/.config/coc/extensions/coc-clangd-data/install/13.0.0/clangd_13.0.0/bin/clangd",
+  "diagnostic.errorSign": "✖",
+  "diagnostic.warningSign": "⚠",
+  "diagnostic.infoSign": "ℹ",
+  "diagnostic.hintSign": "➤",
+  "suggest.echodocSupport": true,
+  "signature.enable": true,
+  "coc.source.tag.filetypes": ["text", "markdown"]
+}

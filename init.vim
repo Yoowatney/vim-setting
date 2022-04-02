@@ -1,13 +1,15 @@
 call plug#begin('~/.config/nvim/plugged')
 " utils
-Plug 'pbondoer/vim-42header'
-Plug 'ryanoasis/vim-devicons'
-Plug 'moll/vim-node'
-Plug 'kyazdani42/nvim-tree.lua'
-Plug 'phaazon/hop.nvim'
-Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'tpope/vim-surround'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'fannheyward/telescope-coc.nvim'
+Plug 'nvim-telescope/telescope-file-browser.nvim'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'phaazon/hop.nvim'
+Plug 'kyazdani42/nvim-tree.lua'
 Plug 'nvim-lualine/lualine.nvim'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'tommcdo/vim-exchange'
 Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
@@ -16,7 +18,6 @@ Plug 'https://gitlab.com/yorickpeterse/nvim-window.git'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'akinsho/bufferline.nvim'
 Plug 'sindrets/winshift.nvim'
-Plug 'nvim-lua/plenary.nvim'
 Plug 'numToStr/Comment.nvim'
 Plug 'abecodes/tabout.nvim'
 Plug 'tpope/vim-speeddating'
@@ -25,14 +26,14 @@ Plug 'chentau/marks.nvim'
 Plug 'sudormrfbin/cheatsheet.nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'fannheyward/telescope-coc.nvim'
-Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'Pocco81/AbbrevMan.nvim'
 Plug 'Pocco81/TrueZen.nvim'
 Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
-Plug 'christoomey/vim-tmux-navigator'
 Plug 'norcalli/nvim-colorizer.lua'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'pbondoer/vim-42header'
+Plug 'ryanoasis/vim-devicons'
+Plug 'moll/vim-node'
 
 " git
 Plug 'lewis6991/gitsigns.nvim'
@@ -61,19 +62,27 @@ Plug 'novakne/kosmikoa.nvim'
 "auto complete
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'relastle/vim-nayvy'
 Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-repeat'
 Plug 'windwp/nvim-autopairs'
 Plug 'roxma/nvim-yarp'
 Plug 'github/copilot.vim'
 Plug 'gelguy/wilder.nvim'
-" Plug 'roxma/vim-hug-neovim-rpc'
-" Plug 'raimondi/delimitmate'
-" Plug 'kristijanhusak/vim-js-file-import', {'do': 'npm install'}
-" Plug 'wookayin/vim-autoimport'
-" Plug 'steelsojka/pears.nvim'
-" Plug 'tomtom/stakeholders_vim'
-" Plug 'dNitro/vim-pug-complete', { 'for': ['jade', 'pug'] }
+
+" Plug 'neovim/nvim-lspconfig'
+" Plug 'williamboman/nvim-lsp-installer'
+" Plug 'L3MON4D3/LuaSnip'
+" Plug 'saadparwaiz1/cmp_luasnip'
+" Plug 'onsails/lspkind-nvim'
+" Plug 'jose-elias-alvarez/null-ls.nvim'
+"
+" Plug 'hrsh7th/cmp-nvim-lsp'
+" Plug 'hrsh7th/cmp-buffer'
+" Plug 'hrsh7th/cmp-path'
+" Plug 'hrsh7th/cmp-cmdline'
+" Plug 'hrsh7th/nvim-cmp'
+
 "Plug 'vim-syntastic/syntastic'
 "Plug 'prabirshrestha/vim-lsp'
 "Plug 'mattn/vim-lsp-settings'
@@ -83,6 +92,9 @@ Plug 'gelguy/wilder.nvim'
 "Plug 'valloric/youcompleteme'
 call plug#end()
 
+" lua require('yoyoo')
+
+" set completeopt=menu,menuone,noselect
 set backspace=indent,eol,start
 set wmnu
 set number
@@ -144,6 +156,10 @@ let g:UltiSnipsJumpBackwardTrigger='<S-Tab>'
 let g:hdr42user = 'yoyoo'
 let g:hdr42mail = 'yoyoo@student.42seoul.kr'
 
+" nayvy
+
+let g:nayvy_import_config_path = '$HOME/import_config.nayvy'
+
 " coc
 let g:coc_global_extensions = [
 	\ 'coc-snippets',
@@ -166,7 +182,8 @@ let g:javascript_plugin_flow = 1
 " spector
 let g:vimspector_enable_mappings = 'HUMAN'
 let g:vimspector_base_dir='/Users/youngsukyoo/.config/nvim/plugged/vimspector'
-nmap <leader>dd :call vimspector#Launch()<CR>
+" nnoremap <leader>dv :call vimspector#Launch()<CR>
+nmap <leader>dc <Plug>VimspectorContinue
 nmap <leader>dx :VimspectorReset<CR>
 nmap <Leader>di <Plug>VimspectorBalloonEval
 nmap <leader>de :VimspectorEval
@@ -242,29 +259,29 @@ let g:copilot_filetypes = {
 	  \ }
 
 " nvim-tree
-let g:nvim_tree_quit_on_open = 1
+" let g:nvim_tree_quit_on_open = 1
 let g:nvim_tree_indent_markers = 1
 let g:nvim_tree_git_hl = 1
 let g:nvim_tree_highlight_opened_files = 1
 let g:nvim_tree_root_folder_modifier = ':~'
 let g:nvim_tree_add_trailing = 1
 " let g:nvim_tree_group_empty = 1
-let g:nvim_tree_disable_window_picker = 1
+" let g:nvim_tree_disable_window_picker = 1
 let g:nvim_tree_icon_padding = ' '
 let g:nvim_tree_symlink_arrow = ' >> '
 let g:nvim_tree_respect_buf_cwd = 1
 let g:nvim_tree_create_in_closed_folder = 0
 let g:nvim_tree_refresh_wait = 500
-let g:nvim_tree_window_picker_exclude = {
-    \   'filetype': [
-    \     'notify',
-    \     'packer',
-    \     'qf'
-    \   ],
-    \   'buftype': [
-    \     'terminal'
-    \   ]
-    \ }
+" let g:nvim_tree_window_picker_exclude = {
+"     \   'filetype': [
+"     \     'notify',
+"     \     'packer',
+"     \     'qf'
+"     \   ],
+"     \   'buftype': [
+"     \     'terminal'
+"     \   ]
+"     \ }
 let g:nvim_tree_show_icons = {
 	\ 'git': 1,
 	\ 'folders': 1,
@@ -620,7 +637,25 @@ require'nvim-tree'.setup {
   trash = {
     cmd = "trash",
     require_confirm = true
-  }
+  },
+  actions = {
+	change_dir = {
+	  enable = true,
+	  global = false,
+	},
+	open_file = {
+	  quit_on_open = true,
+	  resize_window = false,
+	  window_picker = {
+		enable = false,
+		chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
+		exclude = {
+		  filetype = { "notify", "packer", "qf", "diff", "fugitive", "fugitiveblame" },
+		  buftype = { "nofile", "terminal", "help" },
+		},
+	  },
+	},
+},
 }
 EOF
 
@@ -691,7 +726,7 @@ EOF
 lua <<EOF
 require('nvim-window').setup({
   chars = {
-	  '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
+	  '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'
   },
   -- A group to use for overwriting the Normal highlight group in the floating
   -- window. This can be used to change the background color.
@@ -829,7 +864,7 @@ nnoremap <C-W>m <Cmd>WinShift<CR>
 " xmap <silent> ) <Plug>(sexp_move_to_next_bracket)
 " omap <silent> ) <Plug>(sexp_move_to_next_bracket)
 
-map <silent> <leader><C-w> :lua require('nvim-window').pick()<CR>
+map <silent> <C-w>q :lua require('nvim-window').pick()<CR>
 " nnoremap <C-j><Plug>RestNvim :lua require('rest-nvim').run()<CR>
 " nnoremap <Plug>RestNvimPreview :lua require('rest-nvim').run(true)<CR>
 " nnoremap <Plug>RestNvimLast :lua require('rest-nvim').last()<CR>
@@ -1137,10 +1172,10 @@ function PythonOpen()
 	:wincmd h
 endfunction
 
-function TxtOpen()
-	:CocDisable
-	" :Copilot disable
-endfunction
+" function TxtOpen()
+" 	:CocDisable
+" 	" :Copilot disable
+" endfunction
 
 function EnterPython()
 	:CocEnable
@@ -1161,8 +1196,8 @@ autocmd FileType python
 			\ inoreabbrev pirnt print
 autocmd VimEnter *.py
 			\ exec PythonOpen()
-autocmd VimEnter *.txt
-			\ exec TxtOpen()
+" autocmd VimEnter *.txt
+" 			\ exec TxtOpen()
 
 autocmd FileType html setlocal shiftwidth=2 softtabstop=2 tabstop=2 
 autocmd FileType css setlocal shiftwidth=2 softtabstop=2 tabstop=2 
