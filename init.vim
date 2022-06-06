@@ -1,7 +1,11 @@
 call plug#begin('~/.config/nvim/plugged')
 " utils
+Plug 'pbondoer/vim-42header'
+Plug 'moll/vim-node'
 Plug 'tpope/vim-surround'
 Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-lua/popup.nvim'
+Plug 'ryanoasis/vim-devicons'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'fannheyward/telescope-coc.nvim'
 Plug 'nvim-telescope/telescope-file-browser.nvim'
@@ -19,28 +23,27 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'akinsho/bufferline.nvim'
 Plug 'sindrets/winshift.nvim'
 Plug 'numToStr/Comment.nvim'
-Plug 'abecodes/tabout.nvim'
 Plug 'tpope/vim-speeddating'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
-Plug 'chentau/marks.nvim'
 Plug 'sudormrfbin/cheatsheet.nvim'
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
 Plug 'Pocco81/AbbrevMan.nvim'
 Plug 'Pocco81/TrueZen.nvim'
-Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'pbondoer/vim-42header'
-Plug 'ryanoasis/vim-devicons'
-Plug 'moll/vim-node'
+Plug 'anuvyklack/pretty-fold.nvim'
+Plug 'anuvyklack/nvim-keymap-amend'
+Plug 'junegunn/vim-emoji'
 
+
+" Plug 'abecodes/tabout.nvim'
+" Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 " git
 Plug 'lewis6991/gitsigns.nvim'
+Plug 'tpope/vim-fugitive'
 
 " debug
-Plug 'puremourning/vimspector'
 Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }
+" Plug 'puremourning/vimspector'
 
 " readability
 Plug 'RRethy/vim-illuminate'
@@ -60,7 +63,7 @@ Plug 'novakne/kosmikoa.nvim'
 "Plug 'roosta/srcery'
 
 "auto complete
-Plug 'ludovicchabant/vim-gutentags'
+" Plug 'ludovicchabant/vim-gutentags'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'relastle/vim-nayvy'
 Plug 'mattn/emmet-vim'
@@ -123,6 +126,7 @@ set noshowcmd
 set linebreak
 set showbreak=--\
 set showmatch
+set completefunc=emoji#complete
 
 " leader key
 let mapleader = ","
@@ -180,22 +184,22 @@ let g:javascript_plugin_ngdoc = 1
 let g:javascript_plugin_flow = 1
 
 " spector
-let g:vimspector_enable_mappings = 'HUMAN'
-let g:vimspector_base_dir='/Users/youngsukyoo/.config/nvim/plugged/vimspector'
-" nnoremap <leader>dv :call vimspector#Launch()<CR>
-nmap <leader>dc <Plug>VimspectorContinue
-nmap <leader>dx :VimspectorReset<CR>
-nmap <Leader>di <Plug>VimspectorBalloonEval
-nmap <leader>de :VimspectorEval
-nmap <leader>dw :VimspectorWatch
-nmap <leader>do :VimspectorShowOutput
+" let g:vimspector_enable_mappings = 'HUMAN'
+" let g:vimspector_base_dir='/Users/youngsukyoo/.config/nvim/plugged/vimspector'
+" " nnoremap <leader>dv :call vimspector#Launch()<CR>
+" nmap <leader>dc <Plug>VimspectorContinue
+" nmap <leader>dx :VimspectorReset<CR>
+" nmap <Leader>di <Plug>VimspectorBalloonEval
+" nmap <leader>de :VimspectorEval
+" nmap <leader>dw :VimspectorWatch
+" nmap <leader>do :VimspectorShowOutput
 
 " tmux-navigator
-let g:tmux_navigator_no_mappings = 0
-" nnoremap <silent> <C-w>h :TmuxNavigateLeft<cr>
-" nnoremap <silent> <C-w>j :TmuxNavigateDown<cr>
-" nnoremap <silent> <C-w>k :TmuxNavigateUp<cr>
-" nnoremap <silent> <C-w>l :TmuxNavigateRight<cr>
+let g:tmux_navigator_no_mappings = 1
+nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
 
 " nnoremap <silent>  :TmuxNavigatePrevious<cr>
 
@@ -223,24 +227,24 @@ let g:webdevicons_enable = 1
 let g:webdevicons_enable_nerdtree = 1
 
 " firenvim
-let g:firenvim_config = {
-            \ 'globalSettings': {
-                \ 'alt': 'all',
-                \  },
-            \ 'localSettings': {
-                \ '.*': {
-                    \ 'cmdline': 'firenvim',
-                    \ 'priority': 0,
-                    \ 'selector': 'textarea:not([readonly]):not([class="handsontableInput"]), div[role="textbox"]',
-                    \ 'takeover': 'always',
-                \ },
-                \ '.*notion\.so.*': { 'priority': 9, 'takeover': 'never', },
-                \ '.*docs\.google\.com.*': { 'priority': 9, 'takeover': 'never', },
-                \ '.*papago\.naver\.com.*': { 'priority': 9, 'takeover': 'never', },
-                \ '.*discord\.com.*': { 'priority': 9, 'takeover': 'never', },
-                \ '.*codetree\.ai.*': { 'priority': 9, 'takeover': 'never', },
-            \ }
-        \ }
+" let g:firenvim_config = {
+"             \ 'globalSettings': {
+"                 \ 'alt': 'all',
+"                 \  },
+"             \ 'localSettings': {
+"                 \ '.*': {
+"                     \ 'cmdline': 'firenvim',
+"                     \ 'priority': 0,
+"                     \ 'selector': 'textarea:not([readonly]):not([class="handsontableInput"]), div[role="textbox"]',
+"                     \ 'takeover': 'always',
+"                 \ },
+"                 \ '.*notion\.so.*': { 'priority': 9, 'takeover': 'never', },
+"                 \ '.*docs\.google\.com.*': { 'priority': 9, 'takeover': 'never', },
+"                 \ '.*papago\.naver\.com.*': { 'priority': 9, 'takeover': 'never', },
+"                 \ '.*discord\.com.*': { 'priority': 9, 'takeover': 'never', },
+"                 \ '.*codetree\.ai.*': { 'priority': 9, 'takeover': 'never', },
+"             \ }
+"         \ }
 
 " let g:fzf_history_dir = '~/.local/share/fzf-history'
 
@@ -260,7 +264,7 @@ let g:copilot_filetypes = {
 
 " nvim-tree
 " let g:nvim_tree_quit_on_open = 1
-let g:nvim_tree_indent_markers = 1
+" let g:nvim_tree_indent_markers = 1
 let g:nvim_tree_git_hl = 1
 let g:nvim_tree_highlight_opened_files = 1
 let g:nvim_tree_root_folder_modifier = ':~'
@@ -345,6 +349,8 @@ vim.opt.listchars:append("eol:↴")
 require('colorizer').setup()
 require'hop'.setup()
 require('Comment').setup()
+require('pretty-fold').setup()
+require('pretty-fold.preview').setup()
 require('telescope').load_extension('coc')
 require("telescope").setup {
   extensions = {
@@ -509,26 +515,26 @@ require('lualine').setup {
 }
 EOF
 
-lua <<EOF
-require('tabout').setup {
-    tabkey = '¬', -- key to trigger tabout, set to an empty string to disable
-    backwards_tabkey = '˙', -- key to trigger backwards tabout, set to an empty string to disable
-    act_as_tab = true, -- shift content if tab out is not possible
-    act_as_shift_tab = false, -- reverse shift content if tab out is not possible (if your keyboard/terminal supports <S-Tab>)
-    enable_backwards = true, -- well ...
-    completion = true, -- if the tabkey is used in a completion pum
-    tabouts = {
-      {open = "'", close = "'"},
-      {open = '"', close = '"'},
-      {open = '`', close = '`'},
-      {open = '(', close = ')'},
-      {open = '[', close = ']'},
-      {open = '{', close = '}'}
-    },
-    ignore_beginning = true, --[[ if the cursor is at the beginning of a filled element it will rather tab out than shift the content ]]
-    exclude = {} -- tabout will ignore these filetypes
-}
-EOF
+" lua <<EOF
+" require('tabout').setup {
+"     tabkey = '¬', -- key to trigger tabout, set to an empty string to disable
+"     backwards_tabkey = '˙', -- key to trigger backwards tabout, set to an empty string to disable
+"     act_as_tab = true, -- shift content if tab out is not possible
+"     act_as_shift_tab = false, -- reverse shift content if tab out is not possible (if your keyboard/terminal supports <S-Tab>)
+"     enable_backwards = true, -- well ...
+"     completion = true, -- if the tabkey is used in a completion pum
+"     tabouts = {
+"       {open = "'", close = "'"},
+"       {open = '"', close = '"'},
+"       {open = '`', close = '`'},
+"       {open = '(', close = ')'},
+"       {open = '[', close = ']'},
+"       {open = '{', close = '}'}
+"     },
+"     ignore_beginning = true, --[[ if the cursor is at the beginning of a filled element it will rather tab out than shift the content ]]
+"     exclude = {} -- tabout will ignore these filetypes
+" }
+" EOF
 
 
   " ensure_installed = "maintained",
@@ -590,7 +596,6 @@ require'nvim-tree'.setup {
   hijack_netrw        = true,
   open_on_setup       = false,
   ignore_ft_on_setup  = {},
-  auto_close          = false,
   open_on_tab         = false,
   hijack_cursor       = false,
   update_cwd          = false,
@@ -741,40 +746,6 @@ require('nvim-window').setup({
   border = 'none'
 })
 EOF
-lua <<EOF
-require'marks'.setup {
-  -- whether to map keybinds or not. default true
-  default_mappings = true,
-  -- which builtin marks to show. default {}
-  builtin_marks = { ".", "<", ">", "^" },
-  -- whether movements cycle back to the beginning/end of buffer. default true
-  cyclic = true,
-  -- whether the shada file is updated after modifying uppercase marks. default false
-  force_write_shada = false,
-  -- how often (in ms) to redraw signs/recompute mark positions. 
-  -- higher values will have better performance but may cause visual lag, 
-  -- while lower values may cause performance penalties. default 150.
-  refresh_interval = 250,
-  -- sign priorities for each type of mark - builtin marks, uppercase marks, lowercase
-  -- marks, and bookmarks.
-  -- can be either a table with all/none of the keys, or a single number, in which case
-  -- the priority applies to all marks.
-  -- default 10.
-  sign_priority = { lower=10, upper=15, builtin=8, bookmark=20 },
-  -- disables mark tracking for specific filetypes. default {}
-  excluded_filetypes = {},
-  -- marks.nvim allows you to configure up to 10 bookmark groups, each with its own
-  -- sign/virttext. Bookmarks can be used to group together positions and quickly move
-  -- across multiple buffers. default sign is '!@#$%^&*()' (from 0 to 9), and
-  -- default virt_text is "".
-  bookmark_0 = {
-    sign = "⚑",
-    virt_text = "hello world"
-  },
-  mappings = {}
-}
-EOF
-
 
 " require('nvim-autopairs').setup({
 "   disable_filetype = { "TelescopePrompt" , "vim" },
@@ -835,7 +806,7 @@ filetype plugin indent on
 "set autoindent
 "set list listchars=tab:·\ ,eol:$ "마지막 라인에 $표시
 "set tags=./tags,tags
-"set clipboard=unnamed
+set clipboard=unnamed
 
 " key-setting
 
@@ -976,7 +947,7 @@ nnoremap <leader>fh <cmd>Telescope help_tags theme=dropdown<cr>
 nnoremap <leader>fc <cmd>Telescope git_commits theme=dropdown<cr>
 nnoremap <leader>t <cmd>Telescope<cr>
 nnoremap <leader>c <cmd>Telescope coc<cr>
-nnoremap <leader>fb <cmd>Telescope file_browser theme=dropdown<cr>
+nnoremap <leader>fb <cmd>Telescope buffers theme=dropdown<cr>
 nnoremap <leader>gr <cmd>Telescope coc references theme=dropdown<cr>
 nnoremap <leader>gd <cmd>Telescope coc definitions theme=dropdown<cr>
 
@@ -1110,7 +1081,7 @@ xmap <silent> <C-s> <Plug>(coc-range-select)
 command! -nargs=0 Format :call CocAction('format')
 
 " Add `:Fold` command to fold current buffer.
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+" command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
 " Add `:OR` command for organize imports of the current buffer.
 command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
@@ -1149,7 +1120,7 @@ inoreabbrev Ture True
 inoreabbrev treu true
 inoreabbrev Treu True
 inoreabbrev imt int
-inoreabbrev itn int
+" inoreabbrev itn int
 inoreabbrev coment comment
 cnoreabbrev sourec source
 cnoreabbrev sorce source
@@ -1194,6 +1165,7 @@ autocmd FileType python
 autocmd FileType python
 			\ nnoremap <silent>rw :exec PythonOpen()<CR> |
 			\ inoreabbrev pirnt print
+
 autocmd VimEnter *.py
 			\ exec PythonOpen()
 " autocmd VimEnter *.txt
