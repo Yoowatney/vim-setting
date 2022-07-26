@@ -33,6 +33,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'anuvyklack/pretty-fold.nvim'
 Plug 'anuvyklack/nvim-keymap-amend'
 Plug 'junegunn/vim-emoji'
+Plug 'rhysd/vim-clang-format'
 
 
 " Plug 'abecodes/tabout.nvim'
@@ -163,6 +164,13 @@ let g:hdr42mail = 'yoyoo@student.42seoul.kr'
 " nayvy
 
 let g:nayvy_import_config_path = '$HOME/import_config.nayvy'
+
+let g:clang_format#style_options = {
+            \ "AccessModifierOffset" : -4,
+            \ "AllowShortIfStatementsOnASingleLine" : "true",
+            \ "AlwaysBreakTemplateDeclarations" : "true",
+            \ "Standard" : "C++11",
+            \ "BreakBeforeBraces" : "Stroustrup"}
 
 " coc
 let g:coc_global_extensions = [
@@ -884,9 +892,9 @@ inoremap <silent>Ô <Esc>:t .<CR>==gi
 " option shift j
 
 " moving line
-
 nnoremap <silent>˚ :m .-2<CR>==
 nnoremap <silent>∆ :m .+1<CR>==
+nnoremap <silent>ƒ :set foldmethod=syntax<CR>
 inoremap <silent>˚ <Esc>:m .-2<CR>==gi
 inoremap <silent>∆ <Esc>:m .+1<CR>==gi
 vnoremap <silent>˚ :m '<-2<CR>gv=gv
@@ -976,6 +984,12 @@ set noswapfile
 set nowritebackup
 
 set cmdheight=2
+set mouse=a
+
+" set foldmethod=syntax
+" set foldnestmax=1
+" set nofoldenable
+
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
@@ -1049,6 +1063,7 @@ nmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>ac  <Plug>(coc-codeaction)
 nmap <leader>ra  <Plug>(coc-refactor)
 
+
 " multi cursor shortcuts
 " nmap <silent> <C-a> <Plug>(coc-cursors-word)
 " xmap <silent> <C-a> <Plug>(coc-cursors-range
@@ -1076,6 +1091,7 @@ nmap <leader>ra  <Plug>(coc-refactor)
 " Requires 'textDocument/selectionRange' support of language server.
 nmap <silent> <C-s> <Plug>(coc-range-select)
 xmap <silent> <C-s> <Plug>(coc-range-select)
+
 
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
@@ -1108,7 +1124,7 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>i
-
+nnoremap <2-LeftMouse> za
 
 """ ======== 자동화 ========
 
@@ -1175,6 +1191,7 @@ autocmd FileType html setlocal shiftwidth=2 softtabstop=2 tabstop=2
 autocmd FileType css setlocal shiftwidth=2 softtabstop=2 tabstop=2 
 autocmd FileType scss setlocal shiftwidth=2 softtabstop=2 tabstop=2 
 autocmd FileType javascript setlocal shiftwidth=2 softtabstop=2 tabstop=2 
+autocmd FileType typescript setlocal shiftwidth=2 softtabstop=2 tabstop=2 
 
 " autocmd BufWinEnter *.txt
 " 			\ exec EnterTxt()

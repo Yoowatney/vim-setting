@@ -8,6 +8,8 @@
     "javascriptreact",
     "typescript.tsx"
   ],
+  "prettier.semi": true,
+  "coc.preferences.formatOnType": true,
   "tsserver.enableTracing": true,
   "typescript.check.npmIsInstalled": true,
   "typescript.referencesCodeLens.showOnAllFunctions": true,
