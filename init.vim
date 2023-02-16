@@ -4,6 +4,7 @@ Plug 'pbondoer/vim-42header'
 Plug 'moll/vim-node'
 Plug 'tpope/vim-surround'
 Plug 'nvim-lua/plenary.nvim'
+Plug 'sindrets/diffview.nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'nvim-telescope/telescope.nvim'
@@ -15,10 +16,10 @@ Plug 'kyazdani42/nvim-tree.lua'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'tommcdo/vim-exchange'
-Plug 'honza/vim-snippets'
-Plug 'SirVer/ultisnips'
 Plug 'akinsho/toggleterm.nvim'
 Plug 'https://gitlab.com/yorickpeterse/nvim-window.git'
+Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'akinsho/bufferline.nvim'
 Plug 'sindrets/winshift.nvim'
@@ -50,8 +51,8 @@ Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }
 Plug 'RRethy/vim-illuminate'
 Plug 'pangloss/vim-javascript'
 Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'p00f/nvim-ts-rainbow'
+" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+" Plug 'p00f/nvim-ts-rainbow'
 Plug 'nanotech/jellybeans.vim'
 Plug 'projekt0n/github-nvim-theme'
 Plug 'glepnir/zephyr-nvim'
@@ -164,6 +165,10 @@ let g:hdr42mail = 'yoyoo@student.42seoul.kr'
 " nayvy
 
 let g:nayvy_import_config_path = '$HOME/import_config.nayvy'
+" let g:python3_host_prog="/usr/bin/python3.10"
+" let g:loaded_python3_provider=1
+let g:python3_host_prog='/opt/homebrew/anaconda3/bin/python3'
+
 
 let g:clang_format#style_options = {
             \ "AccessModifierOffset" : -4,
@@ -174,7 +179,6 @@ let g:clang_format#style_options = {
 
 " coc
 let g:coc_global_extensions = [
-	\ 'coc-snippets',
 	\ 'coc-tsserver',
 	\ 'coc-json',
 	\ 'coc-clangd',
@@ -190,7 +194,6 @@ let g:coc_snippet_prev = '<C-k>'
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_ngdoc = 1
 let g:javascript_plugin_flow = 1
-
 " spector
 " let g:vimspector_enable_mappings = 'HUMAN'
 " let g:vimspector_base_dir='/Users/youngsukyoo/.config/nvim/plugged/vimspector'
@@ -266,9 +269,9 @@ let g:webdevicons_enable_nerdtree = 1
 " vim-illuminate
 let g:Illuminate_delay = 500
 " hi illuminatedWord cterm=undercurl gui=undercurl
-let g:copilot_filetypes = {
-		\ 'python' : v:false
-	  \ }
+" let g:copilot_filetypes = {
+" 		\ 'python' : v:false
+" 	  \ }
 
 " nvim-tree
 " let g:nvim_tree_quit_on_open = 1
@@ -545,34 +548,32 @@ EOF
 " EOF
 
 
-  " ensure_installed = "maintained",
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  ignore_install = { "" },
-  highlight = {
-	enable = true,
-	disable = { "" },
-	additional_vim_regex_highlighting = true,
-  },
-  refactor = {
-        highlight_definitions = { enable = true },
-  },
-}
-require("nvim-treesitter.configs").setup {
-  highlight = {
-      -- ...
-  },
-  -- ...
-  rainbow = {
-    enable = true,
-    -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
-    extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-    max_file_lines = nil, -- Do not enable for files with more than n lines, int
-    -- colors = {}, -- table of hex strings
-    -- termcolors = {} -- table of colour name strings
-  }
-}
-EOF
+" lua <<EOF
+" require'nvim-treesitter.configs'.setup {
+"   ignore_install = { "" },
+"   highlight = {
+" 	enable = true,
+" 	disable = { "" },
+" 	additional_vim_regex_highlighting = true, },
+"   refactor = {
+"         highlight_definitions = { enable = true },
+"   },
+" }
+" require("nvim-treesitter.configs").setup {
+"   highlight = {
+"       -- ...
+"   },
+"   -- ...
+"   rainbow = {
+"     enable = true,
+"     -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
+"     extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+"     max_file_lines = nil, -- Do not enable for files with more than n lines, int
+"     -- colors = {}, -- table of hex strings
+"     -- termcolors = {} -- table of colour name strings
+"   }
+" }
+" EOF
 
 
 lua <<EOF
@@ -607,10 +608,10 @@ require'nvim-tree'.setup {
   open_on_tab         = false,
   hijack_cursor       = false,
   update_cwd          = false,
-  update_to_buf_dir   = {
-    enable = true,
-    auto_open = true,
-  },
+  -- update_to_buf_dir   = {
+  --   enable = true,
+  --   auto_open = true,
+  -- },
   diagnostics = {
     enable = false,
     icons = {
@@ -634,11 +635,8 @@ require'nvim-tree'.setup {
     custom = {}
   },
   view = {
-    width = 30,
-    height = 30,
     hide_root_folder = false,
     side = 'left',
-    auto_resize = false,
     mappings = {
       custom_only = false,
       list = {}
@@ -894,12 +892,13 @@ inoremap <silent>Ô <Esc>:t .<CR>==gi
 " moving line
 nnoremap <silent>˚ :m .-2<CR>==
 nnoremap <silent>∆ :m .+1<CR>==
-nnoremap <silent>ƒ :set foldmethod=syntax<CR>
+" nnoremap <silent> :set foldenable!<CR>
 inoremap <silent>˚ <Esc>:m .-2<CR>==gi
 inoremap <silent>∆ <Esc>:m .+1<CR>==gi
 vnoremap <silent>˚ :m '<-2<CR>gv=gv
 vnoremap <silent>∆ :m '>+1<CR>gv=gv
 
+nnoremap <silent>ƒ :set foldenable!<CR>
 
 
 " nnoremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
@@ -986,9 +985,9 @@ set nowritebackup
 set cmdheight=2
 set mouse=a
 
-" set foldmethod=syntax
+set foldmethod=syntax
+set nofoldenable
 " set foldnestmax=1
-" set nofoldenable
 
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
@@ -1006,10 +1005,17 @@ set shortmess+=I
 " endif
 
 inoremap <silent><expr> <C-j>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
       \ coc#refresh()
-inoremap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr><C-k> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+" inoremap <silent><expr> <C-j>
+"       \ pumvisible() ? "\<C-n>" :
+"       \ <SID>check_back_space() ? "\<TAB>" :
+"       \ coc#refresh()
+" inoremap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-h>"
+
 " inoremap <C-k> <C-p>
 " inoremap <C-j> <C-n>
 
@@ -1164,26 +1170,30 @@ endfunction
 " 	" :Copilot disable
 " endfunction
 
-function EnterPython()
-	:CocEnable
-endfunction
+" function EnterPython()
+" 	:CocEnable
+" endfunction
 
-":execute "normal! \<C-w>l"
+" when python file is opened, enter python mode(input.txt, ouput.txt is opend)
+
 function PythonRun()
 	:1windo !python3 % < input.txt > output.txt
+	" :1windo !python3 % < input.txt > output.txt
 endfunction
-
-" nnoremap <silent>fo exec Func()
+"
 autocmd FileType python
 			\ nnoremap <silent>rp :call PythonRun()<CR>
 			" \ nnoremap <silent>rp :silent 1windo !python3 % < input.txt > output.txt<CR>
-" 경고창 방지로 silent
+			" \ nnoremap <silent>rp :silent 1windo !python3 % > output.txt<CR>
 autocmd FileType python
 			\ nnoremap <silent>rw :exec PythonOpen()<CR> |
 			\ inoreabbrev pirnt print
+"
+" autocmd VimEnter *.py
+" 			\ exec PythonOpen()
 
-autocmd VimEnter *.py
-			\ exec PythonOpen()
+" when text file is opend, enter text mode (not use auto suggetion)
+
 " autocmd VimEnter *.txt
 " 			\ exec TxtOpen()
 
@@ -1211,5 +1221,8 @@ augroup mygroup
 augroup end
 "autocmd User TelescopePreviewerLoaded setlocal wrap
 " colorscheme github_dark_default
+
+
 colorscheme kosmikoa
+
 source ~/.config/nvim/after/colors/solarized.vim
