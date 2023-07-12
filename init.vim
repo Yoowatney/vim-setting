@@ -816,6 +816,8 @@ set clipboard=unnamed
 
 " key-setting
 
+nmap H ^
+nmap L $
 noremap Q <Nop>
 noremap s <nop>
 noremap S <nop>
