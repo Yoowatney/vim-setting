@@ -23,6 +23,11 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v4
 
+      - name : pwd & ls -al
+        run : |
+            pwd
+            ls -al
+
       - name: Install vim-plug
         run : |
           bash ./neovim/config.sh
