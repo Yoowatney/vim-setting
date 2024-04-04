@@ -32,6 +32,10 @@ jobs:
         with:
           python-version: '3.9'
 
+      - name : Find python3 path
+        run :
+          which python3
+
       - name: Install vim-plug
         run : |
           bash ./neovim/neovim_config.sh
