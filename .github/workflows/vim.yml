@@ -32,10 +32,6 @@ jobs:
         with:
           python-version: '3.9'
 
-      - name : Fill python3 path in init.vim
-        run :
-          echo "let g:python3_host_prog='$(which python3)" >> ~/.config/nvim/init.vim
-
       - name: Install vim-plug
         run : |
           bash ./neovim/neovim_config.sh
@@ -52,6 +48,10 @@ jobs:
           # Plug 'neoclide/coc.nvim', {'branch': 'release'}
           # call plug#end()
           # EOF
+
+      - name : Fill python3 path in init.vim
+        run :
+          echo "let g:python3_host_prog='$(which python3)" >> ~/.config/nvim/init.vim
 
       - name: Install vim plug extension
         run : |
