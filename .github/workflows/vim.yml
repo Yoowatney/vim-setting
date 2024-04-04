@@ -51,8 +51,8 @@ jobs:
 
       - name : Fill python3 path in init.vim
         run :
-          echo "let g:python3_host_prog=$(which python3)";
-          echo "let g:python3_host_prog=$(which python3)" >> ~/.config/nvim/init.vim;
+          echo "let g:python3_host_prog='$(which python3)'";
+          echo "let g:python3_host_prog='$(which python3)'" >> ~/.config/nvim/init.vim;
           cat ~/.config/nvim/init.vim;
 
       - name: Install vim plug extension
