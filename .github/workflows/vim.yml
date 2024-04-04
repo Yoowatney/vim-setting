@@ -30,7 +30,7 @@ jobs:
 
       - name: Install vim-plug
         run : |
-          bash ./neovim/config.sh
+          bash ./neovim/neovim_config.sh
 
       - name : Check vim-plug config file
         run : |
