@@ -7,7 +7,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'sindrets/diffview.nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'ryanoasis/vim-devicons'
-Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'commit' : '39b12d84e86f5054e2ed98829b367598ae53ab41'}
 Plug 'fannheyward/telescope-coc.nvim'
 Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'christoomey/vim-tmux-navigator'
