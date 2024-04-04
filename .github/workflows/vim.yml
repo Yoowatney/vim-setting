@@ -38,11 +38,12 @@ jobs:
 
       - name : Create nvim configure file
         run : |
-          cat >> ~/.config/nvim/init.vim<<EOF
-          call plug#begin('~/.config/nvim/plugged')
-          Plug 'neoclide/coc.nvim', {'branch': 'release'}
-          call plug#end()
-          EOF
+          cp ./neovim/init-test.vim ~/.config/nvim/init.vim
+          # cat >> ~/.config/nvim/init.vim<<EOF
+          # call plug#begin('~/.config/nvim/plugged')
+          # Plug 'neoclide/coc.nvim', {'branch': 'release'}
+          # call plug#end()
+          # EOF
 
       - name: Install vim plug extension
         run : |
