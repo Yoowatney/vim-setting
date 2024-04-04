@@ -44,7 +44,7 @@ Plug 'lewis6991/gitsigns.nvim'
 Plug 'tpope/vim-fugitive'
 
 " debug
-Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }
+" Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }
 " Plug 'puremourning/vimspector'
 
 " readability
