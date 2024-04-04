@@ -1196,6 +1196,8 @@ autocmd FileType python
 
 " when text file is opend, enter text mode (not use auto suggetion)
 
+" autocmd VimEnter *.py
+" 			\ exec PythonOpen()
 " autocmd VimEnter *.txt
 " 			\ exec TxtOpen()
 
