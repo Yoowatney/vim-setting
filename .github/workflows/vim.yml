@@ -32,9 +32,9 @@ jobs:
         with:
           python-version: '3.9'
 
-      - name : Find python3 path
+      - name : Fill python3 path in init.vim
         run :
-          which python3
+          echo "let g:python3_host_prog='$(which python3)" >> ~/.config/nvim/init.vim
 
       - name: Install vim-plug
         run : |
