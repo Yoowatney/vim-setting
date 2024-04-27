@@ -3,6 +3,18 @@
 # zsh
 brew install zsh
 
+# lazygit
+brew install lazygit
+
+# zsh-completions
+brew install zsh-completions
+
+# zsh-syntax-highlighting
+brew install zsh-syntax-highlighting
+
+# ----------------------------------
+
+
 # Iterm2
 brew install --cask iterm2
 
@@ -26,11 +38,6 @@ brew install --cask docker
 brew install --cask notion
 
 
-# zsh-completions
-brew install zsh-completions
-
-# zsh-syntax-highlighting
-brew install zsh-syntax-highlighting
 
 
 # Mise
