@@ -1,8 +1,5 @@
 #!/bin/zsh
 
-# zsh
-brew install zsh
-
 # lazygit
 brew install lazygit
 
@@ -11,6 +8,9 @@ brew install zsh-completions
 
 # zsh-syntax-highlighting
 brew install zsh-syntax-highlighting
+
+# neovim
+brew install neovim
 
 # ----------------------------------
 
@@ -27,7 +27,6 @@ brew install --cask slack
 # Discord
 brew install --cask discord
 
-
 # Postman
 brew install --cask postman
 
@@ -36,6 +35,9 @@ brew install --cask docker
 
 # Notion
 brew install --cask notion
+
+# karabiner
+# brew install --cask karabiner-elements
 
 
 
