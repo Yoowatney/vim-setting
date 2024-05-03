@@ -25,6 +25,7 @@ Plug 'akinsho/bufferline.nvim'
 Plug 'sindrets/winshift.nvim'
 Plug 'numToStr/Comment.nvim'
 Plug 'tpope/vim-speeddating'
+Plug 'kyazdani42/nvim-tree.lua', { 'commit' : 'f8312cd06fbbf4e3091e8148e8a4e57fbed30860' }
 " TODO Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'sudormrfbin/cheatsheet.nvim'
 Plug 'Pocco81/AbbrevMan.nvim'
