@@ -39,3 +39,8 @@ brew install tmux
 
 # asdf
 brew install asdf
+# Install asdf
+echo -e "\n. \"$(brew --prefix asdf)/libexec/asdf.sh\"" >> ~/.zshrc
+
+# zoxide
+brew install zoxide
