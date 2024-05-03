@@ -1,19 +1,4 @@
-#!/bin/zsh
-
-# lazygit
-brew install lazygit
-
-# zsh-completions
-brew install zsh-completions
-
-# zsh-syntax-highlighting
-brew install zsh-syntax-highlighting
-
-# neovim
-brew install neovim
-
-# ----------------------------------
-
+#!/bin/bash
 
 # Iterm2
 brew install --cask iterm2
@@ -27,6 +12,7 @@ brew install --cask slack
 # Discord
 brew install --cask discord
 
+
 # Postman
 brew install --cask postman
 
@@ -36,16 +22,20 @@ brew install --cask docker
 # Notion
 brew install --cask notion
 
-# karabiner
-# brew install --cask karabiner-elements
+# BTT
+brew install --cask bettertouchtool
 
+# wireshark
+brew install --cask bettertouchtool
 
+# neovim
+brew install neovim
 
+# lazygit
+brew install lazygit
 
-# Mise
-# curl https://mise.run | sh
+# tmux
+brew install tmux
 
-# Kakaotalk
-# brew install mas
-# mas search kakaotalk
-# mas signin ..
+# asdf
+brew install asdf
