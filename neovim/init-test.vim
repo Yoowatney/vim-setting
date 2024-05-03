@@ -37,6 +37,7 @@ Plug 'anuvyklack/pretty-fold.nvim'
 Plug 'anuvyklack/nvim-keymap-amend'
 Plug 'junegunn/vim-emoji'
 Plug 'rhysd/vim-clang-format'
+Plug 'anuvyklack/pretty-fold.nvim', { 'commit' : 'e6385d62eec67fdc8a21700b42a701d0d6fb8b32' }
 
 
 " Plug 'abecodes/tabout.nvim'
