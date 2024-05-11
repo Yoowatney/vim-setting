@@ -25,10 +25,10 @@ Plug 'akinsho/bufferline.nvim', { 'commit' : 'b2a0691df8a51a7590122aef456db1d704
 Plug 'sindrets/winshift.nvim', { 'commit' : 'aaa04b97640165eb0877bfc04943f4282887470b' }
 Plug 'numToStr/Comment.nvim', { 'commit' : '40f5587789681b3453e4a27831b7d293e1c3da7b' }
 Plug 'tpope/vim-speeddating', { 'commit' : '95da3d72efc91a5131acf388eafa4b1ad6512a9b' }
-" TODO Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+" TODO Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  } 02cc3874738bc0f86e4b91f09b8a0ac88aef8e96
 Plug 'sudormrfbin/cheatsheet.nvim', { 'commit' : '' }
-Plug 'Pocco81/AbbrevMan.nvim', { 'commit' : '' }
-Plug 'Pocco81/TrueZen.nvim', { 'commit' : '' }
+Plug 'Pocco81/AbbrevMan.nvim', { 'commit' : '97b40b51b373d0d1c22f71dd8fce7f61f6bf46a5' }
+Plug 'Pocco81/TrueZen.nvim', { 'commit' : '508b977d71650da5c9243698614a9a1416f116d4' }
 Plug 'norcalli/nvim-colorizer.lua', { 'commit' : '' }
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }, { 'commit' : '' }
 Plug 'anuvyklack/pretty-fold.nvim', { 'commit' : 'e6385d62eec67fdc8a21700b42a701d0d6fb8b32' }
@@ -40,7 +40,7 @@ Plug 'rhysd/vim-clang-format', { 'commit' : '' }
 " Plug 'abecodes/tabout.nvim'
 " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 " git
-Plug 'lewis6991/gitsigns.nvim', { 'commit' : '' }
+Plug 'lewis6991/gitsigns.nvim', { 'commit' : 'ffd06e36f6067935d8cb9793905dd2e84e291310' }
 Plug 'tpope/vim-fugitive', { 'commit' : '' }
 
 " debug
@@ -50,7 +50,7 @@ Plug 'tpope/vim-fugitive', { 'commit' : '' }
 " readability
 Plug 'RRethy/vim-illuminate', { 'commit' : '' }
 Plug 'pangloss/vim-javascript', { 'commit' : '' }
-Plug 'lukas-reineke/indent-blankline.nvim', { 'commit' : '' }
+Plug 'lukas-reineke/indent-blankline.nvim', { 'commit' : '8567ac8ccd19ee41a6ec55bf044884799fa3f56b' }
 " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 " Plug 'p00f/nvim-ts-rainbow'
 Plug 'nanotech/jellybeans.vim', { 'commit' : '' }
@@ -73,7 +73,7 @@ Plug 'tpope/vim-repeat', { 'commit' : '' }
 Plug 'windwp/nvim-autopairs', { 'commit' : '' }
 Plug 'roxma/nvim-yarp', { 'commit' : '' }
 Plug 'github/copilot.vim', { 'commit' : '' }
-Plug 'gelguy/wilder.nvim', { 'commit' : '' }
+Plug 'gelguy/wilder.nvim', { 'commit' : '777b163e394ba658ef288292efb533b25610ef9d' }
 
 " Plug 'neovim/nvim-lspconfig'
 " Plug 'williamboman/nvim-lsp-installer'
