@@ -66,7 +66,7 @@ Plug 'novakne/kosmikoa.nvim', { 'commit' : '' }
 
 "auto complete
 " Plug 'ludovicchabant/vim-gutentags'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}, { 'commit' : '' }
+Plug 'neoclide/coc.nvim', {'tag': 'v0.0.82'}
 Plug 'relastle/vim-nayvy', { 'commit' : '' }
 Plug 'mattn/emmet-vim', { 'commit' : '' }
 Plug 'tpope/vim-repeat', { 'commit' : '' }
