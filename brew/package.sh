@@ -48,3 +48,5 @@ brew install zoxide
 
 brew tap hashicorp/tap
 brew install hashicorp/tap/terraform
+terraform -install-autocomplete
+brew install hashicorp/tap/terraform-ls
