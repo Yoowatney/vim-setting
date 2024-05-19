@@ -44,3 +44,7 @@ echo -e "\n. \"$(brew --prefix asdf)/libexec/asdf.sh\"" >> ~/.zshrc
 
 # zoxide
 brew install zoxide
+
+
+brew tap hashicorp/tap
+brew install hashicorp/tap/terraform
