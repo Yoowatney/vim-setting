@@ -7,7 +7,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'sindrets/diffview.nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'ryanoasis/vim-devicons'
-Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'commit' : '39b12d84e86f5054e2ed98829b367598ae53ab41'}
 Plug 'fannheyward/telescope-coc.nvim'
 Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'christoomey/vim-tmux-navigator'
@@ -66,13 +66,15 @@ Plug 'novakne/kosmikoa.nvim'
 
 "auto complete
 " Plug 'ludovicchabant/vim-gutentags'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'relastle/vim-nayvy'
+Plug 'neoclide/coc.nvim', { 'tag' : 'v0.0.82'}
+" commit 1d3c525e2d6af0c07ed19fa7a5016ffc6a9e8421
+" Plug 'relastle/vim-nayvy'
 Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-repeat'
 Plug 'windwp/nvim-autopairs'
 Plug 'roxma/nvim-yarp'
-Plug 'github/copilot.vim'
+Plug 'Exafunction/codeium.vim'
+" Plug 'github/copilot.vim'
 Plug 'gelguy/wilder.nvim'
 
 " Plug 'neovim/nvim-lspconfig'
@@ -133,6 +135,7 @@ set completefunc=emoji#complete
 " leader key
 let mapleader = ","
 
+
 " github-nvim-theme
 " let g:github_function_style = "italic"
 " let g:github_sidebars = ["qf", "vista_kind", "terminal", "packer"]
@@ -165,9 +168,11 @@ let g:hdr42mail = 'yoyoo@student.42seoul.kr'
 " nayvy
 
 let g:nayvy_import_config_path = '$HOME/import_config.nayvy'
+let g:python3_host_prog='/opt/homebrew/bin/python3.9'
 " let g:python3_host_prog="/usr/bin/python3.10"
 " let g:loaded_python3_provider=1
-let g:python3_host_prog='/opt/homebrew/anaconda3/bin/python3'
+" pynvim의 경로와 python의 경로가 동일해야하는걸로 보임.
+" let g:python3_host_prog='/Users/youngsukyoo/.asdf/installs/python/3.9.13/bin/python3.9'
 
 
 let g:clang_format#style_options = {
@@ -186,7 +191,8 @@ let g:coc_global_extensions = [
 	\ 'coc-pyright',
 	\ 'coc-ember'
 	\]
-let g:coc_node_path = '/opt/homebrew/opt/node@16/bin/node'
+" let g:coc_node_path = '/opt/homebrew/opt/node@16/bin/node'
+let g:coc_node_path = '/Users/youngsukyoo/.nvm/versions/node/v18.8.0/bin/node'
 let g:coc_snippet_next = '<C-j>'
 let g:coc_snippet_prev = '<C-k>'
 
@@ -1032,8 +1038,11 @@ else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
 
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+" inoremap <silent><expr> <cr> pumvisible() ? coc#pum#confirm()
+"                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
@@ -1055,6 +1064,14 @@ function! s:show_documentation()
     execute '!' . &keywordprg . " " . expand('<cword>')
   endif
 endfunction
+
+" Codeium auto complete
+let g:codeium_disable_bindings = 1
+imap <script><silent><nowait><expr> <Right> codeium#Accept()
+" imap <C-q>   <Cmd>call codeium#CycleCompletions(1)<CR>
+" imap <C-2>   <Cmd>call codeium#CycleCompletions(-1)<CR>
+" imap <C-`>   <Cmd>call codeium#Clear()<CR>
+
 
 
 " Symbol renaming.
