@@ -1,0 +1,17 @@
+# ~/Library/Application Support/lazygit/config.yml
+customCommands:
+  - key: 'C'
+    command: 'git commit'
+    context: 'files'
+    loadingText: 'opening gitmoji cli tool'
+    subprocess: true
+  - key: '<c-p>'
+    context: 'global'
+    loadingText: 'pushing'
+    description: 'push to remote and specific branch'
+    prompts:
+      - type: 'input'
+        title: 'push to which remote?'
+      - type: 'input'
+        title: 'push to which branch?'
+    command: 'git push {{index .PromptResponses 0}} {{index .PromptResponses 1}}'

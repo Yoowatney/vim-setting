@@ -20,10 +20,21 @@ jobs:
         run : |
           nvim --version
 
+      - name: Clone repository
+        uses: actions/checkout@v4
+
+      - name : pwd & ls -al
+        run : |
+            pwd
+            ls -al
+      - name : setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+
       - name: Install vim-plug
         run : |
-          sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-          mkdir -p ~/.config/nvim
+          bash ./neovim/neovim_config.sh
 
       - name : Check vim-plug config file
         run : |
@@ -31,11 +42,18 @@ jobs:
 
       - name : Create nvim configure file
         run : |
-          cat >> ~/.config/nvim/init.vim<<EOF
-          call plug#begin('~/.config/nvim/plugged')
-          Plug 'neoclide/coc.nvim', {'branch': 'release'}
-          call plug#end()
-          EOF
+          cp ./neovim/init-test.vim ~/.config/nvim/init.vim
+          # cat >> ~/.config/nvim/init.vim<<EOF
+          # call plug#begin('~/.config/nvim/plugged')
+          # Plug 'neoclide/coc.nvim', {'branch': 'release'}
+          # call plug#end()
+          # EOF
+
+      - name : Fill python3 path in init.vim
+        run :
+          echo "let g:python3_host_prog='$(which python3)'";
+          echo "let g:python3_host_prog='$(which python3)'" >> ~/.config/nvim/init.vim;
+          cat ~/.config/nvim/init.vim;
 
       - name: Install vim plug extension
         run : |
