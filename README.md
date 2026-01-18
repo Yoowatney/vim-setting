@@ -8,6 +8,7 @@ macOS development environment dotfiles.
 - **Tmux** - gpakosz/.tmux based config
 - **Zsh** - Oh-My-Zsh + Powerlevel10k
 - **Lazygit** - Custom keybindings
+- **mise** - Runtime version manager
 - **iTerm2** - Settings backup
 - **Brewfile** - Homebrew packages
 
@@ -37,6 +38,41 @@ cd ~/.dotfiles
 | `zsh/p10k.zsh` | `~/.p10k.zsh` |
 | `tmux/tmux.conf.local` | `~/.tmux.conf.local` |
 | `lazygit/` | `~/.config/lazygit` |
+| `mise/config.toml` | `~/.config/mise/config.toml` |
+
+## mise
+
+Runtime version manager (asdf 대체)
+
+**Tools:**
+- node 22, python 3.11, terraform latest
+
+**Global npm packages:**
+- claude-code, clasp, gemini-cli, codex, ccusage, firebase-tools, nodemon
+
+## Zsh Aliases
+
+| Alias | Command |
+|-------|---------|
+| `v`, `vi`, `vim` | nvim |
+| `g` | lazygit |
+| `gs` | git status |
+| `gl` | git log --graph --oneline --all --decorate |
+| `ls` | lsd |
+| `lt` | lsd --tree |
+| `diff` | delta |
+| `rm` | trash |
+
+## Lazygit Custom Commands
+
+| Key | Context | Action |
+|-----|---------|--------|
+| `C` | files | git commit (with gitmoji) |
+| `Ctrl+p` | global | Push to specific remote/branch |
+| `P` | global | Force push with lease (safe) |
+| `O` | localBranches | Create PR via gh |
+| `S` | files | Stash with message |
+| `Ctrl+D` | localBranches | Delete merged branches |
 
 ## Post Install
 
