@@ -96,6 +96,28 @@
 			<key>Version</key>
 			<integer>1</integer>
 		</dict>
+		<key>0x7b-0x120000-0x21</key>
+		<dict>
+			<key>Action</key>
+			<integer>31</integer>
+			<key>Label</key>
+			<string></string>
+			<key>Text</key>
+			<string></string>
+			<key>Version</key>
+			<integer>0</integer>
+		</dict>
+		<key>0x7d-0x120000-0x1e</key>
+		<dict>
+			<key>Action</key>
+			<integer>30</integer>
+			<key>Label</key>
+			<string></string>
+			<key>Text</key>
+			<string></string>
+			<key>Version</key>
+			<integer>1</integer>
+		</dict>
 		<key>0x9-0x40000-0x0</key>
 		<dict>
 			<key>Action</key>
@@ -251,7 +273,7 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>370 185 700 628 0 0 1440 875 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>57 982 1429 1050 -434 982 1920 1050 </string>
+	<string>-434 982 1393 1050 -434 982 1920 1050 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>958 1497 650 458 -238 900 1920 1055 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
@@ -2297,9 +2319,9 @@
 	<key>NoSyncFrame_SharedPreferences</key>
 	<dict>
 		<key>screenFrame</key>
-		<string>{{0, 0}, {1512, 982}}</string>
+		<string>{{-434, 982}, {1920, 1080}}</string>
 		<key>topLeft</key>
-		<string>{55, 876}</string>
+		<string>{701, 1575}</string>
 	</dict>
 	<key>NoSyncHaveUsedCopyMode</key>
 	<true/>
@@ -2314,7 +2336,7 @@
 	<key>NoSyncLastTipTime</key>
 	<real>653382986.44951904</real>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>375</integer>
+	<integer>377</integer>
 	<key>NoSyncNextAnnoyanceTime</key>
 	<real>649421165.04822397</real>
 	<key>NoSyncPermissionToShowTip</key>
