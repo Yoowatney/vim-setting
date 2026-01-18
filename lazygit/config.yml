@@ -5,54 +5,54 @@ gui:
 
 customCommands:
   # Commit with gitmoji
-  - key: 'C'
-    command: 'git commit'
-    context: 'files'
-    loadingText: 'opening gitmoji cli tool'
+  - key: "C"
+    command: "git commit"
+    context: "files"
+    loadingText: "opening gitmoji cli tool"
     subprocess: true
 
   # Push to specific remote/branch
-  - key: '<c-p>'
-    context: 'global'
-    loadingText: 'pushing'
-    description: 'Push to specific remote/branch'
+  - key: "<c-p>"
+    context: "global"
+    loadingText: "pushing"
+    description: "Push to specific remote/branch"
     prompts:
-      - type: 'input'
-        title: 'Remote?'
-        initialValue: 'origin'
-      - type: 'input'
-        title: 'Branch?'
-        initialValue: '{{.CheckedOutBranch.Name}}'
-    command: 'git push {{index .PromptResponses 0}} {{index .PromptResponses 1}}'
+      - type: "input"
+        title: "Remote?"
+        initialValue: "origin"
+      - type: "input"
+        title: "Branch?"
+        initialValue: "{{.CheckedOutBranch.Name}}"
+    command: "git push {{index .PromptResponses 0}} {{index .PromptResponses 1}}"
 
   # Force push with lease (safe)
-  - key: 'P'
-    context: 'global'
-    loadingText: 'force pushing (with lease)...'
-    description: 'Force push with lease'
-    command: 'git push --force-with-lease'
+  - key: "P"
+    context: "global"
+    loadingText: "force pushing (with lease)..."
+    description: "Force push with lease"
+    command: "git push --force-with-lease"
 
   # Create PR with gh
-  - key: 'O'
-    context: 'localBranches'
-    loadingText: 'creating PR...'
-    description: 'Create PR via gh'
-    command: 'gh pr create --web'
+  - key: "O"
+    context: "localBranches"
+    loadingText: "creating PR..."
+    description: "Create PR via gh"
+    command: "gh pr create --web"
     subprocess: true
 
   # Stash with message
-  - key: 'S'
-    context: 'files'
-    loadingText: 'stashing...'
-    description: 'Stash with message'
+  - key: "S"
+    context: "files"
+    loadingText: "stashing..."
+    description: "Stash with message"
     prompts:
-      - type: 'input'
-        title: 'Stash message:'
+      - type: "input"
+        title: "Stash message:"
     command: 'git stash push -m "{{index .PromptResponses 0}}"'
 
   # Delete merged branches
-  - key: '<c-d>'
-    context: 'localBranches'
-    loadingText: 'deleting merged branches...'
-    description: 'Delete branches merged into main'
+  - key: "<c-D>"
+    context: "localBranches"
+    loadingText: "deleting merged branches..."
+    description: "Delete branches merged into main"
     command: 'git branch --merged main | grep -v "main" | xargs -r git branch -d'
