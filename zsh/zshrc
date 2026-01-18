@@ -61,6 +61,7 @@ alias vd="nvim -d"
 
 # Git
 alias gs="git status"
+alias gl="git log --graph --oneline --all --decorate"
 alias g="lazygit"
 
 # Dev tools
