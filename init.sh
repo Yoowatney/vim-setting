@@ -177,6 +177,20 @@ create_symlinks() {
         ln -s "$DOTFILES/lazygit" "$CONFIG/lazygit"
         info "lazygit symlink created"
     fi
+
+    # Mise
+    mkdir -p "$CONFIG/mise"
+    if [[ -L "$CONFIG/mise/config.toml" ]]; then
+        warn "mise config symlink exists, skipping..."
+    elif [[ -f "$CONFIG/mise/config.toml" ]]; then
+        warn "mise config exists, backing up..."
+        mv "$CONFIG/mise/config.toml" "$CONFIG/mise/config.toml.bak"
+        ln -s "$DOTFILES/mise/config.toml" "$CONFIG/mise/config.toml"
+        info "mise config symlink created"
+    else
+        ln -s "$DOTFILES/mise/config.toml" "$CONFIG/mise/config.toml"
+        info "mise config symlink created"
+    fi
 }
 
 # ===========================================
