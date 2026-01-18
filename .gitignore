@@ -1,0 +1,12 @@
+# Claude Code
+CLAUDE.md
+
+# Logs
+*.log
+firebase-debug.log
+
+# OS
+.DS_Store
+
+# Backup files
+*.bak
