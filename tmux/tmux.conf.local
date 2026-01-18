@@ -183,9 +183,9 @@ tmux_conf_new_session_prompt=false
 
 # -- TPM (Plugin Manager) -----------------------------------------------------
 
-tmux_conf_update_plugins_on_launch=true
-tmux_conf_update_plugins_on_reload=true
-tmux_conf_uninstall_plugins_on_reload=true
+tmux_conf_update_plugins_on_launch=false
+tmux_conf_update_plugins_on_reload=false
+tmux_conf_uninstall_plugins_on_reload=false
 
 # plugins
 set -g @plugin 'tmux-plugins/tpm'
@@ -245,6 +245,15 @@ bind o kill-pane -a
 # window swap
 bind 9 swap-window -t -1\; select-window -t -1
 bind 0 swap-window -t +1\; select-window -t +1
+
+# choose-tree mode: N to create new session
+bind -T root N if-shell -F "#{==:#{pane_mode},tree-mode}" "command-prompt -p 'New session name:' 'new-session -s \"%%\"'" "send-keys N"
+
+# choose-tree: sort by name
+bind s choose-tree -s -O name
+
+# fast reload (.local only)
+bind r source-file ~/.tmux.conf.local \; display "Reloaded!"
 
 # disable C-l clear (conflicts with vim-tmux-navigator)
 bind -n C-l run 'true'
