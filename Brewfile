@@ -9,7 +9,7 @@ tap "ringohub/redis-cli"
 tap "stripe/stripe-cli"
 brew "libyaml"
 brew "readline", link: true
-brew "asdf"
+brew "mise"
 brew "awscli"
 brew "bat"
 brew "berkeley-db", link: true

@@ -112,8 +112,8 @@ bindkey "ç" fzf-cd-widget
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && . "/opt/homebrew/opt/nvm/nvm.sh"
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && . "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
 
-# asdf
-. "/opt/homebrew/opt/asdf/libexec/asdf.sh"
+# mise (asdf replacement)
+eval "$(mise activate zsh)"
 
 # zoxide
 eval "$(zoxide init zsh)"
