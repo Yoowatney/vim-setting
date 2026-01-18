@@ -60,6 +60,20 @@
 			<key>Version</key>
 			<integer>1</integer>
 		</dict>
+		<key>0x5b-0x100000-0x21</key>
+		<dict>
+			<key>Action</key>
+			<string>2</string>
+			<key>Text</key>
+			<string></string>
+		</dict>
+		<key>0x5d-0x100000-0x1e</key>
+		<dict>
+			<key>Action</key>
+			<string>0</string>
+			<key>Text</key>
+			<string></string>
+		</dict>
 		<key>0x6b-0x100000-0x28</key>
 		<dict>
 			<key>Action</key>
@@ -229,7 +243,7 @@
 		<integer>1</integer>
 	</dict>
 	<key>NSWindow Frame NSColorPanel</key>
-	<string>686 442 250 311 0 0 1512 949 </string>
+	<string>474 1489 250 311 -434 982 1920 1050 </string>
 	<key>NSWindow Frame NSNavPanelAutosaveName</key>
 	<string>558 1545 328 195 -238 900 1920 1055 </string>
 	<key>NSWindow Frame ProfilesPanel</key>
@@ -237,7 +251,7 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>370 185 700 628 0 0 1440 875 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>444 0 1218 949 0 0 1512 949 </string>
+	<string>57 982 1429 1050 -434 982 1920 1050 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>958 1497 650 458 -238 900 1920 1055 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
@@ -2300,7 +2314,7 @@
 	<key>NoSyncLastTipTime</key>
 	<real>653382986.44951904</real>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>374</integer>
+	<integer>375</integer>
 	<key>NoSyncNextAnnoyanceTime</key>
 	<real>649421165.04822397</real>
 	<key>NoSyncPermissionToShowTip</key>

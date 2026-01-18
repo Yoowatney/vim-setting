@@ -10,3 +10,4 @@ firebase-debug.log
 
 # Backup files
 *.bak
+iterm2/*.plist
