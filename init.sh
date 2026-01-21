@@ -165,17 +165,19 @@ create_symlinks() {
         info ".tmux.conf.local symlink created"
     fi
 
-    # Lazygit
-    if [[ -L "$CONFIG/lazygit" ]]; then
-        warn "lazygit symlink exists, skipping..."
-    elif [[ -d "$CONFIG/lazygit" ]]; then
-        warn "lazygit directory exists, backing up..."
-        mv "$CONFIG/lazygit" "$CONFIG/lazygit.bak"
-        ln -s "$DOTFILES/git/lazygit" "$CONFIG/lazygit"
-        info "lazygit symlink created"
+    # Lazygit (macOS uses ~/Library/Application Support/)
+    LAZYGIT_DIR="$HOME/Library/Application Support/lazygit"
+    mkdir -p "$LAZYGIT_DIR"
+    if [[ -L "$LAZYGIT_DIR/config.yml" ]]; then
+        warn "lazygit config symlink exists, skipping..."
+    elif [[ -f "$LAZYGIT_DIR/config.yml" ]]; then
+        warn "lazygit config exists, backing up..."
+        mv "$LAZYGIT_DIR/config.yml" "$LAZYGIT_DIR/config.yml.bak"
+        ln -s "$DOTFILES/git/lazygit/config.yml" "$LAZYGIT_DIR/config.yml"
+        info "lazygit config symlink created"
     else
-        ln -s "$DOTFILES/git/lazygit" "$CONFIG/lazygit"
-        info "lazygit symlink created"
+        ln -s "$DOTFILES/git/lazygit/config.yml" "$LAZYGIT_DIR/config.yml"
+        info "lazygit config symlink created"
     fi
 
     # Mise
