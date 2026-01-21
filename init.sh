@@ -224,7 +224,27 @@ install_manual() {
 }
 
 # ===========================================
-# 6. Post Install
+# 6. macOS Defaults (Optional)
+# ===========================================
+configure_macos_defaults() {
+    echo ""
+    read -p "Configure macOS defaults? (y/N): " -n 1 -r
+    echo ""
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        info "Configuring macOS defaults..."
+        if [[ -f "$DOTFILES/macos/defaults.sh" ]]; then
+            bash "$DOTFILES/macos/defaults.sh"
+        else
+            warn "defaults.sh not found, skipping..."
+        fi
+    else
+        info "Skipping macOS defaults configuration"
+        info "You can run it later: ./macos/defaults.sh"
+    fi
+}
+
+# ===========================================
+# 7. Post Install
 # ===========================================
 post_install() {
     info "Post installation..."
@@ -261,6 +281,7 @@ main() {
     install_tmux
     create_symlinks
     install_manual
+    configure_macos_defaults
     post_install
 
     echo ""
