@@ -119,10 +119,10 @@ create_symlinks() {
     elif [[ -d "$CONFIG/nvim" ]]; then
         warn "nvim directory exists, backing up to nvim.bak..."
         mv "$CONFIG/nvim" "$CONFIG/nvim.bak"
-        ln -s "$DOTFILES/nvim" "$CONFIG/nvim"
+        ln -s "$DOTFILES/editors/nvim" "$CONFIG/nvim"
         info "nvim symlink created"
     else
-        ln -s "$DOTFILES/nvim" "$CONFIG/nvim"
+        ln -s "$DOTFILES/editors/nvim" "$CONFIG/nvim"
         info "nvim symlink created"
     fi
 
@@ -132,10 +132,10 @@ create_symlinks() {
     elif [[ -f "$HOME/.zshrc" ]]; then
         warn ".zshrc exists, backing up to .zshrc.bak..."
         mv "$HOME/.zshrc" "$HOME/.zshrc.bak"
-        ln -s "$DOTFILES/zsh/zshrc" "$HOME/.zshrc"
+        ln -s "$DOTFILES/shell/zsh/zshrc" "$HOME/.zshrc"
         info ".zshrc symlink created"
     else
-        ln -s "$DOTFILES/zsh/zshrc" "$HOME/.zshrc"
+        ln -s "$DOTFILES/shell/zsh/zshrc" "$HOME/.zshrc"
         info ".zshrc symlink created"
     fi
 
@@ -145,10 +145,10 @@ create_symlinks() {
     elif [[ -f "$HOME/.p10k.zsh" ]]; then
         warn ".p10k.zsh exists, backing up..."
         mv "$HOME/.p10k.zsh" "$HOME/.p10k.zsh.bak"
-        ln -s "$DOTFILES/zsh/p10k.zsh" "$HOME/.p10k.zsh"
+        ln -s "$DOTFILES/shell/zsh/p10k.zsh" "$HOME/.p10k.zsh"
         info ".p10k.zsh symlink created"
     else
-        ln -s "$DOTFILES/zsh/p10k.zsh" "$HOME/.p10k.zsh"
+        ln -s "$DOTFILES/shell/zsh/p10k.zsh" "$HOME/.p10k.zsh"
         info ".p10k.zsh symlink created"
     fi
 
@@ -158,10 +158,10 @@ create_symlinks() {
     elif [[ -f "$HOME/.tmux.conf.local" ]]; then
         warn ".tmux.conf.local exists, backing up..."
         mv "$HOME/.tmux.conf.local" "$HOME/.tmux.conf.local.bak"
-        ln -s "$DOTFILES/tmux/tmux.conf.local" "$HOME/.tmux.conf.local"
+        ln -s "$DOTFILES/terminal/tmux/tmux.conf.local" "$HOME/.tmux.conf.local"
         info ".tmux.conf.local symlink created"
     else
-        ln -s "$DOTFILES/tmux/tmux.conf.local" "$HOME/.tmux.conf.local"
+        ln -s "$DOTFILES/terminal/tmux/tmux.conf.local" "$HOME/.tmux.conf.local"
         info ".tmux.conf.local symlink created"
     fi
 
@@ -171,10 +171,10 @@ create_symlinks() {
     elif [[ -d "$CONFIG/lazygit" ]]; then
         warn "lazygit directory exists, backing up..."
         mv "$CONFIG/lazygit" "$CONFIG/lazygit.bak"
-        ln -s "$DOTFILES/lazygit" "$CONFIG/lazygit"
+        ln -s "$DOTFILES/git/lazygit" "$CONFIG/lazygit"
         info "lazygit symlink created"
     else
-        ln -s "$DOTFILES/lazygit" "$CONFIG/lazygit"
+        ln -s "$DOTFILES/git/lazygit" "$CONFIG/lazygit"
         info "lazygit symlink created"
     fi
 
@@ -185,11 +185,24 @@ create_symlinks() {
     elif [[ -f "$CONFIG/mise/config.toml" ]]; then
         warn "mise config exists, backing up..."
         mv "$CONFIG/mise/config.toml" "$CONFIG/mise/config.toml.bak"
-        ln -s "$DOTFILES/mise/config.toml" "$CONFIG/mise/config.toml"
+        ln -s "$DOTFILES/tools/mise/config.toml" "$CONFIG/mise/config.toml"
         info "mise config symlink created"
     else
-        ln -s "$DOTFILES/mise/config.toml" "$CONFIG/mise/config.toml"
+        ln -s "$DOTFILES/tools/mise/config.toml" "$CONFIG/mise/config.toml"
         info "mise config symlink created"
+    fi
+
+    # Karabiner
+    if [[ -L "$CONFIG/karabiner" ]]; then
+        warn "karabiner symlink exists, skipping..."
+    elif [[ -d "$CONFIG/karabiner" ]]; then
+        warn "karabiner directory exists, backing up..."
+        mv "$CONFIG/karabiner" "$CONFIG/karabiner.bak"
+        ln -s "$DOTFILES/macos/karabiner" "$CONFIG/karabiner"
+        info "karabiner symlink created"
+    else
+        ln -s "$DOTFILES/macos/karabiner" "$CONFIG/karabiner"
+        info "karabiner symlink created"
     fi
 }
 
