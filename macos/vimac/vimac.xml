@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AXEnhancedUserInterfaceEnabled</key>
+	<false/>
+	<key>AXManualAccessibilityEnabled</key>
+	<true/>
+	<key>HintModeShortcut</key>
+	<data>
+	YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0b3BYJG9iamVjdHMS
+	AAGGoF8QD05TS2V5ZWRBcmNoaXZlctEICVRyb290gAGjCwwTVSRudWxs0w0ODxAREldL
+	ZXlDb2RlViRjbGFzc11Nb2RpZmllckZsYWdzEAOAAhIABgAA0hQVFhdaJGNsYXNzbmFt
+	ZVgkY2xhc3Nlc1tNQVNTaG9ydGN1dKIYGVtNQVNTaG9ydGN1dFhOU09iamVjdAgRGiQp
+	MjdJTFFTV11kbHOBg4WKj5qjr7K+AAAAAAAAAQEAAAAAAAAAGgAAAAAAAAAAAAAAAAAA
+	AMc=
+	</data>
+	<key>IsHorizontalScrollReversed</key>
+	<true/>
+	<key>NSStatusItem Preferred Position Item-0</key>
+	<real>418</real>
+	<key>NSWindow Frame com.sindresorhus.Preferences.FrameAutosaveName</key>
+	<string>420 263 600 352 0 0 1440 875 </string>
+	<key>SUEnableAutomaticChecks</key>
+	<true/>
+	<key>SUHasLaunchedBefore</key>
+	<true/>
+	<key>SULastCheckTime</key>
+	<date>2025-04-01T13:23:30Z</date>
+	<key>SULastProfileSubmissionDate</key>
+	<date>2025-04-01T13:23:28Z</date>
+	<key>SUSendProfileInfo</key>
+	<true/>
+	<key>ScrollModeShortcut</key>
+	<data>
+	YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0b3BYJG9iamVjdHMS
+	AAGGoF8QD05TS2V5ZWRBcmNoaXZlctEICVRyb290gAGjCwwTVSRudWxs0w0ODxAREldL
+	ZXlDb2RlViRjbGFzc11Nb2RpZmllckZsYWdzEAyAAhIABgAA0hQVFhdaJGNsYXNzbmFt
+	ZVgkY2xhc3Nlc1tNQVNTaG9ydGN1dKIYGVtNQVNTaG9ydGN1dFhOU09iamVjdAgRGiQp
+	MjdJTFFTV11kbHOBg4WKj5qjr7K+AAAAAAAAAQEAAAAAAAAAGgAAAAAAAAAAAAAAAAAA
+	AMc=
+	</data>
+	<key>ShouldLaunchOnStartupKey</key>
+	<true/>
+	<key>hintModeActivationCount</key>
+	<integer>749</integer>
+	<key>holdSpaceHintModeActivationEnabled</key>
+	<false/>
+	<key>keySequenceHintMode</key>
+	<string></string>
+	<key>keySequenceHintModeEnabled</key>
+	<false/>
+	<key>shownPMFSurveyAlert</key>
+	<true/>
+</dict>
+</plist>

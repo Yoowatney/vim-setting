@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>NSStatusItem Preferred Position Item-0</key>
+	<real>456</real>
+	<key>SUEnableAutomaticChecks</key>
+	<true/>
+	<key>SUFeedURL</key>
+	<string>https://clipy-app.com/appcast.xml</string>
+	<key>SUHasLaunchedBefore</key>
+	<true/>
+	<key>SULastCheckTime</key>
+	<date>2026-01-19T15:22:57Z</date>
+	<key>SUScheduledCheckInterval</key>
+	<real>86400</real>
+	<key>kCPYFolderKeyCombos</key>
+	<data>
+	YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0b3BYJG9iamVjdHMS
+	AAGGoF8QD05TS2V5ZWRBcmNoaXZlctEICVRyb290gAGjCwwTVSRudWxs0w0ODxAREldO
+	Uy5rZXlzWk5TLm9iamVjdHNWJGNsYXNzoKCAAtIUFRYXWiRjbGFzc25hbWVYJGNsYXNz
+	ZXNcTlNEaWN0aW9uYXJ5ohYYWE5TT2JqZWN0CBEaJCkyN0lMUVNXXWRsd35/gIKHkpuo
+	qwAAAAAAAAEBAAAAAAAAABkAAAAAAAAAAAAAAAAAAAC0
+	</data>
+	<key>kCPYHotKeyMainKeyCombo</key>
+	<data>
+	YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0b3BYJG9iamVjdHMS
+	AAGGoF8QD05TS2V5ZWRBcmNoaXZlctEICVRyb290gAGjCwwVVSRudWxs1A0ODxAREhMU
+	ViRjbGFzc1ltb2RpZmllcnNXa2V5Q29kZV8QEGRvdWJsZWRNb2RpZmllcnOAAhEDABAJ
+	CNIWFxgZWiRjbGFzc25hbWVYJGNsYXNzZXNfEA9NYWduZXQuS2V5Q29tYm+iGhtfEA9N
+	YWduZXQuS2V5Q29tYm9YTlNPYmplY3QIERokKTI3SUxRU1ddZm13f5KUl5man6qzxcja
+	AAAAAAAAAQEAAAAAAAAAHAAAAAAAAAAAAAAAAAAAAOM=
+	</data>
+	<key>kCPYHotKeySnippetKeyCombo</key>
+	<data>
+	YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0b3BYJG9iamVjdHMS
+	AAGGoF8QD05TS2V5ZWRBcmNoaXZlctEICVRyb290gAGjCwwVVSRudWxs1A0ODxAREhMU
+	ViRjbGFzc1ltb2RpZmllcnNXa2V5Q29kZV8QEGRvdWJsZWRNb2RpZmllcnOAAhEDABAL
+	CNIWFxgZWiRjbGFzc25hbWVYJGNsYXNzZXNfEA9NYWduZXQuS2V5Q29tYm+iGhtfEA9N
+	YWduZXQuS2V5Q29tYm9YTlNPYmplY3QIERokKTI3SUxRU1ddZm13f5KUl5man6qzxcja
+	AAAAAAAAAQEAAAAAAAAAHAAAAAAAAAAAAAAAAAAAAOM=
+	</data>
+	<key>kCPYMigrateNewKeyCombo</key>
+	<true/>
+	<key>kCPYPrefMaxHistorySizeKey</key>
+	<integer>100</integer>
+	<key>kCPYPrefStoreTypesKey</key>
+	<dict>
+		<key>Filenames</key>
+		<true/>
+		<key>PDF</key>
+		<true/>
+		<key>RTF</key>
+		<true/>
+		<key>RTFD</key>
+		<true/>
+		<key>String</key>
+		<true/>
+		<key>TIFF</key>
+		<true/>
+		<key>URL</key>
+		<true/>
+	</dict>
+	<key>loginItem</key>
+	<true/>
+	<key>maxLengthOfToolTipKey</key>
+	<integer>500</integer>
+</dict>
+</plist>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>NSStatusItem Preferred Position Item-0</key>
+	<real>372</real>
+	<key>NSWindow Frame NSFontPanel</key>
+	<string>929 115 445 232 0 0 1440 875 </string>
+	<key>NSWindow Frame SUStatusFrame</key>
+	<string>520 575 400 135 0 0 1440 875 </string>
+	<key>NSWindow Frame SUUpdateAlert</key>
+	<string>410 375 620 398 0 0 1440 875 </string>
+	<key>NSWindow Frame com.sindresorhus.Preferences.FrameAutosaveName</key>
+	<string>542 1521 362 434 -238 900 1920 1055 </string>
+	<key>SUEnableAutomaticChecks</key>
+	<false/>
+	<key>SUHasLaunchedBefore</key>
+	<true/>
+	<key>SULastCheckTime</key>
+	<date>2022-01-10T18:36:14Z</date>
+	<key>SUSendProfileInfo</key>
+	<false/>
+	<key>SUUpdateRelaunchingMarker</key>
+	<false/>
+	<key>chargeVal</key>
+	<real>100</real>
+	<key>clamshellDischargeMessage</key>
+	<false/>
+	<key>exitInhibitCharge</key>
+	<false/>
+	<key>heatProtectMode</key>
+	<false/>
+	<key>helpMessage</key>
+	<false/>
+	<key>sailingMode</key>
+	<false/>
+	<key>showAlDenteLogo</key>
+	<true/>
+	<key>showBattery</key>
+	<false/>
+	<key>showPercentage</key>
+	<false/>
+	<key>sleepInhibitCharge</key>
+	<false/>
+</dict>
+</plist>
