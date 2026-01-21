@@ -10,4 +10,8 @@ firebase-debug.log
 
 # Backup files
 *.bak
-iterm2/*.plist
+# plist files (use xml instead)
+**/*.plist
+
+# Karabiner auto backups
+**/automatic_backups/
