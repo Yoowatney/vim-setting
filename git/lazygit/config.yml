@@ -50,9 +50,9 @@ customCommands:
         title: "Stash message:"
     command: 'git stash push -m "{{index .PromptResponses 0}}"'
 
-  # Delete merged branches
-  - key: "<c-D>"
+  # Delete gone branches (cleanup)
+  - key: "<c-d>"
     context: "localBranches"
-    loadingText: "deleting merged branches..."
-    description: "Delete branches merged into main"
-    command: 'git branch --merged main | grep -v "main" | xargs -r git branch -d'
+    loadingText: "cleaning up gone branches..."
+    description: "Delete branches marked as [gone]"
+    command: "git cleanup"
