@@ -12,6 +12,8 @@ return {
         scss = { "prettier" },
         html = { "prettier" },
         markdown = { "prettier" },
+        terraform = { "terraform_fmt" },
+        ["terraform-vars"] = { "terraform_fmt" },
       },
       format_on_save = {
         timeout_ms = 500,
@@ -20,3 +22,4 @@ return {
     },
   },
 }
+
