@@ -61,6 +61,8 @@ brew "tmux"
 brew "universal-ctags"
 brew "vim"
 brew "watchman"
+brew "coreutils"
+brew "gitleaks"
 brew "yarn", link: false
 brew "zoxide"
 brew "zsh"
