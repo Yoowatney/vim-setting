@@ -20,7 +20,7 @@
                         ]
                     },
                     {
-                        "description": "iTerm2: Caps Lock to Escape (English) + Control",
+                        "description": "iTerm2: Caps Lock to English (right_command) + Control",
                         "manipulators": [
                             {
                                 "type": "basic",
@@ -32,7 +32,8 @@
                                 },
                                 "to": [
                                     {
-                                        "key_code": "escape"
+                                        "key_code": "right_command",
+                                        "hold_down_milliseconds": 30
                                     },
                                     {
                                         "key_code": "left_control"
