@@ -20,6 +20,59 @@
                         ]
                     },
                     {
+                        "description": "iTerm2: Caps Lock to Escape (English) + Control",
+                        "manipulators": [
+                            {
+                                "type": "basic",
+                                "from": {
+                                    "key_code": "caps_lock",
+                                    "modifiers": {
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "escape"
+                                    },
+                                    {
+                                        "key_code": "left_control"
+                                    }
+                                ],
+                                "conditions": [
+                                    {
+                                        "type": "frontmost_application_if",
+                                        "bundle_identifiers": ["^com\\.googlecode\\.iterm2$"]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Caps Lock to Control (other apps)",
+                        "manipulators": [
+                            {
+                                "type": "basic",
+                                "from": {
+                                    "key_code": "caps_lock",
+                                    "modifiers": {
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "left_control"
+                                    }
+                                ],
+                                "conditions": [
+                                    {
+                                        "type": "frontmost_application_unless",
+                                        "bundle_identifiers": ["^com\\.googlecode\\.iterm2$"]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
                         "description": "Change Fn + h/j/k/l to Arrows",
                         "manipulators": [
                             {
@@ -94,10 +147,6 @@
             "name": "Default profile",
             "selected": true,
             "simple_modifications": [
-                {
-                    "from": { "key_code": "caps_lock" },
-                    "to": [{ "key_code": "left_control" }]
-                },
                 {
                     "from": { "key_code": "left_control" },
                     "to": [{ "key_code": "f18" }]

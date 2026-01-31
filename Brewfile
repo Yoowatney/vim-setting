@@ -94,6 +94,7 @@ cask "openinterminal-lite"
 cask "openvpn-connect"
 cask "session-manager-plugin"
 cask "tandem"
+cask "todoist-app"
 mas "Alfred", id: 405843582
 mas "Allkdic", id: 1033453958
 mas "DevCleaner", id: 1388020431
