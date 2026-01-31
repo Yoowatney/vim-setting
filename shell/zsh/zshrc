@@ -92,6 +92,82 @@ lleak() {
     while true; do leaks $1; sleep 1; clear; done
 } # currently not use
 
+memcheck() {
+    local RED='\033[0;31m'
+    local YELLOW='\033[0;33m'
+    local GREEN='\033[0;32m'
+    local NC='\033[0m'
+
+    # Format MB to GB if >= 1024
+    format_size() {
+        local mb=$1
+        if [[ ${mb%.*} -ge 1024 ]]; then
+            printf "%.1fGB" $(echo "$mb / 1024" | bc -l)
+        else
+            printf "%.0fMB" $mb
+        fi
+    }
+
+    # Parse memory info
+    local mem_info=$(top -l 1 -n 0 | grep "PhysMem")
+    local unused=$(echo "$mem_info" | grep -oE '[0-9]+M unused' | grep -oE '[0-9]+')
+    local compressor=$(echo "$mem_info" | grep -oE '[0-9]+M compressor' | grep -oE '[0-9]+')
+
+    # Handle GB units
+    if echo "$mem_info" | grep -q '[0-9.]*G unused'; then
+        unused=$(echo "$mem_info" | grep -oE '[0-9.]*G unused' | grep -oE '[0-9.]*')
+        unused=$(echo "$unused * 1024" | bc | cut -d. -f1)
+    fi
+    if echo "$mem_info" | grep -q '[0-9.]*G compressor'; then
+        compressor=$(echo "$mem_info" | grep -oE '[0-9.]*G compressor' | grep -oE '[0-9.]*')
+        compressor=$(echo "$compressor * 1024" | bc | cut -d. -f1)
+    fi
+
+    # Parse swap
+    local swap_used=$(sysctl vm.swapusage | grep -oE 'used = [0-9.]+M' | grep -oE '[0-9.]+')
+    local swap_int=${swap_used%.*}
+
+    echo "=== Memory Status ==="
+
+    # Unused memory status
+    local unused_fmt=$(format_size $unused)
+    if [[ $unused -lt 500 ]]; then
+        echo -e "unused:     ${RED}${unused_fmt} ✗ 심각 (500MB 미만)${NC}"
+    elif [[ $unused -lt 1024 ]]; then
+        echo -e "unused:     ${YELLOW}${unused_fmt} △ 부족 (1GB 미만)${NC}"
+    else
+        echo -e "unused:     ${GREEN}${unused_fmt} ✓ 정상${NC}"
+    fi
+
+    # Compressor status
+    local comp_fmt=$(format_size $compressor)
+    if [[ $compressor -gt 4096 ]]; then
+        echo -e "compressor: ${RED}${comp_fmt} ✗ 심각 (4GB 초과)${NC}"
+    elif [[ $compressor -gt 2048 ]]; then
+        echo -e "compressor: ${YELLOW}${comp_fmt} △ 높음 (2GB 초과)${NC}"
+    else
+        echo -e "compressor: ${GREEN}${comp_fmt} ✓ 정상${NC}"
+    fi
+
+    # Swap status
+    local swap_fmt=$(format_size $swap_used)
+    if [[ $swap_int -gt 1024 ]]; then
+        echo -e "swap used:  ${RED}${swap_fmt} ✗ 과다 (1GB 초과)${NC}"
+    elif [[ $swap_int -gt 0 ]]; then
+        echo -e "swap used:  ${YELLOW}${swap_fmt} △ 사용 중${NC}"
+    else
+        echo -e "swap used:  ${GREEN}${swap_fmt} ✓ 정상${NC}"
+    fi
+
+    echo ""
+    echo "=== Top 10 Processes ==="
+    ps -eo rss,comm | sort -k1 -rn | head -10 | awk '{
+        mb = $1/1024
+        if (mb >= 1024) printf "%5.1fGB  %s\n", mb/1024, $2
+        else printf "%5.0fMB  %s\n", mb, $2
+    }'
+}
+
 # ============================================
 # 7. Tool Initializations
 # ============================================
