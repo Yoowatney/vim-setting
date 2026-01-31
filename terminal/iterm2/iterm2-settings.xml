@@ -265,7 +265,7 @@
 		<integer>1</integer>
 	</dict>
 	<key>NSWindow Frame NSColorPanel</key>
-	<string>474 1489 250 311 -434 982 1920 1050 </string>
+	<string>193 1740 250 311 -434 982 1920 1050 </string>
 	<key>NSWindow Frame NSNavPanelAutosaveName</key>
 	<string>558 1545 328 195 -238 900 1920 1055 </string>
 	<key>NSWindow Frame ProfilesPanel</key>
@@ -273,7 +273,7 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>370 185 700 628 0 0 1440 875 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>-434 1039 1243 993 -434 982 1920 1050 </string>
+	<string>504 0 986 949 0 0 1512 949 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>958 1497 650 458 -238 900 1920 1055 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
@@ -766,6 +766,17 @@
 					<integer>11</integer>
 					<key>Text</key>
 					<string>0x1b 0x7f</string>
+				</dict>
+				<key>0xd-0x20000-0x24</key>
+				<dict>
+					<key>Action</key>
+					<integer>10</integer>
+					<key>Label</key>
+					<string></string>
+					<key>Text</key>
+					<string>[13;2u</string>
+					<key>Version</key>
+					<integer>1</integer>
 				</dict>
 				<key>0xf700-0x220000</key>
 				<dict>
@@ -2314,14 +2325,14 @@
 		<key>screenFrame</key>
 		<string>{{0, 0}, {1512, 982}}</string>
 		<key>topLeft</key>
-		<string>{292, 724}</string>
+		<string>{294, 725}</string>
 	</dict>
 	<key>NoSyncFrame_SharedPreferences</key>
 	<dict>
 		<key>screenFrame</key>
 		<string>{{-434, 982}, {1920, 1080}}</string>
 		<key>topLeft</key>
-		<string>{398, 1656}</string>
+		<string>{317, 1696}</string>
 	</dict>
 	<key>NoSyncHaveUsedCopyMode</key>
 	<true/>
@@ -2336,7 +2347,7 @@
 	<key>NoSyncLastTipTime</key>
 	<real>653382986.44951904</real>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>378</integer>
+	<integer>381</integer>
 	<key>NoSyncNextAnnoyanceTime</key>
 	<real>649421165.04822397</real>
 	<key>NoSyncPermissionToShowTip</key>
