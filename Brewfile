@@ -7,9 +7,7 @@ tap "jesseduffield/lazygit"
 tap "mongodb/brew"
 tap "ringohub/redis-cli"
 tap "stripe/stripe-cli"
-brew "libyaml"
 brew "readline", link: true
-brew "mise"
 brew "awscli"
 brew "bat"
 brew "berkeley-db", link: true
@@ -22,6 +20,7 @@ brew "emacs"
 brew "cask"
 brew "llvm"
 brew "ccls"
+brew "direnv"
 brew "folly"
 brew "fizz"
 brew "wangle"
@@ -34,6 +33,8 @@ brew "gcc"
 brew "gh"
 brew "git-delta"
 brew "git-lfs"
+brew "gitleaks"
+brew "glow"
 brew "gnupg"
 brew "groonga"
 brew "guile"
@@ -41,12 +42,16 @@ brew "httpie"
 brew "jq"
 brew "k6"
 brew "lazygit"
+brew "libyaml"
 brew "lsd"
-brew "mas"
 brew "luajit", args: ["HEAD"]
+brew "mas"
+brew "mise"
 brew "mongosh"
 brew "neovim"
 brew "nmap"
+brew "node@14"
+brew "node@16"
 brew "nvm"
 brew "nyancat"
 brew "openjdk@11"
@@ -61,8 +66,6 @@ brew "tmux"
 brew "universal-ctags"
 brew "vim"
 brew "watchman"
-brew "coreutils"
-brew "gitleaks"
 brew "yarn", link: false
 brew "zoxide"
 brew "zsh"
@@ -90,31 +93,24 @@ cask "notion"
 cask "openinterminal-lite"
 cask "openvpn-connect"
 cask "session-manager-plugin"
-# 추가된 앱들 (기존 수동 설치)
-cask "aldente"
-cask "alfred"
-cask "appcleaner"
-cask "clipy"
-cask "cloudflare-warp"
-cask "figma"
-cask "google-chrome"
-cask "hiddenbar"
-cask "iterm2"
-cask "karabiner-elements"
-cask "postman"
-cask "rectangle"
-cask "slack"
-
-# Mac App Store
-mas "카카오톡", id: 869223134
+cask "tandem"
+mas "Alfred", id: 405843582
 mas "Allkdic", id: 1033453958
 mas "DevCleaner", id: 1388020431
 mas "EasyRes", id: 688211836
+mas "GarageBand", id: 682658836
+mas "Hidden Bar", id: 1452453066
+mas "iMovie", id: 408981434
+mas "Keynote", id: 409183694
 mas "Notability", id: 360593530
+mas "Numbers", id: 409203825
+mas "Pages", id: 409201541
 mas "Polaris Office", id: 1098211970
 mas "QuickShade", id: 931571202
 mas "Redacted", id: 984968384
 mas "ScreenBrush", id: 1233965871
 mas "Shazam", id: 897118787
+mas "Slack", id: 803453959
 mas "Snap", id: 418073146
 mas "TestFlight", id: 899247664
+mas "카카오톡", id: 869223134

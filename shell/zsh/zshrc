@@ -194,6 +194,9 @@ eval "$(mise activate zsh)"
 # zoxide
 eval "$(zoxide init zsh)"
 
+# direnv
+eval "$(direnv hook zsh)"
+
 # Rust/Cargo
 . "$HOME/.local/bin/env"
 
