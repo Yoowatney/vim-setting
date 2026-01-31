@@ -20,7 +20,7 @@
                         ]
                     },
                     {
-                        "description": "iTerm2: Caps Lock to English (right_command) + Control",
+                        "description": "iTerm2 + Korean: Caps Lock to English + Control",
                         "manipulators": [
                             {
                                 "type": "basic",
@@ -43,6 +43,47 @@
                                     {
                                         "type": "frontmost_application_if",
                                         "bundle_identifiers": ["^com\\.googlecode\\.iterm2$"]
+                                    },
+                                    {
+                                        "type": "input_source_if",
+                                        "input_sources": [
+                                            {
+                                                "language": "ko"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "description": "iTerm2 + English: Caps Lock to Control only",
+                        "manipulators": [
+                            {
+                                "type": "basic",
+                                "from": {
+                                    "key_code": "caps_lock",
+                                    "modifiers": {
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "left_control"
+                                    }
+                                ],
+                                "conditions": [
+                                    {
+                                        "type": "frontmost_application_if",
+                                        "bundle_identifiers": ["^com\\.googlecode\\.iterm2$"]
+                                    },
+                                    {
+                                        "type": "input_source_unless",
+                                        "input_sources": [
+                                            {
+                                                "language": "ko"
+                                            }
+                                        ]
                                     }
                                 ]
                             }
