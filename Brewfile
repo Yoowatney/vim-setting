@@ -115,3 +115,4 @@ mas "Slack", id: 803453959
 mas "Snap", id: 418073146
 mas "TestFlight", id: 899247664
 mas "카카오톡", id: 869223134
+cask "hammerspoon"

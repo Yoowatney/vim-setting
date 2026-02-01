@@ -16,3 +16,6 @@ firebase-debug.log
 
 # Karabiner auto backups
 **/automatic_backups/
+
+# Tasks (PRD 등)
+tasks/
