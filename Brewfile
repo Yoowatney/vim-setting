@@ -80,6 +80,7 @@ cask "datagrip"
 cask "dbeaver-community"
 cask "discord"
 cask "docker-desktop"
+cask "easydict"
 cask "firefox"
 cask "font-hack-nerd-font"
 cask "gcloud-cli"
@@ -96,7 +97,6 @@ cask "session-manager-plugin"
 cask "tandem"
 cask "todoist-app"
 mas "Alfred", id: 405843582
-mas "Allkdic", id: 1033453958
 mas "DevCleaner", id: 1388020431
 mas "EasyRes", id: 688211836
 mas "GarageBand", id: 682658836
