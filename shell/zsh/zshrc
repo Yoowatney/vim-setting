@@ -151,10 +151,10 @@ memcheck() {
 
     # Swap status
     local swap_fmt=$(format_size $swap_used)
-    if [[ $swap_int -gt 1024 ]]; then
-        echo -e "swap used:  ${RED}${swap_fmt} ✗ 과다 (1GB 초과)${NC}"
-    elif [[ $swap_int -gt 0 ]]; then
-        echo -e "swap used:  ${YELLOW}${swap_fmt} △ 사용 중${NC}"
+    if [[ $swap_int -gt 10240 ]]; then
+        echo -e "swap used:  ${RED}${swap_fmt} ✗ 과다 (10GB 초과)${NC}"
+    elif [[ $swap_int -gt 5120 ]]; then
+        echo -e "swap used:  ${YELLOW}${swap_fmt} △ 높음 (5GB 초과)${NC}"
     else
         echo -e "swap used:  ${GREEN}${swap_fmt} ✓ 정상${NC}"
     fi
