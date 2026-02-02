@@ -196,6 +196,8 @@ eval "$(zoxide init zsh)"
 
 # direnv
 eval "$(direnv hook zsh)"
+# Shell 시작 시 현재 디렉토리의 .envrc 자동 로드
+eval "$(direnv export zsh 2>/dev/null)"
 
 # Rust/Cargo
 . "$HOME/.local/bin/env"
