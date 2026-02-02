@@ -165,6 +165,20 @@ create_symlinks() {
     create_symlink "$DOTFILES/macos/hammerspoon/init.lua" "$HOME/.hammerspoon/init.lua" "hammerspoon init.lua"
     create_symlink "$DOTFILES/macos/hammerspoon/Spoons" "$HOME/.hammerspoon/Spoons" "hammerspoon Spoons"
 
+    # Git config (user info 제외)
+    if [[ -f "$DOTFILES/git/gitconfig" ]]; then
+        git config --global push.default current
+        git config --global init.defaultBranch main
+        git config --global credential.helper store
+        git config --global core.pager delta
+        git config --global interactive.diffFilter "delta --color-only"
+        git config --global delta.navigate true
+        git config --global delta.side-by-side true
+        git config --global delta.line-numbers true
+        git config --global alias.cleanup '!git fetch --prune && git branch -vv | grep '"'"': gone]'"'"' | awk '"'"'{print $1}'"'"' | xargs -r git branch -D'
+        info "Git config applied (run: git config --global user.name/email)"
+    fi
+
     info "All symlinks created"
 }
 

@@ -1,0 +1,26 @@
+# Git Configuration (user info 제외)
+# git config --global user.name "Your Name"
+# git config --global user.email "your@email.com"
+
+[push]
+	default = current
+
+[init]
+	defaultBranch = main
+
+[credential]
+	helper = store
+
+[core]
+	pager = delta
+
+[alias]
+	cleanup = !git fetch --prune && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs -r git branch -D
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true
+	side-by-side = true
+	line-numbers = true

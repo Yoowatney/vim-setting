@@ -101,6 +101,7 @@ check "lazygit installed" "command -v lazygit &>/dev/null"
 check "lazygit config symlink" "[[ -L '$HOME/Library/Application Support/lazygit/config.yml' ]]"
 check "gh installed" "command -v gh &>/dev/null"
 check "delta installed" "command -v delta &>/dev/null"
+check "delta git config" "[[ \$(git config --global core.pager) == 'delta' ]]"
 
 # ===========================================
 # 6. Development Tools
