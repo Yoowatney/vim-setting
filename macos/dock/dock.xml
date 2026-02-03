@@ -743,56 +743,6 @@
 		</dict>
 		<dict>
 			<key>GUID</key>
-			<integer>3819026787</integer>
-			<key>tile-data</key>
-			<dict>
-				<key>book</key>
-				<data>
-				Ym9vazACAAAAAAQQMAAAAAAAAAAAAAAAAAAAAAAAAAAA
-				AAAAAAAAAAAAAAAAAAAAUAEAAAQAAAADAwAAAAAAIAwA
-				AAABAQAAQXBwbGljYXRpb25zDgAAAAEBAABOb3RhYmls
-				aXR5LmFwcAAACAAAAAEGAAAQAAAAJAAAAAgAAAAEAwAA
-				zSoBAgAAAAAIAAAABAMAABhHkAEAAAAACAAAAAEGAABM
-				AAAAXAAAAAgAAAAABAAAQcQpQhaAAAAYAAAAAQIAAAIA
-				AAAAAAAADwAAAAAAAAAAAAAAAAAAAAgAAAABCQAAZmls
-				ZTovLy8JAAAAAQEAAG1hY2ludG9zaAAAAAgAAAAEAwAA
-				AACHETkAAAAIAAAAAAQAAEHEQAfgAAAAJAAAAAEBAABC
-				OUI2NjBCOC1EMzdFLTQwNTAtOTU5Ny1FMUIwMkJDNDlE
-				QkUYAAAAAQIAAIEAAAABAAAA7xMAAAEAAAAAAAAAAAAA
-				AAEAAAABAQAALwAAAAAAAAABBQAAqAAAAP7///8BAAAA
-				AAAAAA0AAAAEEAAAPAAAAAAAAAAFEAAAbAAAAAAAAAAQ
-				EAAAjAAAAAAAAABAEAAAfAAAAAAAAAACIAAAPAEAAAAA
-				AAAFIAAArAAAAAAAAAAQIAAAvAAAAAAAAAARIAAA8AAA
-				AAAAAAASIAAA0AAAAAAAAAATIAAA4AAAAAAAAAAgIAAA
-				HAEAAAAAAAAwIAAASAEAAAAAAAAQ0AAABAAAAAAAAAA=
-				</data>
-				<key>bundle-identifier</key>
-				<string>com.gingerlabs.Notability</string>
-				<key>dock-extra</key>
-				<false/>
-				<key>file-data</key>
-				<dict>
-					<key>_CFURLString</key>
-					<string>file:///Applications/Notability.app/</string>
-					<key>_CFURLStringType</key>
-					<integer>15</integer>
-				</dict>
-				<key>file-label</key>
-				<string>Notability</string>
-				<key>file-mod-date</key>
-				<integer>49361502573788</integer>
-				<key>file-type</key>
-				<integer>41</integer>
-				<key>is-beta</key>
-				<false/>
-				<key>parent-mod-date</key>
-				<integer>32340593050899</integer>
-			</dict>
-			<key>tile-type</key>
-			<string>file-tile</string>
-		</dict>
-		<dict>
-			<key>GUID</key>
 			<integer>1597952305</integer>
 			<key>tile-data</key>
 			<dict>
