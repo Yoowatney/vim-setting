@@ -123,9 +123,30 @@ defaults write NSGlobalDomain AppleKeyboardUIMode -int 2
 # fn 키 기본 동작 (0: F1-F12, 1: 특수기능)
 defaults write NSGlobalDomain com.apple.keyboard.fnState -bool false
 
+# fn 키 동작 (0: 아무것도 안함, 1: 입력소스 전환, 2: 이모지, 3: 받아쓰기)
+# Karabiner에서 fn키를 사용하므로 0으로 설정
+defaults write com.apple.HIToolbox AppleFnUsageType -int 0
+
 # Caps Lock으로 한영전환 (구름 입력기용, 효과 없을 수 있음)
 defaults write com.apple.HIToolbox AppleCapsLockSwitchesInputMode -bool true
 defaults write org.youknowone.inputmethod.Gureum CapsLockToToggleInputMode -bool true 2>/dev/null || true
+
+# F18을 입력 소스 전환 단축키로 설정 (Karabiner에서 left_control → F18 매핑과 함께 사용)
+# keycode 79 = F18, modifier 0 = 없음
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 60 '
+<dict>
+  <key>enabled</key><true/>
+  <key>value</key>
+  <dict>
+    <key>type</key><string>standard</string>
+    <key>parameters</key>
+    <array>
+      <integer>65535</integer>
+      <integer>79</integer>
+      <integer>0</integer>
+    </array>
+  </dict>
+</dict>'
 
 # ===========================================
 # Trackpad

@@ -72,16 +72,52 @@ install_homebrew() {
 }
 
 install_packages() {
-    step "2/15 Homebrew Packages"
+    step "2/15 Homebrew Packages (brew & cask)"
     if [[ -f "$DOTFILES/Brewfile" ]]; then
-        # 일부 패키지 실패해도 계속 진행
-        brew bundle --file="$DOTFILES/Brewfile" || {
-            warn "Some packages failed to install (sudo required or deprecated)"
-            warn "Run 'brew bundle --file=$DOTFILES/Brewfile' manually for details"
+        # mas 제외하고 설치 (brew, cask, tap만)
+        grep -v "^mas " "$DOTFILES/Brewfile" | brew bundle --file=- || {
+            warn "Some packages failed to install"
         }
     else
         warn "Brewfile not found, skipping..."
     fi
+}
+
+install_mas_apps() {
+    step "2.5/15 Mac App Store Apps"
+
+    # mas 앱이 Brewfile에 있는지 확인
+    if ! grep -q "^mas " "$DOTFILES/Brewfile" 2>/dev/null; then
+        info "No mas apps in Brewfile, skipping..."
+        return
+    fi
+
+    # App Store 로그인 체크
+    if ! mas account &>/dev/null; then
+        echo ""
+        echo -e "${YELLOW}  ⚠️  App Store 로그인이 필요합니다.${NC}"
+        echo -e "${YELLOW}  → App Store 앱을 열고 로그인해주세요.${NC}"
+        echo ""
+
+        # App Store 열기
+        open -a "App Store"
+
+        # 로그인 대기
+        echo -n "  로그인 대기 중"
+        while ! mas account &>/dev/null; do
+            echo -n "."
+            sleep 3
+        done
+        echo ""
+        info "App Store 로그인 확인됨: $(mas account)"
+    else
+        info "App Store 로그인됨: $(mas account)"
+    fi
+
+    # mas 앱만 설치
+    grep "^mas " "$DOTFILES/Brewfile" | brew bundle --file=- || {
+        warn "Some App Store apps failed to install"
+    }
 }
 
 # ===========================================
@@ -248,7 +284,6 @@ restore_app_settings() {
         "macos/rectangle/rectangle.xml:com.knollsoft.Rectangle.plist:Rectangle"
         "macos/snap/snap.xml:com.iktm.snap.plist:Snap"
         "macos/clipy/clipy.xml:com.clipy-app.Clipy.plist:Clipy"
-        "macos/vimmotion/vimmotion.xml:com.dwarvesf.VimMotion.plist:VimMotion"
         "macos/gureum/gureum.xml:org.youknowone.Gureum.plist:Gureum"
         "macos/aldente/aldente.xml:com.apphousekitchen.aldente-pro.plist:AlDente"
         "macos/openinterminal/openinterminal.xml:wang.jianing.app.OpenInTerminal-Lite.plist:OpenInTerminal"
@@ -288,17 +323,10 @@ restore_app_settings() {
 # ===========================================
 configure_macos_defaults() {
     step "9/15 macOS Defaults"
-    echo ""
-    read -p "Configure macOS defaults? (y/N): " -n 1 -r
-    echo ""
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
-        if [[ -f "$DOTFILES/macos/defaults.sh" ]]; then
-            bash "$DOTFILES/macos/defaults.sh"
-        else
-            warn "defaults.sh not found, skipping..."
-        fi
+    if [[ -f "$DOTFILES/macos/defaults.sh" ]]; then
+        bash "$DOTFILES/macos/defaults.sh"
     else
-        info "Skipping macOS defaults. Run later: ./macos/defaults.sh"
+        warn "defaults.sh not found, skipping..."
     fi
 }
 
@@ -402,7 +430,6 @@ post_install() {
 
     # plist 복원된 앱들
     [[ -d "/Applications/Clipy.app" ]] && open -a "Clipy" && info "Clipy 실행됨"
-    [[ -d "/Applications/VimMotion.app" ]] && open -a "VimMotion" && info "VimMotion 실행됨"
     [[ -d "/Applications/AlDente.app" ]] && open -a "AlDente" && info "AlDente 실행됨"
     [[ -d "/Applications/OpenInTerminal-Lite.app" ]] && open -a "OpenInTerminal-Lite" && info "OpenInTerminal 실행됨"
     [[ -d "/Applications/Easydict.app" ]] && open -a "Easydict" && info "Easydict 실행됨"
@@ -479,15 +506,16 @@ main() {
     echo ""
     echo "This will install and configure your development environment."
     echo ""
-    read -p "Continue? (y/N): " -n 1 -r
+    read -p "Continue? (Y/n): " -n 1 -r
     echo ""
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    if [[ $REPLY =~ ^[Nn]$ ]]; then
         echo "Aborted."
         exit 0
     fi
 
     install_homebrew
     install_packages
+    install_mas_apps
     install_ohmyzsh
     install_zsh_plugins
     install_tmux

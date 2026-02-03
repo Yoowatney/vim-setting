@@ -93,7 +93,7 @@ cask "font-hack-nerd-font"
 cask "gcloud-cli"
 cask "hammerspoon"
 cask "intellij-idea-ce"
-cask "league-of-legends"
+# cask "league-of-legends" # 안씀
 cask "mongodb-compass"
 cask "mysqlworkbench"
 cask "ngrok"
@@ -103,33 +103,31 @@ cask "tandem"
 cask "todoist-app"
 
 # ===========================================
-# Casks - sudo required (install manually)
+# Casks - sudo required (brew will prompt for password)
 # ===========================================
 # cask "authy" # deprecated - 서비스 종료
-# cask "docker-desktop" # sudo required
-# cask "gureumkim" # sudo required (pkg installer)
-# cask "openvpn-connect" # sudo required (pkg installer)
-# cask "session-manager-plugin" # sudo required, deprecated 2026-09
+cask "docker-desktop"
+cask "gureumkim"
+# cask "session-manager-plugin" # deprecated 2026-09
 
 # ===========================================
-# Mac App Store (requires Apple ID login + sudo)
-# Run manually: mas install <id>
+# Mac App Store (requires Apple ID login)
 # ===========================================
-# mas "Alfred", id: 405843582
-# mas "DevCleaner", id: 1388020431
-# mas "GarageBand", id: 682658836
-# mas "Hidden Bar", id: 1452453066
-# mas "iMovie", id: 408981434
-# mas "Keynote", id: 409183694
-# mas "Notability", id: 360593530
-# mas "Numbers", id: 409203825
-# mas "Pages", id: 409201541
-# mas "Polaris Office", id: 1098211970
-# mas "QuickShade", id: 931571202
-# mas "ScreenBrush", id: 1233965871
-# mas "Shazam", id: 897118787
-# mas "Slack", id: 803453959
-# mas "Snap", id: 418073146
-# mas "TestFlight", id: 899247664
-# mas "카카오톡", id: 869223134
+mas "Alfred", id: 405843582
+mas "DevCleaner", id: 1388020431
+mas "GarageBand", id: 682658836
+mas "Hidden Bar", id: 1452453066
+mas "iMovie", id: 408981434
+mas "Keynote", id: 409183694
+mas "Notability", id: 360593530
+mas "Numbers", id: 409203825
+mas "Pages", id: 409201541
+mas "Polaris Office", id: 1098211970
+mas "QuickShade", id: 931571202
+mas "ScreenBrush", id: 1233965871
+mas "Shazam", id: 897118787
+mas "Slack", id: 803453959
+mas "Snap", id: 418073146
+mas "TestFlight", id: 899247664
+mas "카카오톡", id: 869223134
 # Removed: EasyRes (688211836), Redacted (984968384) - no longer in App Store

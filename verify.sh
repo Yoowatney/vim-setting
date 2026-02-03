@@ -5,7 +5,7 @@
 # Verifies all components are installed correctly
 # ===========================================
 
-DOTFILES="$HOME/dotfiles"
+DOTFILES="$HOME/.dotfiles"
 CONFIG="$HOME/.config"
 PREFS="$HOME/Library/Preferences"
 
@@ -197,7 +197,6 @@ declare -a apps=(
     "com.knollsoft.Rectangle.plist:Rectangle"
     "com.iktm.snap.plist:Snap"
     "com.clipy-app.Clipy.plist:Clipy"
-    "com.dwarvesf.VimMotion.plist:VimMotion"
     "org.youknowone.Gureum.plist:Gureum"
     "com.apphousekitchen.aldente-pro.plist:AlDente"
     "wang.jianing.app.OpenInTerminal-Lite.plist:OpenInTerminal"
