@@ -455,7 +455,6 @@ post_install() {
         ["rectangle"]="Rectangle"
         ["appcleaner"]="AppCleaner"
         ["chromium"]="Chromium"
-        ["datagrip"]="DataGrip"
         ["dbeaver-community"]="DBeaver"
         ["discord"]="Discord"
         ["easydict"]="Easydict"
