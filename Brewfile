@@ -72,6 +72,7 @@ brew "yarn", link: false
 brew "zoxide"
 brew "zsh"
 brew "zsh-completions"
+brew "uv"
 brew "hashicorp/tap/terraform-ls"
 brew "mongodb/brew/mongodb-community"
 brew "stripe/stripe-cli/stripe"

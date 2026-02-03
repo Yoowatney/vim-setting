@@ -337,18 +337,11 @@ configure_macos_defaults() {
 }
 
 # ===========================================
-# 8. Manual Installs
+# 8. Manual Installs (placeholder for future use)
 # ===========================================
 install_manual() {
     step "10/15 Manual Packages"
-
-    # uv (Python package manager)
-    if ! command -v uv &> /dev/null; then
-        info "Installing uv..."
-        curl -LsSf https://astral.sh/uv/install.sh | sh
-    else
-        info "uv already installed"
-    fi
+    info "All packages installed via Homebrew"
 }
 
 # ===========================================
@@ -471,34 +464,33 @@ show_secrets_guide() {
     echo -e "${BLUE}================================${NC}"
     echo ""
 
-    if [[ -x "$DOTFILES/secrets.sh" ]]; then
-        bash "$DOTFILES/secrets.sh"
-    else
-        echo "Complete the following manually:"
-        echo ""
-        echo "1. SSH Keys:"
-        echo "   - Copy from backup: cp -r /path/to/backup/.ssh ~/.ssh"
-        echo "   - Set permissions: chmod 700 ~/.ssh && chmod 600 ~/.ssh/*"
-        echo ""
-        echo "2. GPG Keys:"
-        echo "   - Import: gpg --import /path/to/backup/private.key"
-        echo ""
-        echo "3. GitHub CLI:"
-        echo "   - gh auth login"
-        echo ""
-        echo "4. Git Config:"
-        echo "   - git config --global user.name \"Your Name\""
-        echo "   - git config --global user.email \"your@email.com\""
-        echo ""
-        echo "5. System Permissions (System Settings > Privacy & Security > Accessibility):"
-        echo "   - Karabiner-Elements"
-        echo "   - Hammerspoon"
-        echo "   - Rectangle"
-        echo ""
-        echo "6. App Logins:"
-        echo "   - Chrome, Slack, Notion, Todoist, Discord, etc."
-        echo ""
-    fi
+    echo -e "${GREEN}1. Git Config${NC}"
+    echo "   git config --global user.name \"Your Name\""
+    echo "   git config --global user.email \"your@email.com\""
+    echo ""
+
+    echo -e "${GREEN}2. System Permissions${NC}"
+    echo "   시스템 설정 > 개인정보 보호 및 보안 > 입력 모니터링:"
+    echo "   - karabiner_grabber, karabiner_observer"
+    echo "   손쉬운 사용: Karabiner, Hammerspoon, Rectangle, Snap"
+    echo ""
+
+    echo -e "${GREEN}3. Post-Install (sudo 필요)${NC}"
+    echo "   brew install --cask docker-desktop"
+    echo "   brew install --cask gureumkim"
+    echo ""
+
+    echo -e "${GREEN}4. Mac App Store${NC}"
+    echo "   App Store 로그인 후: grep '^mas ' ~/.dotfiles/Brewfile | brew bundle --file=-"
+    echo ""
+
+    echo -e "${GREEN}5. CLI Logins${NC}"
+    echo "   gh auth login"
+    echo ""
+
+    echo -e "${GREEN}6. Shell 재시작${NC}"
+    echo "   source ~/.zshrc && mise install"
+    echo ""
 }
 
 # ===========================================
