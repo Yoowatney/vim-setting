@@ -53,6 +53,19 @@ create_symlink() {
 }
 
 # ===========================================
+# 0. Rosetta 2 (Apple Silicon)
+# ===========================================
+install_rosetta() {
+    if [[ $(uname -m) == "arm64" ]]; then
+        if ! /usr/bin/pgrep -q oahd; then
+            step "0/15 Rosetta 2"
+            info "Installing Rosetta 2..."
+            softwareupdate --install-rosetta --agree-to-license
+        fi
+    fi
+}
+
+# ===========================================
 # 1. Homebrew
 # ===========================================
 install_homebrew() {
@@ -526,6 +539,7 @@ main() {
     # sudo 캐시 유지 (백그라운드)
     while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
+    install_rosetta
     install_homebrew
     install_packages
     install_mas_apps
