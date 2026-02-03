@@ -462,7 +462,6 @@ post_install() {
         ["firefox"]="Firefox"
         ["google-chrome"]="Google Chrome"
         ["hammerspoon"]="Hammerspoon"
-        ["intellij-idea-ce"]="IntelliJ IDEA CE"
         ["mongodb-compass"]="MongoDB Compass"
         ["mysqlworkbench"]="MySQLWorkbench"
         ["ngrok"]="ngrok"
