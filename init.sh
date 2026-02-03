@@ -580,6 +580,9 @@ main() {
     info "Caching sudo credentials..."
     sudo -v
 
+    # 디스플레이 슬립 끄기 (설치 중 화면 꺼짐 방지)
+    sudo pmset -a displaysleep 0
+
     # SSH 원격 로그인 끄기 (설치 완료 후 보안)
     trap "sudo systemsetup -setremotelogin off 2>/dev/null; sudo launchctl unload -w /System/Library/LaunchDaemons/ssh.plist 2>/dev/null" EXIT
 
