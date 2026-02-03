@@ -486,6 +486,26 @@ post_install() {
     done
 
     sleep 2
+
+    # 앱 실행 후 설정 다시 적용 (처음 실행 시 기본값으로 덮어쓰는 앱들)
+    info "앱 설정 재적용 중..."
+    local reapply_apps=(
+        "macos/rectangle/rectangle.xml:com.knollsoft.Rectangle.plist:Rectangle"
+        "macos/snap/snap.xml:com.iktm.snap.plist:Snap"
+    )
+    for app_info in "${reapply_apps[@]}"; do
+        IFS=':' read -r xml_path plist_name app_name <<< "$app_info"
+        xml_file="$DOTFILES/$xml_path"
+        plist_file="$PREFS/$plist_name"
+        if [[ -f "$xml_file" ]]; then
+            killall "$app_name" 2>/dev/null || true
+            sleep 0.5
+            plutil -convert binary1 "$xml_file" -o "$plist_file"
+            open -a "$app_name" 2>/dev/null || true
+            info "$app_name 설정 재적용됨"
+        fi
+    done
+
     echo ""
     echo -e "${YELLOW}  💡 권한 설정: 시스템 설정 > 개인정보 보호 및 보안 > 입력 모니터링 / 손쉬운 사용${NC}"
     echo -e "${YELLOW}  💡 구름 설정: 시스템 설정 > 키보드 > 입력 소스 > 구름 추가${NC}"
