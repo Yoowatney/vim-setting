@@ -5,6 +5,9 @@
 # Verifies all components are installed correctly
 # ===========================================
 
+# brew PATH (Apple Silicon)
+[[ -x "/opt/homebrew/bin/brew" ]] && eval "$(/opt/homebrew/bin/brew shellenv)"
+
 DOTFILES="$HOME/.dotfiles"
 CONFIG="$HOME/.config"
 PREFS="$HOME/Library/Preferences"
@@ -133,8 +136,8 @@ echo ""
 echo "⚙️  Development Tools"
 check "mise installed" "command -v mise &>/dev/null"
 check_symlink "mise config symlink" "$CONFIG/mise/config.toml" "$DOTFILES/tools/mise/config.toml"
-check_warn "node installed (mise)" "command -v node &>/dev/null" "Run: mise install"
-check_warn "python installed (mise)" "command -v python &>/dev/null" "Run: mise install"
+check_warn "node installed (mise)" "[[ -x ~/.local/share/mise/shims/node ]]" "Run: mise install"
+check_warn "python installed (mise)" "[[ -x ~/.local/share/mise/shims/python ]]" "Run: mise install"
 check "fzf installed" "command -v fzf &>/dev/null"
 check_warn "fzf key-bindings" "[[ -f '$HOME/.fzf.zsh' ]]" "Run: /opt/homebrew/opt/fzf/install"
 check "ripgrep installed" "command -v rg &>/dev/null"
