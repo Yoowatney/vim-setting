@@ -123,6 +123,9 @@ echo ""
 echo "   Docker Desktop:"
 echo "   - brew install --cask docker-desktop"
 echo ""
+echo "   Gureumkim (구름 입력기):"
+echo "   - brew install --cask gureumkim"
+echo ""
 
 # ===========================================
 # 6. App Logins

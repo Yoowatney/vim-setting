@@ -57,7 +57,6 @@ brew "nmap"
 # node는 mise로 관리
 brew "nvm"
 brew "nyancat"
-brew "openjdk@11"
 brew "openjdk@17"
 brew "pass"
 brew "pngpaste"
@@ -75,7 +74,6 @@ brew "zsh"
 brew "zsh-completions"
 brew "hashicorp/tap/terraform-ls"
 brew "mongodb/brew/mongodb-community"
-# brew "ringohub/redis-cli/redis-cli" # broken download
 brew "stripe/stripe-cli/stripe"
 
 # ===========================================
@@ -93,13 +91,10 @@ cask "font-hack-nerd-font"
 cask "gcloud-cli"
 cask "hammerspoon"
 cask "intellij-idea-ce"
-# cask "league-of-legends" # 안씀
 cask "mongodb-compass"
 cask "mysqlworkbench"
 cask "ngrok"
 cask "notion"
-cask "openinterminal-lite"
-cask "tandem"
 cask "todoist-app"
 
 # ===========================================
@@ -107,7 +102,7 @@ cask "todoist-app"
 # ===========================================
 # cask "authy" # deprecated - 서비스 종료
 # cask "docker-desktop"  # sudo 필요 - brew install --cask docker-desktop
-cask "gureumkim"
+# cask "gureumkim"  # sudo 필요 - brew install --cask gureumkim
 # cask "session-manager-plugin" # deprecated 2026-09
 
 # ===========================================
@@ -117,11 +112,6 @@ mas "Alfred", id: 405843582
 mas "DevCleaner", id: 1388020431
 mas "GarageBand", id: 682658836
 mas "Hidden Bar", id: 1452453066
-mas "iMovie", id: 408981434
-mas "Keynote", id: 409183694
-mas "Notability", id: 360593530
-mas "Numbers", id: 409203825
-mas "Pages", id: 409201541
 mas "Polaris Office", id: 1098211970
 mas "QuickShade", id: 931571202
 mas "ScreenBrush", id: 1233965871
