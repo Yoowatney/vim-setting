@@ -59,7 +59,7 @@ install_homebrew() {
     step "1/15 Homebrew"
     if ! command -v brew &> /dev/null; then
         info "Installing Homebrew..."
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
         # Apple Silicon PATH
         if [[ $(uname -m) == "arm64" ]]; then
@@ -506,12 +506,6 @@ main() {
     echo ""
     echo "This will install and configure your development environment."
     echo ""
-    read -p "Continue? (Y/n): " -n 1 -r
-    echo ""
-    if [[ $REPLY =~ ^[Nn]$ ]]; then
-        echo "Aborted."
-        exit 0
-    fi
 
     install_homebrew
     install_packages
