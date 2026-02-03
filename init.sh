@@ -365,8 +365,14 @@ install_nvim_plugins() {
 
     if command -v nvim &> /dev/null; then
         info "Installing Neovim plugins..."
-        nvim --headless "+Lazy! sync" +qa 2>/dev/null || true
-        info "Neovim plugins installed"
+        # 타임아웃 60초 (codeium 등 인증 필요한 플러그인 hang 방지)
+        ( nvim --headless "+Lazy! sync" +qa 2>/dev/null ) &
+        local nvim_pid=$!
+        ( sleep 60 && kill -9 $nvim_pid 2>/dev/null ) &
+        local timeout_pid=$!
+        wait $nvim_pid 2>/dev/null || true
+        kill $timeout_pid 2>/dev/null || true
+        info "Neovim plugins installed (codeium 등은 GUI에서 인증 필요)"
     else
         warn "nvim not found, skipping..."
     fi
