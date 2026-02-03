@@ -81,6 +81,18 @@ install_packages() {
     else
         warn "Brewfile not found, skipping..."
     fi
+
+    # Nerd Font 링크 (brew cask가 ~/Library/Fonts에 링크 안 할 때 대비)
+    local font_cask="/opt/homebrew/Caskroom/font-hack-nerd-font"
+    if [[ -d "$font_cask" ]]; then
+        local font_version
+        font_version=$(ls "$font_cask" | head -1)
+        if [[ -n "$font_version" ]]; then
+            mkdir -p "$HOME/Library/Fonts"
+            ln -sf "$font_cask/$font_version"/*.ttf "$HOME/Library/Fonts/" 2>/dev/null || true
+            info "Hack Nerd Font linked to ~/Library/Fonts"
+        fi
+    fi
 }
 
 install_mas_apps() {
