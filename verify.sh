@@ -183,7 +183,7 @@ check "iterm2 plist" "[[ -f '$PREFS/com.googlecode.iterm2.plist' ]]"
 # ===========================================
 echo ""
 echo "🤖 Claude Code"
-check "claude installed" "command -v claude &>/dev/null"
+check "claude installed" "[[ -x ~/.local/share/mise/shims/claude ]]"
 check "settings.json exists" "[[ -f '$HOME/.claude/settings.json' ]]"
 check "statusline symlink" "[[ -L '$HOME/.claude/statusline-command.sh' ]]"
 check "stop-notification.sh symlink" "[[ -L '$HOME/.claude/hooks/stop-notification.sh' ]]"
