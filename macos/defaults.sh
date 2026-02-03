@@ -123,6 +123,10 @@ defaults write NSGlobalDomain AppleKeyboardUIMode -int 2
 # fn 키 기본 동작 (0: F1-F12, 1: 특수기능)
 defaults write NSGlobalDomain com.apple.keyboard.fnState -bool false
 
+# Caps Lock으로 한영전환 (구름 입력기용, 효과 없을 수 있음)
+defaults write com.apple.HIToolbox AppleCapsLockSwitchesInputMode -bool true
+defaults write org.youknowone.inputmethod.Gureum CapsLockToToggleInputMode -bool true 2>/dev/null || true
+
 # ===========================================
 # Trackpad
 # ===========================================
