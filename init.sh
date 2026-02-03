@@ -507,6 +507,13 @@ main() {
     echo "This will install and configure your development environment."
     echo ""
 
+    # sudo 권한 캐시 (Homebrew 설치에 필요)
+    info "Caching sudo credentials..."
+    sudo -v
+
+    # sudo 캐시 유지 (백그라운드)
+    while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
     install_homebrew
     install_packages
     install_mas_apps
