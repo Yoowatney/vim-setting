@@ -109,9 +109,7 @@ cask "todoist-app"
 # ===========================================
 # Mac App Store (requires Apple ID login)
 # ===========================================
-mas "Alfred", id: 405843582
 mas "DevCleaner", id: 1388020431
-mas "GarageBand", id: 682658836
 mas "Hidden Bar", id: 1452453066
 mas "Polaris Office", id: 1098211970
 mas "QuickShade", id: 931571202
