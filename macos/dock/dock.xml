@@ -416,12 +416,12 @@
 				<key>file-data</key>
 				<dict>
 					<key>_CFURLString</key>
-					<string>file:///Applications/MySQLWorkbench%202.app/</string>
+					<string>file:///Applications/MySQLWorkbench.app/</string>
 					<key>_CFURLStringType</key>
 					<integer>15</integer>
 				</dict>
 				<key>file-label</key>
-				<string>MySQLWorkbench 2</string>
+				<string>MySQLWorkbench</string>
 				<key>file-mod-date</key>
 				<integer>3835078713</integer>
 				<key>file-type</key>
