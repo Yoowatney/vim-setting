@@ -103,10 +103,10 @@ cask "tandem"
 cask "todoist-app"
 
 # ===========================================
-# Casks - sudo required (brew will prompt for password)
+# Casks - sudo required (post-install에서 수동 설치)
 # ===========================================
 # cask "authy" # deprecated - 서비스 종료
-cask "docker-desktop"
+# cask "docker-desktop"  # sudo 필요 - brew install --cask docker-desktop
 cask "gureumkim"
 # cask "session-manager-plugin" # deprecated 2026-09
 

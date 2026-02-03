@@ -116,9 +116,18 @@ echo "   - 다시 열기"
 echo ""
 
 # ===========================================
-# 5. App Logins
+# 5. Post-Install (sudo 필요)
 # ===========================================
-echo -e "${GREEN}5. App Logins Required${NC}"
+echo -e "${GREEN}5. Post-Install (sudo 필요)${NC}"
+echo ""
+echo "   Docker Desktop:"
+echo "   - brew install --cask docker-desktop"
+echo ""
+
+# ===========================================
+# 6. App Logins
+# ===========================================
+echo -e "${GREEN}6. App Logins Required${NC}"
 echo ""
 echo "   Browser:"
 echo "   - Chrome/Firefox (sync enabled)"
