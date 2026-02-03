@@ -86,6 +86,12 @@ install_packages() {
 install_mas_apps() {
     step "2.5/15 Mac App Store Apps"
 
+    # SSH 환경이면 스킵 (GUI 필요)
+    if [[ -n "$SSH_TTY" ]] || [[ -n "$SSH_CONNECTION" ]]; then
+        warn "SSH session detected, skipping mas apps (run manually after GUI login)"
+        return
+    fi
+
     # mas 앱이 Brewfile에 있는지 확인
     if ! grep -q "^mas " "$DOTFILES/Brewfile" 2>/dev/null; then
         info "No mas apps in Brewfile, skipping..."
