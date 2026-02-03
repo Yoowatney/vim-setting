@@ -5,7 +5,7 @@
 # Verifies all components are installed correctly
 # ===========================================
 
-DOTFILES="$HOME/.dotfiles"
+DOTFILES="$HOME/dotfiles"
 CONFIG="$HOME/.config"
 PREFS="$HOME/Library/Preferences"
 

@@ -64,7 +64,11 @@ install_homebrew() {
 install_packages() {
     step "2/15 Homebrew Packages"
     if [[ -f "$DOTFILES/Brewfile" ]]; then
-        brew bundle --file="$DOTFILES/Brewfile"
+        # 일부 패키지 실패해도 계속 진행
+        brew bundle --file="$DOTFILES/Brewfile" || {
+            warn "Some packages failed to install (sudo required or deprecated)"
+            warn "Run 'brew bundle --file=$DOTFILES/Brewfile' manually for details"
+        }
     else
         warn "Brewfile not found, skipping..."
     fi
@@ -343,7 +347,11 @@ install_tmux_plugins() {
 
     if [[ -x "$HOME/.tmux/plugins/tpm/bin/install_plugins" ]]; then
         info "Installing Tmux plugins..."
-        "$HOME/.tmux/plugins/tpm/bin/install_plugins"
+        # TPM 환경변수 설정 후 실행
+        TMUX_PLUGIN_MANAGER_PATH="$HOME/.tmux/plugins" \
+            "$HOME/.tmux/plugins/tpm/bin/install_plugins" 2>/dev/null || {
+            warn "TPM plugin install failed (run tmux and press prefix + I)"
+        }
         info "Tmux plugins installed"
     else
         warn "TPM not found, skipping..."
