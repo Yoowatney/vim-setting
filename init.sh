@@ -357,13 +357,12 @@ install_tmux_plugins() {
     if [[ -x "$HOME/.tmux/plugins/tpm/bin/install_plugins" ]]; then
         info "Installing Tmux plugins..."
 
-        # TPM은 tmux 글로벌 환경변수를 읽으므로 tmux 서버 시작 후 설정 필요
+        # TPM은 tmux 설정 파일에서 플러그인 목록을 읽으므로 먼저 설정 로드 필요
         tmux start-server 2>/dev/null || true
-        tmux set-environment -g TMUX_PLUGIN_MANAGER_PATH "$HOME/.tmux/plugins" 2>/dev/null || true
+        tmux source-file ~/.tmux.conf 2>/dev/null || true
 
         # TPM 플러그인 설치
-        TMUX_PLUGIN_MANAGER_PATH="$HOME/.tmux/plugins" \
-            "$HOME/.tmux/plugins/tpm/bin/install_plugins" 2>/dev/null || {
+        "$HOME/.tmux/plugins/tpm/bin/install_plugins" || {
             warn "TPM plugin install failed (run tmux and press prefix + I)"
         }
         info "Tmux plugins installed"
