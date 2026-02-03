@@ -456,7 +456,6 @@ post_install() {
         ["iterm2"]="iTerm"
         ["rectangle"]="Rectangle"
         ["appcleaner"]="AppCleaner"
-        ["chromium"]="Chromium"
         ["dbeaver-community"]="DBeaver"
         ["discord"]="Discord"
         ["easydict"]="Easydict"
