@@ -7,7 +7,7 @@
 
 set -e
 
-DOTFILES="$HOME/dotfiles"
+DOTFILES="$HOME/.dotfiles"
 CONFIG="$HOME/.config"
 PREFS="$HOME/Library/Preferences"
 
@@ -387,6 +387,32 @@ post_install() {
     if [[ -f "/opt/homebrew/opt/fzf/install" ]]; then
         /opt/homebrew/opt/fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish
     fi
+
+    # 설정 복원된 앱들 + 권한 필요한 앱들 실행
+    info "Starting apps (plist 적용 + 권한 요청)..."
+    echo ""
+    echo -e "${YELLOW}  ⚠️  앱들이 실행됩니다. 권한 요청이 뜨면 '허용'을 눌러주세요!${NC}"
+    echo ""
+
+    # 권한 필요 앱들
+    [[ -d "/Applications/Karabiner-Elements.app" ]] && open -a "Karabiner-Elements" && info "Karabiner-Elements 실행됨"
+    [[ -d "/Applications/Hammerspoon.app" ]] && open -a "Hammerspoon" && info "Hammerspoon 실행됨"
+    [[ -d "/Applications/Rectangle.app" ]] && open -a "Rectangle" && info "Rectangle 실행됨"
+    [[ -d "/Applications/Snap.app" ]] && open -a "Snap" && info "Snap 실행됨"
+
+    # plist 복원된 앱들
+    [[ -d "/Applications/Clipy.app" ]] && open -a "Clipy" && info "Clipy 실행됨"
+    [[ -d "/Applications/VimMotion.app" ]] && open -a "VimMotion" && info "VimMotion 실행됨"
+    [[ -d "/Applications/AlDente.app" ]] && open -a "AlDente" && info "AlDente 실행됨"
+    [[ -d "/Applications/OpenInTerminal-Lite.app" ]] && open -a "OpenInTerminal-Lite" && info "OpenInTerminal 실행됨"
+    [[ -d "/Applications/Easydict.app" ]] && open -a "Easydict" && info "Easydict 실행됨"
+    [[ -d "/Applications/iTerm.app" ]] && open -a "iTerm" && info "iTerm 실행됨"
+
+    sleep 2
+    echo ""
+    echo -e "${YELLOW}  💡 권한 설정: 시스템 설정 > 개인정보 보호 및 보안 > 입력 모니터링 / 손쉬운 사용${NC}"
+    echo -e "${YELLOW}  💡 구름 설정: 시스템 설정 > 키보드 > 입력 소스 > 구름 추가${NC}"
+    echo ""
 }
 
 # ===========================================
