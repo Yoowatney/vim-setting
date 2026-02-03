@@ -1050,13 +1050,13 @@
 			<key>Name</key>
 			<string>yoyoo</string>
 			<key>Non Ascii Font</key>
-			<string>HackNF-Regular 14</string>
+			<string>HackNerdFont-Regular 14</string>
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Non-ASCII Ligatures</key>
 			<false/>
 			<key>Normal Font</key>
-			<string>HackNF-Regular 14</string>
+			<string>HackNerdFont-Regular 14</string>
 			<key>Only The Default BG Color Uses Transparency</key>
 			<false/>
 			<key>Option Key Sends</key>
@@ -4149,13 +4149,13 @@
 											<key>Name</key>
 											<string>API</string>
 											<key>Non Ascii Font</key>
-											<string>HackNF-Regular 13</string>
+											<string>HackNerdFont-Regular 13</string>
 											<key>Non-ASCII Anti Aliased</key>
 											<true/>
 											<key>Non-ASCII Ligatures</key>
 											<false/>
 											<key>Normal Font</key>
-											<string>HackNF-Regular 13</string>
+											<string>HackNerdFont-Regular 13</string>
 											<key>Only The Default BG Color Uses Transparency</key>
 											<false/>
 											<key>Option Key Sends</key>
@@ -5581,13 +5581,13 @@
 											<key>Name</key>
 											<string>Git</string>
 											<key>Non Ascii Font</key>
-											<string>HackNF-Regular 13</string>
+											<string>HackNerdFont-Regular 13</string>
 											<key>Non-ASCII Anti Aliased</key>
 											<true/>
 											<key>Non-ASCII Ligatures</key>
 											<false/>
 											<key>Normal Font</key>
-											<string>HackNF-Regular 13</string>
+											<string>HackNerdFont-Regular 13</string>
 											<key>Only The Default BG Color Uses Transparency</key>
 											<false/>
 											<key>Option Key Sends</key>
@@ -6882,13 +6882,13 @@
 											<key>Name</key>
 											<string>Cloud functions</string>
 											<key>Non Ascii Font</key>
-											<string>HackNF-Regular 11</string>
+											<string>HackNerdFont-Regular 11</string>
 											<key>Non-ASCII Anti Aliased</key>
 											<true/>
 											<key>Non-ASCII Ligatures</key>
 											<false/>
 											<key>Normal Font</key>
-											<string>HackNF-Regular 11</string>
+											<string>HackNerdFont-Regular 11</string>
 											<key>Only The Default BG Color Uses Transparency</key>
 											<false/>
 											<key>Option Key Sends</key>
@@ -8078,13 +8078,13 @@
 											<key>Name</key>
 											<string>Monitoring</string>
 											<key>Non Ascii Font</key>
-											<string>HackNF-Regular 13</string>
+											<string>HackNerdFont-Regular 13</string>
 											<key>Non-ASCII Anti Aliased</key>
 											<true/>
 											<key>Non-ASCII Ligatures</key>
 											<false/>
 											<key>Normal Font</key>
-											<string>HackNF-Regular 13</string>
+											<string>HackNerdFont-Regular 13</string>
 											<key>Only The Default BG Color Uses Transparency</key>
 											<false/>
 											<key>Option Key Sends</key>
@@ -9427,13 +9427,13 @@
 											<key>Name</key>
 											<string>Monitoring2</string>
 											<key>Non Ascii Font</key>
-											<string>HackNF-Regular 14</string>
+											<string>HackNerdFont-Regular 14</string>
 											<key>Non-ASCII Anti Aliased</key>
 											<true/>
 											<key>Non-ASCII Ligatures</key>
 											<false/>
 											<key>Normal Font</key>
-											<string>HackNF-Regular 14</string>
+											<string>HackNerdFont-Regular 14</string>
 											<key>Only The Default BG Color Uses Transparency</key>
 											<false/>
 											<key>Option Key Sends</key>
@@ -10754,13 +10754,13 @@
 											<key>Name</key>
 											<string>Terraform</string>
 											<key>Non Ascii Font</key>
-											<string>HackNF-Regular 13</string>
+											<string>HackNerdFont-Regular 13</string>
 											<key>Non-ASCII Anti Aliased</key>
 											<true/>
 											<key>Non-ASCII Ligatures</key>
 											<false/>
 											<key>Normal Font</key>
-											<string>HackNF-Regular 13</string>
+											<string>HackNerdFont-Regular 13</string>
 											<key>Only The Default BG Color Uses Transparency</key>
 											<false/>
 											<key>Option Key Sends</key>
@@ -12009,13 +12009,13 @@
 											<key>Name</key>
 											<string>Default</string>
 											<key>Non Ascii Font</key>
-											<string>HackNF-Regular 15</string>
+											<string>HackNerdFont-Regular 15</string>
 											<key>Non-ASCII Anti Aliased</key>
 											<true/>
 											<key>Non-ASCII Ligatures</key>
 											<false/>
 											<key>Normal Font</key>
-											<string>HackNF-Regular 15</string>
+											<string>HackNerdFont-Regular 15</string>
 											<key>Only The Default BG Color Uses Transparency</key>
 											<false/>
 											<key>Option Key Sends</key>
@@ -13460,13 +13460,13 @@
 											<key>Name</key>
 											<string>Default</string>
 											<key>Non Ascii Font</key>
-											<string>HackNF-Regular 15</string>
+											<string>HackNerdFont-Regular 15</string>
 											<key>Non-ASCII Anti Aliased</key>
 											<true/>
 											<key>Non-ASCII Ligatures</key>
 											<false/>
 											<key>Normal Font</key>
-											<string>HackNF-Regular 15</string>
+											<string>HackNerdFont-Regular 15</string>
 											<key>Only The Default BG Color Uses Transparency</key>
 											<false/>
 											<key>Option Key Sends</key>
@@ -14733,13 +14733,13 @@
 											<key>Name</key>
 											<string>Default</string>
 											<key>Non Ascii Font</key>
-											<string>HackNF-Regular 15</string>
+											<string>HackNerdFont-Regular 15</string>
 											<key>Non-ASCII Anti Aliased</key>
 											<true/>
 											<key>Non-ASCII Ligatures</key>
 											<false/>
 											<key>Normal Font</key>
-											<string>HackNF-Regular 15</string>
+											<string>HackNerdFont-Regular 15</string>
 											<key>Only The Default BG Color Uses Transparency</key>
 											<false/>
 											<key>Option Key Sends</key>
