@@ -342,6 +342,11 @@ configure_macos_defaults() {
 install_mise_tools() {
     step "11/15 Mise Tools"
 
+    # brew PATH 설정 (Apple Silicon)
+    if [[ -x "/opt/homebrew/bin/brew" ]]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    fi
+
     if command -v mise &> /dev/null; then
         info "Installing mise tools (node, python, terraform, etc.)..."
         mise trust "$CONFIG/mise/config.toml" 2>/dev/null || true
