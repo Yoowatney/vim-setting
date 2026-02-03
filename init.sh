@@ -444,6 +444,12 @@ post_install() {
         /opt/homebrew/opt/fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish
     fi
 
+    # 구름 입력기 등록 (시스템 입력 소스에 표시되도록)
+    if [[ -d "/Library/Input Methods/Gureum.app" ]]; then
+        open "/Library/Input Methods/Gureum.app"
+        info "구름 입력기 실행됨 (시스템 설정 > 키보드 > 입력 소스에서 추가)"
+    fi
+
     # Brewfile에서 cask 앱들 추출해서 전부 실행 (Gatekeeper 경고 처리)
     info "Opening all cask apps (Gatekeeper 경고 처리)..."
     echo ""
