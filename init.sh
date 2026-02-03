@@ -301,6 +301,7 @@ restore_app_settings() {
         "macos/aldente/aldente.xml:com.apphousekitchen.aldente-pro.plist:AlDente"
         "macos/openinterminal/openinterminal.xml:wang.jianing.app.OpenInTerminal-Lite.plist:OpenInTerminal"
         "macos/easydict/easydict.xml:com.izual.Easydict.plist:Easydict"
+        "macos/dock/dock.xml:com.apple.dock.plist:Dock"
         "terminal/iterm2/iterm2-settings.xml:com.googlecode.iterm2.plist:iTerm2"
     )
 
@@ -327,6 +328,9 @@ restore_app_settings() {
             warn "$app_name XML not found: $xml_file"
         fi
     done
+
+    # Dock 설정 적용을 위해 재시작
+    killall Dock 2>/dev/null || true
 
     info "App settings restored. Restart apps to apply changes."
 }
