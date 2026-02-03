@@ -337,15 +337,7 @@ configure_macos_defaults() {
 }
 
 # ===========================================
-# 8. Manual Installs (placeholder for future use)
-# ===========================================
-install_manual() {
-    step "10/15 Manual Packages"
-    info "All packages installed via Homebrew"
-}
-
-# ===========================================
-# 9. Mise Install
+# 8. Mise Install
 # ===========================================
 install_mise_tools() {
     step "11/15 Mise Tools"
@@ -522,7 +514,6 @@ main() {
     setup_claude
     restore_app_settings
     configure_macos_defaults
-    install_manual
     install_mise_tools
     install_nvim_plugins
     install_tmux_plugins
