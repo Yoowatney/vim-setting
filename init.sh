@@ -554,12 +554,23 @@ main() {
     info "Caching sudo credentials..."
     sudo -v
 
+    # SSH 원격 로그인 끄기 (설치 완료 후 보안)
+    trap "sudo systemsetup -setremotelogin off 2>/dev/null; sudo launchctl unload -w /System/Library/LaunchDaemons/ssh.plist 2>/dev/null" EXIT
+
     # sudo 캐시 유지 (백그라운드)
     while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
     install_rosetta
     install_homebrew
     install_packages
+
+    # brew bash로 업그레이드 (declare -A 지원)
+    if [[ -z "$BASH_UPGRADED" ]] && [[ -x "/opt/homebrew/bin/bash" ]] && [[ "${BASH_VERSION%%.*}" -lt 4 ]]; then
+        info "Upgrading to brew bash (v4+)..."
+        export BASH_UPGRADED=1
+        exec /opt/homebrew/bin/bash "$0" "$@"
+    fi
+
     install_mas_apps
     install_ohmyzsh
     install_zsh_plugins
