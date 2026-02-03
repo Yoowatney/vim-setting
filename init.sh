@@ -95,16 +95,18 @@ install_packages() {
         warn "Brewfile not found, skipping..."
     fi
 
-    # Nerd Font 링크 (brew cask가 ~/Library/Fonts에 링크 안 할 때 대비)
-    local font_cask="/opt/homebrew/Caskroom/font-hack-nerd-font"
-    if [[ -d "$font_cask" ]]; then
-        local font_version
-        font_version=$(ls "$font_cask" | head -1)
-        if [[ -n "$font_version" ]]; then
-            mkdir -p "$HOME/Library/Fonts"
-            ln -sf "$font_cask/$font_version"/*.ttf "$HOME/Library/Fonts/" 2>/dev/null || true
-            info "Hack Nerd Font linked to ~/Library/Fonts"
-        fi
+    # Nerd Font 설치 (brew cask symlink가 다른 유저를 가리킬 수 있어서 직접 다운로드)
+    mkdir -p "$HOME/Library/Fonts"
+    if [[ ! -f "$HOME/Library/Fonts/HackNerdFont-Regular.ttf" ]] || [[ -L "$HOME/Library/Fonts/HackNerdFont-Regular.ttf" ]]; then
+        info "Downloading Hack Nerd Font..."
+        local font_url="https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.zip"
+        local font_tmp="/tmp/hack-nerd-font.zip"
+        curl -sL "$font_url" -o "$font_tmp"
+        unzip -o "$font_tmp" -d "$HOME/Library/Fonts/" "*.ttf" 2>/dev/null || true
+        rm -f "$font_tmp"
+        info "Hack Nerd Font installed"
+    else
+        info "Hack Nerd Font already installed"
     fi
 }
 

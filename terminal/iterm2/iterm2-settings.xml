@@ -265,7 +265,7 @@
 		<integer>1</integer>
 	</dict>
 	<key>NSWindow Frame NSColorPanel</key>
-	<string>193 1740 250 311 -434 982 1920 1050 </string>
+	<string>193 1740 250 311 0 0 1512 949 </string>
 	<key>NSWindow Frame NSNavPanelAutosaveName</key>
 	<string>558 1545 328 195 -238 900 1920 1055 </string>
 	<key>NSWindow Frame ProfilesPanel</key>
@@ -2332,7 +2332,7 @@
 		<key>screenFrame</key>
 		<string>{{-434, 982}, {1920, 1080}}</string>
 		<key>topLeft</key>
-		<string>{317, 1696}</string>
+		<string>{445, 1712}</string>
 	</dict>
 	<key>NoSyncHaveUsedCopyMode</key>
 	<true/>
@@ -2348,6 +2348,8 @@
 	<real>653382986.44951904</real>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
 	<integer>381</integer>
+	<key>NoSyncNeverAskAboutMouseReportingFrustration</key>
+	<true/>
 	<key>NoSyncNextAnnoyanceTime</key>
 	<real>649421165.04822397</real>
 	<key>NoSyncPermissionToShowTip</key>
