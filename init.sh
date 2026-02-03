@@ -169,7 +169,6 @@ create_symlinks() {
     if [[ -f "$DOTFILES/git/gitconfig" ]]; then
         git config --global push.default current
         git config --global init.defaultBranch main
-        git config --global credential.helper store
         git config --global core.pager delta
         git config --global interactive.diffFilter "delta --color-only"
         git config --global delta.navigate true
@@ -177,6 +176,12 @@ create_symlinks() {
         git config --global delta.line-numbers true
         git config --global alias.cleanup '!git fetch --prune && git branch -vv | grep '"'"': gone]'"'"' | awk '"'"'{print $1}'"'"' | xargs -r git branch -D'
         info "Git config applied (run: git config --global user.name/email)"
+    fi
+
+    # GitHub CLI credential helper
+    if command -v gh &> /dev/null; then
+        gh auth setup-git 2>/dev/null || true
+        info "GitHub CLI credential helper configured"
     fi
 
     info "All symlinks created"
@@ -398,17 +403,20 @@ show_secrets_guide() {
         echo "2. GPG Keys:"
         echo "   - Import: gpg --import /path/to/backup/private.key"
         echo ""
-        echo "3. Git Config:"
+        echo "3. GitHub CLI:"
+        echo "   - gh auth login"
+        echo ""
+        echo "4. Git Config:"
         echo "   - git config --global user.name \"Your Name\""
         echo "   - git config --global user.email \"your@email.com\""
         echo ""
-        echo "4. System Permissions (System Settings > Privacy & Security > Accessibility):"
+        echo "5. System Permissions (System Settings > Privacy & Security > Accessibility):"
         echo "   - Karabiner-Elements"
         echo "   - Hammerspoon"
         echo "   - Rectangle"
         echo "   - Vimac"
         echo ""
-        echo "5. App Logins:"
+        echo "6. App Logins:"
         echo "   - Chrome, Slack, Notion, Todoist, Discord, etc."
         echo ""
     fi
