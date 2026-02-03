@@ -92,13 +92,15 @@ cask "mysqlworkbench"
 cask "ngrok"
 cask "notion"
 cask "todoist-app"
+cask "karabiner-elements"
+cask "rectangle"
+cask "gureumkim"
 
 # ===========================================
 # Casks - sudo required (post-install에서 수동 설치)
 # ===========================================
 # cask "authy" # deprecated - 서비스 종료
 # cask "docker-desktop"  # sudo 필요 - brew install --cask docker-desktop
-# cask "gureumkim"  # sudo 필요 - brew install --cask gureumkim
 # cask "session-manager-plugin" # deprecated 2026-09
 
 # ===========================================
