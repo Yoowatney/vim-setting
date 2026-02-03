@@ -102,20 +102,15 @@ install_mas_apps() {
     if ! mas account &>/dev/null; then
         echo ""
         echo -e "${YELLOW}  ⚠️  App Store 로그인이 필요합니다.${NC}"
-        echo -e "${YELLOW}  → App Store 앱을 열고 로그인해주세요.${NC}"
+        echo -e "${YELLOW}  → App Store 앱에서 로그인 후 Enter를 눌러주세요.${NC}"
         echo ""
 
         # App Store 열기
         open -a "App Store"
 
-        # 로그인 대기
-        echo -n "  로그인 대기 중"
-        while ! mas account &>/dev/null; do
-            echo -n "."
-            sleep 3
-        done
-        echo ""
-        info "App Store 로그인 확인됨: $(mas account)"
+        # 사용자 확인 대기
+        read -r -p "  로그인 완료 후 Enter: "
+        info "App Store 로그인 진행"
     else
         info "App Store 로그인됨: $(mas account)"
     fi
