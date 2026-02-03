@@ -24,13 +24,23 @@ error() { echo -e "${RED}[ERROR]${NC} $1"; exit 1; }
 step() { echo -e "\n${BLUE}=== $1 ===${NC}"; }
 
 # Helper: create symlink with backup
+# 기존 심볼릭 링크가 잘못된 경로를 가리키면 재생성
 create_symlink() {
     local src="$1"
     local dest="$2"
     local name="$3"
 
     if [[ -L "$dest" ]]; then
-        warn "$name symlink exists, skipping..."
+        local current_target
+        current_target=$(readlink "$dest")
+        if [[ "$current_target" == "$src" ]]; then
+            info "$name symlink OK"
+        else
+            warn "$name symlink points to wrong path, recreating..."
+            rm -f "$dest"
+            ln -s "$src" "$dest"
+            info "$name symlink fixed"
+        fi
     elif [[ -e "$dest" ]]; then
         warn "$name exists, backing up to ${dest}.bak..."
         mv "$dest" "${dest}.bak"
@@ -238,7 +248,6 @@ restore_app_settings() {
         "macos/rectangle/rectangle.xml:com.knollsoft.Rectangle.plist:Rectangle"
         "macos/snap/snap.xml:com.iktm.snap.plist:Snap"
         "macos/clipy/clipy.xml:com.clipy-app.Clipy.plist:Clipy"
-        "macos/vimac/vimac.xml:dexterleng.vimac.plist:Vimac"
         "macos/vimmotion/vimmotion.xml:com.dwarvesf.VimMotion.plist:VimMotion"
         "macos/gureum/gureum.xml:org.youknowone.Gureum.plist:Gureum"
         "macos/aldente/aldente.xml:com.apphousekitchen.aldente-pro.plist:AlDente"
@@ -422,7 +431,6 @@ show_secrets_guide() {
         echo "   - Karabiner-Elements"
         echo "   - Hammerspoon"
         echo "   - Rectangle"
-        echo "   - Vimac"
         echo ""
         echo "6. App Logins:"
         echo "   - Chrome, Slack, Notion, Todoist, Discord, etc."

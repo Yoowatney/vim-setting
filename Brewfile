@@ -81,6 +81,8 @@ brew "stripe/stripe-cli/stripe"
 # ===========================================
 # Casks (GUI Apps) - no sudo required
 # ===========================================
+cask "iterm2"
+cask "rectangle"
 cask "chromium"
 cask "datagrip"
 cask "dbeaver-community"

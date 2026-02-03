@@ -47,6 +47,28 @@ check_warn() {
     fi
 }
 
+# Helper: check symlink points to correct path
+check_symlink() {
+    local name="$1"
+    local link="$2"
+    local expected="$3"
+
+    if [[ -L "$link" ]]; then
+        local actual
+        actual=$(readlink "$link")
+        if [[ "$actual" == "$expected" ]]; then
+            echo -e "  ${GREEN}✅${NC} $name"
+            ((PASS++))
+        else
+            echo -e "  ${RED}❌${NC} $name (wrong path: $actual)"
+            ((FAIL++))
+        fi
+    else
+        echo -e "  ${RED}❌${NC} $name (not a symlink)"
+        ((FAIL++))
+    fi
+}
+
 echo ""
 echo "================================"
 echo "  dotfiles verification"
@@ -68,8 +90,8 @@ echo "🐚 Shell"
 check "zsh installed" "command -v zsh &>/dev/null"
 check "Oh-My-Zsh installed" "[[ -d '$HOME/.oh-my-zsh' ]]"
 check "Powerlevel10k installed" "[[ -d '$HOME/.oh-my-zsh/custom/themes/powerlevel10k' ]]"
-check ".zshrc symlink" "[[ -L '$HOME/.zshrc' ]]"
-check ".p10k.zsh symlink" "[[ -L '$HOME/.p10k.zsh' ]]"
+check_symlink ".zshrc symlink" "$HOME/.zshrc" "$DOTFILES/shell/zsh/zshrc"
+check_symlink ".p10k.zsh symlink" "$HOME/.p10k.zsh" "$DOTFILES/shell/zsh/p10k.zsh"
 
 # ===========================================
 # 3. Tmux
@@ -79,7 +101,7 @@ echo "🖥️  Tmux"
 check "tmux installed" "command -v tmux &>/dev/null"
 check "gpakosz/.tmux installed" "[[ -d '$HOME/.tmux' ]]"
 check "TPM installed" "[[ -d '$HOME/.tmux/plugins/tpm' ]]"
-check ".tmux.conf.local symlink" "[[ -L '$HOME/.tmux.conf.local' ]]"
+check_symlink ".tmux.conf.local symlink" "$HOME/.tmux.conf.local" "$DOTFILES/terminal/tmux/tmux.conf.local"
 check_warn "Tmux plugins installed" "[[ -d '$HOME/.tmux/plugins/tmux-resurrect' ]]" "Run: ~/.tmux/plugins/tpm/bin/install_plugins"
 
 # ===========================================
@@ -88,7 +110,7 @@ check_warn "Tmux plugins installed" "[[ -d '$HOME/.tmux/plugins/tmux-resurrect' 
 echo ""
 echo "📝 Neovim"
 check "nvim installed" "command -v nvim &>/dev/null"
-check "nvim config symlink" "[[ -L '$CONFIG/nvim' ]]"
+check_symlink "nvim config symlink" "$CONFIG/nvim" "$DOTFILES/editors/nvim"
 check_warn "LazyVim plugins" "[[ -d '$HOME/.local/share/nvim/lazy' ]]" "Run: nvim --headless '+Lazy! sync' +qa"
 
 # ===========================================
@@ -100,6 +122,7 @@ check "git installed" "command -v git &>/dev/null"
 check "lazygit installed" "command -v lazygit &>/dev/null"
 check "lazygit config symlink" "[[ -L '$HOME/Library/Application Support/lazygit/config.yml' ]]"
 check "gh installed" "command -v gh &>/dev/null"
+check "gh authenticated" "gh auth status &>/dev/null"
 check "delta installed" "command -v delta &>/dev/null"
 check "delta git config" "[[ \$(git config --global core.pager) == 'delta' ]]"
 
@@ -109,7 +132,7 @@ check "delta git config" "[[ \$(git config --global core.pager) == 'delta' ]]"
 echo ""
 echo "⚙️  Development Tools"
 check "mise installed" "command -v mise &>/dev/null"
-check "mise config symlink" "[[ -L '$CONFIG/mise/config.toml' ]]"
+check_symlink "mise config symlink" "$CONFIG/mise/config.toml" "$DOTFILES/tools/mise/config.toml"
 check_warn "node installed (mise)" "command -v node &>/dev/null" "Run: mise install"
 check_warn "python installed (mise)" "command -v python &>/dev/null" "Run: mise install"
 check "fzf installed" "command -v fzf &>/dev/null"
@@ -124,7 +147,8 @@ check "uv installed" "command -v uv &>/dev/null"
 # ===========================================
 echo ""
 echo "⌨️  Karabiner"
-check "karabiner symlink" "[[ -L '$CONFIG/karabiner' ]]"
+check "karabiner-elements installed" "[[ -d '/Applications/Karabiner-Elements.app' ]]"
+check_symlink "karabiner config symlink" "$CONFIG/karabiner" "$DOTFILES/macos/karabiner"
 check "karabiner.json exists" "[[ -f '$CONFIG/karabiner/karabiner.json' ]]"
 
 # ===========================================
@@ -132,12 +156,27 @@ check "karabiner.json exists" "[[ -f '$CONFIG/karabiner/karabiner.json' ]]"
 # ===========================================
 echo ""
 echo "🔨 Hammerspoon"
-check "hammerspoon installed" "[[ -d '/Applications/Hammerspoon.app' ]] || command -v hs &>/dev/null"
-check "init.lua symlink" "[[ -L '$HOME/.hammerspoon/init.lua' ]]"
-check "Spoons symlink" "[[ -L '$HOME/.hammerspoon/Spoons' ]]"
+check "hammerspoon installed" "[[ -d '/Applications/Hammerspoon.app' ]]"
+check_symlink "init.lua symlink" "$HOME/.hammerspoon/init.lua" "$DOTFILES/macos/hammerspoon/init.lua"
+check_symlink "Spoons symlink" "$HOME/.hammerspoon/Spoons" "$DOTFILES/macos/hammerspoon/Spoons"
 
 # ===========================================
-# 9. Claude Code
+# 9. Rectangle
+# ===========================================
+echo ""
+echo "🪟 Rectangle"
+check "rectangle installed" "[[ -d '/Applications/Rectangle.app' ]]"
+
+# ===========================================
+# 10. iTerm2
+# ===========================================
+echo ""
+echo "💻 iTerm2"
+check "iterm2 installed" "[[ -d '/Applications/iTerm.app' ]]"
+check "iterm2 plist" "[[ -f '$PREFS/com.googlecode.iterm2.plist' ]]"
+
+# ===========================================
+# 11. Claude Code
 # ===========================================
 echo ""
 echo "🤖 Claude Code"
@@ -149,7 +188,7 @@ check "permission-notification.sh symlink" "[[ -L '$HOME/.claude/hooks/permissio
 check "session-env.sh symlink" "[[ -L '$HOME/.claude/hooks/session-env.sh' ]]"
 
 # ===========================================
-# 10. macOS App Settings
+# 12. macOS App Settings
 # ===========================================
 echo ""
 echo "🍎 macOS App Settings"
@@ -158,13 +197,11 @@ declare -a apps=(
     "com.knollsoft.Rectangle.plist:Rectangle"
     "com.iktm.snap.plist:Snap"
     "com.clipy-app.Clipy.plist:Clipy"
-    "dexterleng.vimac.plist:Vimac"
     "com.dwarvesf.VimMotion.plist:VimMotion"
     "org.youknowone.Gureum.plist:Gureum"
     "com.apphousekitchen.aldente-pro.plist:AlDente"
     "wang.jianing.app.OpenInTerminal-Lite.plist:OpenInTerminal"
     "com.izual.Easydict.plist:Easydict"
-    "com.googlecode.iterm2.plist:iTerm2"
 )
 
 for app_info in "${apps[@]}"; do
@@ -173,7 +210,7 @@ for app_info in "${apps[@]}"; do
 done
 
 # ===========================================
-# 11. System Permissions (informational)
+# 13. System Permissions (informational)
 # ===========================================
 echo ""
 echo "🔐 System Permissions Required"
@@ -181,7 +218,6 @@ echo -e "  ${YELLOW}ℹ️${NC}  Grant in System Settings > Privacy & Security >
 echo "      - Karabiner-Elements (Input Monitoring + Accessibility)"
 echo "      - Hammerspoon"
 echo "      - Rectangle"
-echo "      - Vimac"
 
 # ===========================================
 # Summary
