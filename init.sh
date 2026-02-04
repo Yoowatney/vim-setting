@@ -269,6 +269,10 @@ create_symlinks() {
         info "vim → nvim symlink created"
     fi
 
+    # KeyBindings (₩ → ` 매핑)
+    mkdir -p "$HOME/Library/KeyBindings"
+    create_symlink "$DOTFILES/macos/keybindings/DefaultKeyBinding.dict" "$HOME/Library/KeyBindings/DefaultKeyBinding.dict" "KeyBindings"
+
     info "All symlinks created"
 }
 
