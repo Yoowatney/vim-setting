@@ -63,7 +63,6 @@ brew "protobuf"
 brew "ripgrep"
 brew "terminal-notifier"
 brew "tmux"
-brew "vim"
 brew "yarn", link: false
 brew "zoxide"
 brew "zsh"

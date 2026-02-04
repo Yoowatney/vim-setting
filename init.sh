@@ -262,6 +262,13 @@ create_symlinks() {
         info "GitHub CLI credential helper configured"
     fi
 
+    # vim → nvim symlink (brew vim 대신 nvim 사용)
+    if [[ -x "/opt/homebrew/bin/nvim" ]]; then
+        brew unlink vim 2>/dev/null || true
+        ln -sf /opt/homebrew/bin/nvim /opt/homebrew/bin/vim
+        info "vim → nvim symlink created"
+    fi
+
     info "All symlinks created"
 }
 

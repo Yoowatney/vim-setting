@@ -73,7 +73,7 @@ alias g="lazygit"
 
 # Dev tools
 alias tf="terraform"
-alias ctags="`brew --prefix`/bin/ctags"
+# alias ctags="`brew --prefix`/bin/ctags"
 alias ccc="c++ -Wall -Wextra -Werror -std=c++98"
 
 # Utilities

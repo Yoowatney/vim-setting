@@ -2,15 +2,13 @@ gui:
   showIcons: true
   showRandomTip: false
   nerdFontsVersion: "3"
-
 customCommands:
   # Commit with gitmoji
   - key: "C"
     command: "git commit"
     context: "files"
     loadingText: "opening gitmoji cli tool"
-    subprocess: true
-
+    output: terminal
   # Push to specific remote/branch
   - key: "<c-p>"
     context: "global"
@@ -24,22 +22,19 @@ customCommands:
         title: "Branch?"
         initialValue: "{{.CheckedOutBranch.Name}}"
     command: "git push {{index .PromptResponses 0}} {{index .PromptResponses 1}}"
-
   # Force push with lease (safe)
   - key: "P"
     context: "global"
     loadingText: "force pushing (with lease)..."
     description: "Force push with lease"
     command: "git push --force-with-lease"
-
   # Create PR with gh
   - key: "O"
     context: "localBranches"
     loadingText: "creating PR..."
     description: "Create PR via gh"
     command: "gh pr create --web"
-    subprocess: true
-
+    output: terminal
   # Stash with message
   - key: "S"
     context: "files"
@@ -49,7 +44,6 @@ customCommands:
       - type: "input"
         title: "Stash message:"
     command: 'git stash push -m "{{index .PromptResponses 0}}"'
-
   # Delete gone branches (cleanup)
   - key: "<c-d>"
     context: "localBranches"
