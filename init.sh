@@ -384,6 +384,21 @@ install_mise_tools() {
 }
 
 # ===========================================
+# 9.5. Claude Code (Native Installer)
+# ===========================================
+install_claude_code() {
+    step "11.5/15 Claude Code"
+
+    if command -v claude &> /dev/null; then
+        info "Claude Code already installed"
+    else
+        info "Installing Claude Code (native installer)..."
+        curl -fsSL https://claude.ai/install.sh | sh
+        info "Claude Code installed"
+    fi
+}
+
+# ===========================================
 # 10. Neovim Plugins
 # ===========================================
 install_nvim_plugins() {
@@ -475,6 +490,7 @@ post_install() {
         ["postman"]="Postman"
         ["todoist-app"]="Todoist"
         ["karabiner-elements"]="Karabiner-Elements"
+        ["clipy"]="Clipy"
     )
 
     for cask in "${!cask_to_app[@]}"; do
@@ -609,6 +625,7 @@ main() {
     restore_app_settings
     configure_macos_defaults
     install_mise_tools
+    install_claude_code
     install_nvim_plugins
     install_tmux_plugins
     post_install

@@ -8,7 +8,7 @@ python = "3.11"
 terraform = "latest"
 
 # Global npm packages
-"npm:@anthropic-ai/claude-code" = "latest"
+# claude-code는 native installer 사용 (curl -fsSL https://claude.ai/install.sh | sh)
 "npm:@google/clasp" = "latest"
 "npm:@google/gemini-cli" = "latest"
 "npm:@openai/codex" = "latest"

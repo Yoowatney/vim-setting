@@ -38,7 +38,7 @@ export NVM_DIR="$HOME/.nvm"
 # ============================================
 # 4. PATH 설정
 # ============================================
-export PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin
+export PATH=/opt/homebrew/opt/trash/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 
@@ -46,7 +46,14 @@ export PATH="$HOME/.local/bin:$PATH"
 # 5. Aliases
 # ============================================
 # System
-alias rm="trash"
+# rm을 trash로 대체 (-rf 등 옵션은 무시하고 파일만 휴지통으로)
+rm() {
+  local args=()
+  for arg in "$@"; do
+    [[ "$arg" != -* ]] && args+=("$arg")
+  done
+  trash "${args[@]}"
+}
 alias ls="lsd"
 alias lt="lsd --tree -I node_modules"
 alias diff="delta"
@@ -70,7 +77,10 @@ alias ctags="`brew --prefix`/bin/ctags"
 alias ccc="c++ -Wall -Wextra -Werror -std=c++98"
 
 # Utilities
-alias ss='pngpaste ~/Desktop/ss-$(date +%s).png && ls -t ~/Desktop/ss-*.png | head -1 | tr -d "\n" | pbcopy && pbpaste'
+function ss {
+  local f=~/Desktop/ss-$(date +%s).png
+  pngpaste "$f" && echo -n "$f" | pbcopy && echo "$f"
+}
 alias ql='qlmanage -p'
 
 # ============================================
@@ -178,7 +188,7 @@ memcheck() {
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 # broot
-source "$HOME/.config/broot/launcher/bash/br"
+[ -f "$HOME/.config/broot/launcher/bash/br" ] && source "$HOME/.config/broot/launcher/bash/br"
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -200,13 +210,13 @@ eval "$(direnv hook zsh)"
 eval "$(direnv export zsh 2>/dev/null)"
 
 # Rust/Cargo
-. "$HOME/.local/bin/env"
+[ -f "$HOME/.local/bin/env" ] && . "$HOME/.local/bin/env"
 
 # ============================================
 # 8. Completions
 # ============================================
 autoload -U +X bashcompinit && bashcompinit
-source <(kubectl completion zsh)
+command -v kubectl &>/dev/null && source <(kubectl completion zsh)
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
 
 # ============================================
