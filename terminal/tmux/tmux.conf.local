@@ -220,6 +220,7 @@ set -ga terminal-overrides ",*256col*:Tc"
 
 # general
 set -g mouse on
+set -g bell-action none
 set -g display-panes-time 3000
 set -g status-justify left
 

@@ -235,6 +235,7 @@ command -v kubectl &>/dev/null && source <(kubectl completion zsh)
 setopt APPEND_HISTORY
 setopt SHARE_HISTORY
 setopt HIST_IGNORE_ALL_DUPS
+setopt NO_BEEP
 
 # ============================================
 # 10. Cleanup

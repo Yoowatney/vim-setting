@@ -7,6 +7,7 @@ tap "jesseduffield/lazygit"
 tap "mongodb/brew"
 # tap "ringohub/redis-cli" # broken download
 tap "stripe/stripe-cli"
+tap "xo/xo"
 
 # ===========================================
 # CLI Tools
@@ -67,6 +68,7 @@ brew "yarn", link: false
 brew "zoxide"
 brew "zsh"
 brew "zsh-completions"
+brew "usql"
 brew "uv"
 brew "hashicorp/tap/terraform-ls"
 brew "mongodb/brew/mongodb-community"

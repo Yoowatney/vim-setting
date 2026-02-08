@@ -26,6 +26,32 @@ else
 	git_info=""
 fi
 
+# Get gcloud project (cached)
+GCLOUD_CACHE="/tmp/claude-gcloud-cache"
+GCLOUD_CACHE_AGE=300 # 5분 캐시
+gcloud_project=""
+if [ -f "$GCLOUD_CACHE" ]; then
+	cache_age=$(($(date +%s) - $(stat -f %m "$GCLOUD_CACHE" 2>/dev/null || echo 0)))
+	if [ "$cache_age" -lt "$GCLOUD_CACHE_AGE" ]; then
+		gcloud_project=$(cat "$GCLOUD_CACHE")
+	fi
+fi
+if [ -z "$gcloud_project" ]; then
+	gcloud_project=$(gcloud config get-value project 2>/dev/null)
+	echo "$gcloud_project" > "$GCLOUD_CACHE"
+fi
+
+# gcloud project 표시 (production이면 경고)
+if [ -n "$gcloud_project" ]; then
+	if echo "$gcloud_project" | grep -q "f06c6"; then
+		gcloud_info=" 🔴 ${gcloud_project}"
+	else
+		gcloud_info=" ☁️ ${gcloud_project}"
+	fi
+else
+	gcloud_info=""
+fi
+
 # Function to get API quota from Anthropic OAuth API
 get_api_quota() {
 	# Get OAuth token from Keychain
@@ -121,5 +147,5 @@ else
 fi
 
 # Output statusline
-printf "%s@%s:%s%s [%s]" \
-	"$username" "$hostname" "$dir_name" "$git_info" "$status_info"
+printf "%s@%s:%s%s%s [%s]" \
+	"$username" "$hostname" "$dir_name" "$git_info" "$gcloud_info" "$status_info"
