@@ -21,18 +21,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Validate taps exist
+      - name: Validate and setup taps
         run: |
           echo "## Tap Validation" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
 
           has_error=false
-          grep "^tap " Brewfile | sed 's/tap "\([^"]*\)".*/\1/' | while read -r tap; do
-            if brew tap-info "$tap" &>/dev/null; then
+
+          # tap을 실제로 시도해서 검증
+          for tap in $(grep "^tap " Brewfile | sed 's/tap "\([^"]*\)".*/\1/'); do
+            if brew tap "$tap" 2>/dev/null; then
               echo "✅ $tap"
+              echo "- :white_check_mark: \`$tap\`" >> $GITHUB_STEP_SUMMARY
             else
-              echo "::error::Tap '$tap' does not exist"
-              echo "- :x: \`$tap\` not found" >> $GITHUB_STEP_SUMMARY
+              echo "::error::Tap '$tap' does not exist or failed to tap"
+              echo "- :x: \`$tap\` - does not exist" >> $GITHUB_STEP_SUMMARY
               has_error=true
             fi
           done
@@ -40,7 +43,6 @@ jobs:
           if [ "$has_error" = true ]; then
             exit 1
           fi
-          echo ":white_check_mark: All taps valid" >> $GITHUB_STEP_SUMMARY
 
       - name: Validate formulae exist
         run: |
@@ -48,18 +50,14 @@ jobs:
           echo "## Formula Validation" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
 
-          # tap 먼저 등록 (formula 검색을 위해)
-          grep "^tap " Brewfile | sed 's/tap "\([^"]*\)".*/\1/' | while read -r tap; do
-            brew tap "$tap" 2>/dev/null || true
-          done
-
           has_error=false
-          grep "^brew " Brewfile | sed 's/brew "\([^"]*\)".*/\1/' | while read -r formula; do
+
+          for formula in $(grep "^brew " Brewfile | sed 's/brew "\([^"]*\)".*/\1/'); do
             if brew info "$formula" &>/dev/null; then
               echo "✅ $formula"
             else
               echo "::error::Formula '$formula' does not exist"
-              echo "- :x: \`$formula\` not found" >> $GITHUB_STEP_SUMMARY
+              echo "- :x: \`$formula\` - not found" >> $GITHUB_STEP_SUMMARY
               has_error=true
             fi
           done
@@ -76,12 +74,13 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
 
           has_error=false
-          grep "^cask " Brewfile | sed 's/cask "\([^"]*\)".*/\1/' | while read -r cask; do
+
+          for cask in $(grep "^cask " Brewfile | sed 's/cask "\([^"]*\)".*/\1/'); do
             if brew info --cask "$cask" &>/dev/null; then
               echo "✅ $cask"
             else
               echo "::error::Cask '$cask' does not exist"
-              echo "- :x: \`$cask\` not found" >> $GITHUB_STEP_SUMMARY
+              echo "- :x: \`$cask\` - not found" >> $GITHUB_STEP_SUMMARY
               has_error=true
             fi
           done
@@ -111,7 +110,7 @@ jobs:
 
       - name: Setup taps
         run: |
-          grep "^tap " Brewfile | sed 's/tap "\([^"]*\)".*/\1/' | while read -r tap; do
+          for tap in $(grep "^tap " Brewfile | sed 's/tap "\([^"]*\)".*/\1/'); do
             brew tap "$tap" 2>/dev/null || true
           done
 
@@ -120,22 +119,22 @@ jobs:
           echo "## Deprecated Formulae Check" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
 
-          deprecated_count=0
+          deprecated_found=false
 
-          grep "^brew " Brewfile | sed 's/brew "\([^"]*\)".*/\1/' | while read -r formula; do
+          for formula in $(grep "^brew " Brewfile | sed 's/brew "\([^"]*\)".*/\1/'); do
             info=$(brew info "$formula" 2>/dev/null || true)
             if echo "$info" | grep -qi "deprecated"; then
               echo "::warning::$formula is deprecated"
               echo "- :warning: \`$formula\` is deprecated" >> $GITHUB_STEP_SUMMARY
-              deprecated_count=$((deprecated_count + 1))
+              deprecated_found=true
             elif echo "$info" | grep -qi "disabled"; then
               echo "::error::$formula is disabled"
               echo "- :x: \`$formula\` is disabled" >> $GITHUB_STEP_SUMMARY
-              deprecated_count=$((deprecated_count + 1))
+              deprecated_found=true
             fi
           done
 
-          if [ "$deprecated_count" -eq 0 ]; then
+          if [ "$deprecated_found" = false ]; then
             echo ":white_check_mark: No deprecated formulae found" >> $GITHUB_STEP_SUMMARY
           fi
 
@@ -145,21 +144,21 @@ jobs:
           echo "## Deprecated Casks Check" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
 
-          deprecated_count=0
+          deprecated_found=false
 
-          grep "^cask " Brewfile | sed 's/cask "\([^"]*\)".*/\1/' | while read -r cask; do
+          for cask in $(grep "^cask " Brewfile | sed 's/cask "\([^"]*\)".*/\1/'); do
             info=$(brew info --cask "$cask" 2>/dev/null || true)
             if echo "$info" | grep -qi "deprecated"; then
               echo "::warning::Cask $cask is deprecated"
               echo "- :warning: \`$cask\` is deprecated" >> $GITHUB_STEP_SUMMARY
-              deprecated_count=$((deprecated_count + 1))
+              deprecated_found=true
             elif echo "$info" | grep -qi "discontinued"; then
               echo "::warning::Cask $cask is discontinued"
               echo "- :warning: \`$cask\` is discontinued" >> $GITHUB_STEP_SUMMARY
-              deprecated_count=$((deprecated_count + 1))
+              deprecated_found=true
             fi
           done
 
-          if [ "$deprecated_count" -eq 0 ]; then
+          if [ "$deprecated_found" = false ]; then
             echo ":white_check_mark: No deprecated casks found" >> $GITHUB_STEP_SUMMARY
           fi
