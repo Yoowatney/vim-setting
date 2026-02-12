@@ -344,6 +344,8 @@ restore_app_settings() {
 
             # Backup existing plist if exists
             if [[ -f "$plist_file" ]]; then
+                warn "$app_name: 기존 설정 발견. 백업 후 dotfiles 설정으로 덮어씁니다."
+                warn "  백업 위치: ${plist_file}.bak"
                 cp "$plist_file" "${plist_file}.bak" 2>/dev/null || true
             fi
 
