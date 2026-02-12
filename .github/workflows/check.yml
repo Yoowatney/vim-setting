@@ -16,35 +16,90 @@ on:
 
 jobs:
   brewfile-check:
-    name: Brewfile Syntax Check
+    name: Brewfile Validation
     runs-on: macos-14
     steps:
       - uses: actions/checkout@v4
 
-      - name: Check Brewfile syntax
+      - name: Validate taps exist
         run: |
-          echo "::group::Checking Brewfile syntax"
-          # mas 앱 제외하고 체크 (App Store 로그인 필요)
-          grep -v "^mas " Brewfile > /tmp/Brewfile.check
-          brew bundle check --file=/tmp/Brewfile.check --verbose || {
-            echo "::error::Brewfile has issues"
+          echo "## Tap Validation" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          has_error=false
+          grep "^tap " Brewfile | sed 's/tap "\([^"]*\)".*/\1/' | while read -r tap; do
+            if brew tap-info "$tap" &>/dev/null; then
+              echo "✅ $tap"
+            else
+              echo "::error::Tap '$tap' does not exist"
+              echo "- :x: \`$tap\` not found" >> $GITHUB_STEP_SUMMARY
+              has_error=true
+            fi
+          done
+
+          if [ "$has_error" = true ]; then
             exit 1
-          }
-          echo "::endgroup::"
+          fi
+          echo ":white_check_mark: All taps valid" >> $GITHUB_STEP_SUMMARY
 
-      - name: List taps and formulae
+      - name: Validate formulae exist
         run: |
-          echo "::group::Taps"
-          grep "^tap " Brewfile || true
-          echo "::endgroup::"
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## Formula Validation" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
 
-          echo "::group::Formulae"
-          grep "^brew " Brewfile | wc -l | xargs echo "Total formulae:"
-          echo "::endgroup::"
+          # tap 먼저 등록 (formula 검색을 위해)
+          grep "^tap " Brewfile | sed 's/tap "\([^"]*\)".*/\1/' | while read -r tap; do
+            brew tap "$tap" 2>/dev/null || true
+          done
 
-          echo "::group::Casks"
-          grep "^cask " Brewfile | wc -l | xargs echo "Total casks:"
-          echo "::endgroup::"
+          has_error=false
+          grep "^brew " Brewfile | sed 's/brew "\([^"]*\)".*/\1/' | while read -r formula; do
+            if brew info "$formula" &>/dev/null; then
+              echo "✅ $formula"
+            else
+              echo "::error::Formula '$formula' does not exist"
+              echo "- :x: \`$formula\` not found" >> $GITHUB_STEP_SUMMARY
+              has_error=true
+            fi
+          done
+
+          if [ "$has_error" = true ]; then
+            exit 1
+          fi
+          echo ":white_check_mark: All formulae valid" >> $GITHUB_STEP_SUMMARY
+
+      - name: Validate casks exist
+        run: |
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## Cask Validation" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          has_error=false
+          grep "^cask " Brewfile | sed 's/cask "\([^"]*\)".*/\1/' | while read -r cask; do
+            if brew info --cask "$cask" &>/dev/null; then
+              echo "✅ $cask"
+            else
+              echo "::error::Cask '$cask' does not exist"
+              echo "- :x: \`$cask\` not found" >> $GITHUB_STEP_SUMMARY
+              has_error=true
+            fi
+          done
+
+          if [ "$has_error" = true ]; then
+            exit 1
+          fi
+          echo ":white_check_mark: All casks valid" >> $GITHUB_STEP_SUMMARY
+
+      - name: Summary
+        run: |
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "---" >> $GITHUB_STEP_SUMMARY
+          echo "### Package Count" >> $GITHUB_STEP_SUMMARY
+          echo "- Taps: $(grep -c '^tap ' Brewfile || echo 0)" >> $GITHUB_STEP_SUMMARY
+          echo "- Formulae: $(grep -c '^brew ' Brewfile || echo 0)" >> $GITHUB_STEP_SUMMARY
+          echo "- Casks: $(grep -c '^cask ' Brewfile || echo 0)" >> $GITHUB_STEP_SUMMARY
+          echo "- Mac App Store: $(grep -c '^mas ' Brewfile || echo 0)" >> $GITHUB_STEP_SUMMARY
 
   deprecated-check:
     name: Deprecated Packages Check
@@ -54,53 +109,57 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install packages (for deprecation check)
+      - name: Setup taps
         run: |
-          # tap 먼저 설치
-          grep "^tap " Brewfile | while read -r line; do
-            tap_name=$(echo "$line" | sed 's/tap "\(.*\)"/\1/')
-            brew tap "$tap_name" 2>/dev/null || true
+          grep "^tap " Brewfile | sed 's/tap "\([^"]*\)".*/\1/' | while read -r tap; do
+            brew tap "$tap" 2>/dev/null || true
           done
-
-          # brew formulae만 설치 (cask 제외 - 시간 절약)
-          grep "^brew " Brewfile > /tmp/Brewfile.brew
-          brew bundle --file=/tmp/Brewfile.brew --no-lock || true
 
       - name: Check for deprecated formulae
         run: |
           echo "## Deprecated Formulae Check" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
 
-          deprecated_found=false
+          deprecated_count=0
 
-          # Brewfile에서 formula 이름 추출
           grep "^brew " Brewfile | sed 's/brew "\([^"]*\)".*/\1/' | while read -r formula; do
             info=$(brew info "$formula" 2>/dev/null || true)
             if echo "$info" | grep -qi "deprecated"; then
               echo "::warning::$formula is deprecated"
               echo "- :warning: \`$formula\` is deprecated" >> $GITHUB_STEP_SUMMARY
-              deprecated_found=true
+              deprecated_count=$((deprecated_count + 1))
             elif echo "$info" | grep -qi "disabled"; then
               echo "::error::$formula is disabled"
               echo "- :x: \`$formula\` is disabled" >> $GITHUB_STEP_SUMMARY
-              deprecated_found=true
+              deprecated_count=$((deprecated_count + 1))
             fi
           done
 
-          if [ "$deprecated_found" = false ]; then
-            echo ":white_check_mark: No deprecated packages found" >> $GITHUB_STEP_SUMMARY
+          if [ "$deprecated_count" -eq 0 ]; then
+            echo ":white_check_mark: No deprecated formulae found" >> $GITHUB_STEP_SUMMARY
           fi
 
-      - name: Check for outdated casks
+      - name: Check for deprecated casks
         run: |
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "## Cask Status" >> $GITHUB_STEP_SUMMARY
+          echo "## Deprecated Casks Check" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
 
-          # cask 이름 추출해서 존재 여부만 체크
+          deprecated_count=0
+
           grep "^cask " Brewfile | sed 's/cask "\([^"]*\)".*/\1/' | while read -r cask; do
-            if ! brew info --cask "$cask" &>/dev/null; then
-              echo "::warning::Cask '$cask' not found (might be renamed or removed)"
-              echo "- :warning: \`$cask\` not found in Homebrew" >> $GITHUB_STEP_SUMMARY
+            info=$(brew info --cask "$cask" 2>/dev/null || true)
+            if echo "$info" | grep -qi "deprecated"; then
+              echo "::warning::Cask $cask is deprecated"
+              echo "- :warning: \`$cask\` is deprecated" >> $GITHUB_STEP_SUMMARY
+              deprecated_count=$((deprecated_count + 1))
+            elif echo "$info" | grep -qi "discontinued"; then
+              echo "::warning::Cask $cask is discontinued"
+              echo "- :warning: \`$cask\` is discontinued" >> $GITHUB_STEP_SUMMARY
+              deprecated_count=$((deprecated_count + 1))
             fi
           done
+
+          if [ "$deprecated_count" -eq 0 ]; then
+            echo ":white_check_mark: No deprecated casks found" >> $GITHUB_STEP_SUMMARY
+          fi
