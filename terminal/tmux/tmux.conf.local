@@ -224,6 +224,11 @@ set -g bell-action none
 set -g display-panes-time 3000
 set -g status-justify left
 
+# pane title display (tmux 3.3+)
+set -g pane-border-status top
+set -g pane-border-format " #{pane_index}: #{pane_title} "
+bind T command-prompt -p "Pane title:" "select-pane -T '%%'"
+
 # pane navigation (without -r for immediate response)
 bind h select-pane -L
 bind j select-pane -D
