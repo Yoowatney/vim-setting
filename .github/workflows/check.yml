@@ -1,0 +1,106 @@
+name: Check dotfiles
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'Brewfile'
+      - '.github/workflows/check.yml'
+  pull_request:
+    paths:
+      - 'Brewfile'
+  schedule:
+    # 매주 월요일 09:00 KST (00:00 UTC)
+    - cron: '0 0 * * 1'
+  workflow_dispatch:
+
+jobs:
+  brewfile-check:
+    name: Brewfile Syntax Check
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check Brewfile syntax
+        run: |
+          echo "::group::Checking Brewfile syntax"
+          # mas 앱 제외하고 체크 (App Store 로그인 필요)
+          grep -v "^mas " Brewfile > /tmp/Brewfile.check
+          brew bundle check --file=/tmp/Brewfile.check --verbose || {
+            echo "::error::Brewfile has issues"
+            exit 1
+          }
+          echo "::endgroup::"
+
+      - name: List taps and formulae
+        run: |
+          echo "::group::Taps"
+          grep "^tap " Brewfile || true
+          echo "::endgroup::"
+
+          echo "::group::Formulae"
+          grep "^brew " Brewfile | wc -l | xargs echo "Total formulae:"
+          echo "::endgroup::"
+
+          echo "::group::Casks"
+          grep "^cask " Brewfile | wc -l | xargs echo "Total casks:"
+          echo "::endgroup::"
+
+  deprecated-check:
+    name: Deprecated Packages Check
+    runs-on: macos-14
+    # 스케줄 실행이거나 수동 실행일 때만
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install packages (for deprecation check)
+        run: |
+          # tap 먼저 설치
+          grep "^tap " Brewfile | while read -r line; do
+            tap_name=$(echo "$line" | sed 's/tap "\(.*\)"/\1/')
+            brew tap "$tap_name" 2>/dev/null || true
+          done
+
+          # brew formulae만 설치 (cask 제외 - 시간 절약)
+          grep "^brew " Brewfile > /tmp/Brewfile.brew
+          brew bundle --file=/tmp/Brewfile.brew --no-lock || true
+
+      - name: Check for deprecated formulae
+        run: |
+          echo "## Deprecated Formulae Check" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          deprecated_found=false
+
+          # Brewfile에서 formula 이름 추출
+          grep "^brew " Brewfile | sed 's/brew "\([^"]*\)".*/\1/' | while read -r formula; do
+            info=$(brew info "$formula" 2>/dev/null || true)
+            if echo "$info" | grep -qi "deprecated"; then
+              echo "::warning::$formula is deprecated"
+              echo "- :warning: \`$formula\` is deprecated" >> $GITHUB_STEP_SUMMARY
+              deprecated_found=true
+            elif echo "$info" | grep -qi "disabled"; then
+              echo "::error::$formula is disabled"
+              echo "- :x: \`$formula\` is disabled" >> $GITHUB_STEP_SUMMARY
+              deprecated_found=true
+            fi
+          done
+
+          if [ "$deprecated_found" = false ]; then
+            echo ":white_check_mark: No deprecated packages found" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Check for outdated casks
+        run: |
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## Cask Status" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          # cask 이름 추출해서 존재 여부만 체크
+          grep "^cask " Brewfile | sed 's/cask "\([^"]*\)".*/\1/' | while read -r cask; do
+            if ! brew info --cask "$cask" &>/dev/null; then
+              echo "::warning::Cask '$cask' not found (might be renamed or removed)"
+              echo "- :warning: \`$cask\` not found in Homebrew" >> $GITHUB_STEP_SUMMARY
+            fi
+          done
