@@ -40,10 +40,8 @@ source $ZSH/oh-my-zsh.sh
 # ============================================
 export LANG=en_US.UTF-8
 export EDITOR=/opt/homebrew/bin/nvim
-export TERM=screen-256color
 export FZF_DEFAULT_OPTS="--extended"
 export NVM_DIR="$HOME/.nvm"
-# export MANPATH="`manpath`:/opt/homebrew/opt/readline/share/man:/opt/homebrew/opt/tmux/share/man:/opt/homebrew/opt/pass/share/man"
 
 # ============================================
 # 4. PATH 설정
@@ -106,11 +104,6 @@ killport() {
 watch() {
     while true; do clear; date; sleep 1; done
 }
-
-
-lleak() {
-    while true; do leaks $1; sleep 1; clear; done
-} # currently not use
 
 memcheck() {
     local RED='\033[0;31m'
