@@ -26,31 +26,43 @@ else
 	git_info=""
 fi
 
-# Get gcloud project (cached)
-GCLOUD_CACHE="/tmp/claude-gcloud-cache"
-GCLOUD_CACHE_AGE=300 # 5분 캐시
-gcloud_project=""
-if [ -f "$GCLOUD_CACHE" ]; then
-	cache_age=$(($(date +%s) - $(stat -f %m "$GCLOUD_CACHE" 2>/dev/null || echo 0)))
-	if [ "$cache_age" -lt "$GCLOUD_CACHE_AGE" ]; then
-		gcloud_project=$(cat "$GCLOUD_CACHE")
-	fi
-fi
-if [ -z "$gcloud_project" ]; then
-	gcloud_project=$(gcloud config get-value project 2>/dev/null)
-	echo "$gcloud_project" > "$GCLOUD_CACHE"
+# Firebase 환경 확인 (.firebaserc를 현재 및 하위 디렉토리에서 찾기)
+firebase_dir=""
+search_dir="$current_dir"
+
+# 현재 디렉토리에 .firebaserc 있는지 확인
+if [ -f "${search_dir}/.firebaserc" ]; then
+	firebase_dir="$search_dir"
+else
+	# 하위 디렉토리에서 .firebaserc 찾기 (depth 1)
+	for subdir in "$search_dir"/*/; do
+		if [ -f "${subdir}.firebaserc" ]; then
+			firebase_dir="${subdir%/}"
+			break
+		fi
+	done
 fi
 
-# gcloud project 표시 (production이면 경고)
-if [ -n "$gcloud_project" ]; then
-	if echo "$gcloud_project" | grep -q "f06c6"; then
-		gcloud_info=" 🔴 ${gcloud_project}"
-	else
-		gcloud_info=" ☁️ ${gcloud_project}"
-	fi
+if [ -n "$firebase_dir" ]; then
+	firebase_env=$(cd "$firebase_dir" 2>/dev/null && firebase use 2>/dev/null | head -1)
+	[ -z "$firebase_env" ] && firebase_env="-"
 else
-	gcloud_info=""
+	firebase_env="-"
 fi
+
+# gcloud 환경 확인
+gcloud_env=$(gcloud config get-value project 2>/dev/null)
+[ -z "$gcloud_env" ] && gcloud_env="?"
+
+# gcloud account
+gcloud_account=$(gcloud config get-value account 2>/dev/null | cut -d'@' -f1)
+
+# 환경 표시
+firebase_info=" 🔥 ${firebase_env}"
+
+gcloud_info=" ☁️  ${gcloud_env}"
+
+account_info=" 👤 ${gcloud_account}"
 
 # Function to get API quota from Anthropic OAuth API
 get_api_quota() {
@@ -147,5 +159,5 @@ else
 fi
 
 # Output statusline
-printf "%s@%s:%s%s%s [%s]" \
-	"$username" "$hostname" "$dir_name" "$git_info" "$gcloud_info" "$status_info"
+printf "%s@%s:%s%s%s%s%s [%s]" \
+	"$username" "$hostname" "$dir_name" "$git_info" "$firebase_info" "$gcloud_info" "$account_info" "$status_info"

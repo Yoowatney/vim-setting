@@ -2,6 +2,10 @@
 
 # Claude Code SessionStart hook - direnv + mise 환경변수 로드
 
+# 디버깅 로그
+LOG_FILE="$HOME/.claude/hooks/session-env.log"
+echo "[$(date)] Hook started, CLAUDE_ENV_FILE=$CLAUDE_ENV_FILE" >> "$LOG_FILE"
+
 if [ -n "$CLAUDE_ENV_FILE" ]; then
   # direnv export로 환경변수 가져오기
   direnv export bash 2>/dev/null | grep '^export ' >> "$CLAUDE_ENV_FILE"
