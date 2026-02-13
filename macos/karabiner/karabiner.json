@@ -4,6 +4,33 @@
             "complex_modifications": {
                 "rules": [
                     {
+                        "description": "₩ to ` (backtick) for Korean input",
+                        "manipulators": [
+                            {
+                                "type": "basic",
+                                "from": {
+                                    "key_code": "grave_accent_and_tilde"
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "grave_accent_and_tilde",
+                                        "modifiers": ["option"]
+                                    }
+                                ],
+                                "conditions": [
+                                    {
+                                        "type": "input_source_if",
+                                        "input_sources": [
+                                            {
+                                                "language": "ko"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
                         "description": "Map ctrl + [ to escape",
                         "manipulators": [
                             {
