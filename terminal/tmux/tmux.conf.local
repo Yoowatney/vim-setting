@@ -226,8 +226,8 @@ set -g status-justify left
 
 # pane title display (tmux 3.3+)
 set -g pane-border-status top
-set -g pane-border-format " #{pane_index}: #{pane_title} "
-bind T command-prompt -p "Pane title:" "select-pane -T '%%'"
+set -g pane-border-format " #{pane_index}: #{?@custom_title,#{@custom_title},#{pane_title}} "
+bind T command-prompt -p "Pane title:" "set-option -p @custom_title '%%'"
 
 # pane navigation (without -r for immediate response)
 bind h select-pane -L
